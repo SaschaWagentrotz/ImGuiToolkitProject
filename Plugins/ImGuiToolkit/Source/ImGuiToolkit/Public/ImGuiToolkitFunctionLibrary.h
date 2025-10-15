@@ -25,7 +25,7 @@
 #include "Widgets/Main/ImGuiToolkitButton.h"
 #include "Widgets/Main/ImGuiToolkitCheckbox.h"
 #include "Widgets/Main/ImGuiToolkitCombo.h"
-#include "Widgets/DragSliders/ImGuiToolkitDragInt.h"
+#include "Widgets/Sliders/ImGuiToolkitDragInt.h"
 #include "Widgets/TabBar/ImGuiToolkitEndTabBar.h"
 #include "Widgets/TabBar/ImGuiToolkitEndTabItem.h"
 #include "Widgets/Tree/ImGuiToolkitTreePop.h"
@@ -41,6 +41,9 @@
 #include "Widgets/Text/ImGuiToolkitTextColored.h"
 #include "Widgets/Text/ImGuiToolkitTextLinkOpenURL.h"
 #include "Widgets/Text/ImGuiToolkitTextWrapped.h"
+#include "Widgets/Sliders/ImGuiToolkitDragFloat.h"
+#include "Widgets/Sliders/ImGuiToolkitSliderFloat.h"
+#include "Widgets/Sliders/ImGuiToolkitSliderInt.h"
 #include "ImGuiToolkitFunctionLibrary.generated.h"
 
 UCLASS()
@@ -206,6 +209,18 @@ public:
 	// Create a Text Link Open URL. TODO: This displays as a link, but clicking it does not open the browser. Needs investigation.
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
 	static UImGuiToolkitTextLinkOpenURL* CreateTextLinkOpenURL(UObject* WorldContextObject, FText Text, FString URL, UImGuiToolkitContainer* Container = nullptr);
+
+	// Create a DragFloat
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
+	static UImGuiToolkitDragFloat* CreateImGuiDragFloat(UObject* WorldContextObject, FText Label, float InitialValue, float MinValue, float MaxValue, float Speed = 1.0f, UImGuiToolkitContainer* Container = nullptr);
+
+	// Create a SliderFloat. Format example: "$ %.2f" = "$ 19.99" ($ Prefix + 2 decimals) "%.1f km" = "1.5 km"
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
+	static UImGuiToolkitSliderFloat* CreateImGuiSliderFloat(UObject* WorldContextObject, FText Label, float Value, float MinValue, float MaxValue, FText Format, UImGuiToolkitContainer* Container = nullptr);
+
+	// Create a SliderInt. Format example: "$ %d" = "$ 10" ($ Prefix) "%d km" = "5 km"
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
+	static UImGuiToolkitSliderInt* CreateImGuiSliderInt(UObject* WorldContextObject, FText Label, int32 Value, int32 MinValue, int32 MaxValue, FText Format, UImGuiToolkitContainer* Container = nullptr);
 	
 private:
 	// Helper function to get a valid outer object for creating ImGui objects.This function allows us to have different behaviors for ImGui objects spawned at runtime or in the editor. When spawned at runtime, the ImGui objects only stay active until the WorldContext becomes invalid (EndPlay), while ImGui elements spawned during editor-time stay active as long as the editor is valid.

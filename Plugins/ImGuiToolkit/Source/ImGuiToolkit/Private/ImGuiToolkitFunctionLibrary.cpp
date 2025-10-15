@@ -622,6 +622,66 @@ UImGuiToolkitTextLinkOpenURL* UImGuiToolkitFunctionLibrary::CreateTextLinkOpenUR
 	return TextLinkOpenURL;
 }
 
+UImGuiToolkitDragFloat* UImGuiToolkitFunctionLibrary::CreateImGuiDragFloat(UObject* WorldContextObject, FText Label,
+	float InitialValue, float MinValue, float MaxValue, float Speed, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitDragFloat* DragFloat = NewObject<UImGuiToolkitDragFloat>(OuterObject);
+	DragFloat->CreateUniqueWidgetLabel(Label);
+	DragFloat->Value = InitialValue;
+	DragFloat->MinValue = MinValue;
+	DragFloat->MaxValue = MaxValue;
+	DragFloat->Speed = Speed;
+
+	if (Container)
+		Container->AddWidget(DragFloat);
+
+	return DragFloat;
+}
+
+UImGuiToolkitSliderFloat* UImGuiToolkitFunctionLibrary::CreateImGuiSliderFloat(UObject* WorldContextObject, FText Label,
+	float Value, float MinValue, float MaxValue, FText Format, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitSliderFloat* SliderFloat = NewObject<UImGuiToolkitSliderFloat>(OuterObject);
+	SliderFloat->CreateUniqueWidgetLabel(Label);
+	SliderFloat->Value = Value;
+	SliderFloat->MinValue = MinValue;
+	SliderFloat->MaxValue = MaxValue;
+	SliderFloat->Format = Format;
+
+	if (Container)
+		Container->AddWidget(SliderFloat);
+
+	return SliderFloat;
+}
+
+UImGuiToolkitSliderInt* UImGuiToolkitFunctionLibrary::CreateImGuiSliderInt(UObject* WorldContextObject, FText Label,
+	int32 Value, int32 MinValue, int32 MaxValue, FText Format, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitSliderInt* SliderInt = NewObject<UImGuiToolkitSliderInt>(OuterObject);
+	SliderInt->CreateUniqueWidgetLabel(Label);
+	SliderInt->Value = Value;
+	SliderInt->MinValue = MinValue;
+	SliderInt->MaxValue = MaxValue;
+	SliderInt->Format = Format;
+
+	if (Container)
+		Container->AddWidget(SliderInt);
+
+	return SliderInt;
+}
+
 UObject* UImGuiToolkitFunctionLibrary::GetValidOuterObject(UObject* WorldContextObject)
 {
 	// If we have a valid WorldContextObject, use it

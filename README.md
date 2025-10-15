@@ -74,17 +74,12 @@ ImGuiToolkit builds upon and includes code from the following open-source projec
 - [ ] Image
 - [ ] Image Button
 
-### Drag Sliders
+### Sliders
 
-- [ ] Drag Float
-- [ ] Drag Float Range
+- [x] Drag Float
 - [x] Drag Int
-- [ ] Drag Int Range
-
-### Regular Sliders
-
-- [ ] Slider Float
-- [ ] Slider Int
+- [x] Slider Float
+- [x] Slider Int
 
 ### Input with Keyboard
 
