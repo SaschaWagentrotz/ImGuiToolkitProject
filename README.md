@@ -17,6 +17,11 @@ ImGuiToolkit builds upon and includes code from the following open-source projec
 - [**ImPlot**](https://github.com/epezent/implot) by **epezent**
 - [**NetImgui**](https://github.com/sammyfreg/netImgui) by **sammyfreg**
 
+## Example of ImGui Toolkit in Action
+
+![Screenshot_01](Screenshots/ImGuiToolkit_InAction_01.png)
+![Screenshot_01](Screenshots/ImGuiToolkit_InAction_02.png)
+
 ## Status Quo
 
 ### Containers
