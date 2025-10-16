@@ -9,8 +9,10 @@
   <component name="ChangeListManager">
     <list default="true" id="b11a9176-28f3-41c8-9a32-4c393461f013" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ImGuiToolkitProject.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ImGuiToolkitProject.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Containers/ImGuiToolkitBeginMainMenuBar.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/ImGuiToolkitFunctionLibrary.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/ImGuiToolkitFunctionLibrary.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/MenuBar/ImGuiToolkitEndMainMenuBar.cpp" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/ImGuiToolkitFunctionLibrary.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/ImGuiToolkitFunctionLibrary.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/ImGuiToolkitSubsystem.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/ImGuiToolkitSubsystem.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -246,7 +248,7 @@
       <workItem from="1760083639882" duration="51394000" />
       <workItem from="1760518560741" duration="220000" />
       <workItem from="1760518794572" duration="9350000" />
-      <workItem from="1760594910324" duration="4563000" />
+      <workItem from="1760594910324" duration="4854000" />
     </task>
     <servers />
   </component>

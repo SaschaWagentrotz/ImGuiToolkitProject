@@ -683,22 +683,6 @@ UImGuiToolkitSliderInt* UImGuiToolkitFunctionLibrary::CreateImGuiSliderInt(UObje
 	return SliderInt;
 }
 
-UImGuiToolkitBeginMainMenuBar* UImGuiToolkitFunctionLibrary::CreateImGuiBeginMainMenuBar(UObject* WorldContextObject,
-	FText Label, UImGuiToolkitContainer* Container)
-{
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
-	if (!OuterObject)
-		return nullptr;
-
-	UImGuiToolkitBeginMainMenuBar* BeginMainMenuBar = NewObject<UImGuiToolkitBeginMainMenuBar>(OuterObject);
-	BeginMainMenuBar->CreateUniqueWidgetLabel(Label);
-
-	if (Container)
-		Container->AddWidget(BeginMainMenuBar);
-
-	return BeginMainMenuBar;
-}
-
 UImGuiToolkitBeginMenuBar* UImGuiToolkitFunctionLibrary::CreateImGuiBeginMenuBar(UObject* WorldContextObject,
 	FText Label, UImGuiToolkitContainer* Container)
 {
@@ -747,21 +731,6 @@ UImGuiToolkitMenuItem* UImGuiToolkitFunctionLibrary::CreateImGuiMenuItem(UObject
 		Container->AddWidget(MenuItem);
 
 	return MenuItem;
-}
-
-UImGuiToolkitEndMainMenuBar* UImGuiToolkitFunctionLibrary::EndImGuiMainMenuBar(UObject* WorldContextObject,
-	UImGuiToolkitContainer* Container)
-{
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
-	if (!OuterObject)
-		return nullptr;
-
-	UImGuiToolkitEndMainMenuBar* EndMainMenuBar = NewObject<UImGuiToolkitEndMainMenuBar>(OuterObject);
-
-	if (Container)
-		Container->AddWidget(EndMainMenuBar);
-
-	return EndMainMenuBar;
 }
 
 UImGuiToolkitEndMenuBar* UImGuiToolkitFunctionLibrary::EndImGuiMenuBar(UObject* WorldContextObject,
