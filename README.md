@@ -108,6 +108,7 @@ and it also takes care of typical variable type conversions for you (e.g. FText 
 - [ ] Finish the ImGui Host EditorUtility Widget (ImGui window should also only be rendered when the host window is visible)
 - [ ] Create useful real-world examples (one runtime and one editor tool)
 - [ ] Add ImPlot support (with example)
+- [ ] Add PluginSettings and expose properties like "Scale" and maybe even some style settings
 
 
 
