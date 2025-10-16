@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "FImGuiToolkitUtils.h"
 #include "ImGuiToolkitContainer.h"
 #include "ImGuiToolkitWindow.generated.h"
 
@@ -21,6 +22,9 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, Category = "ImGuiTK Containers")
 	bool bIsOpen = true;
+
+	UPROPERTY(BlueprintReadWrite, Category = "ImGuiTK Containers")
+	TArray<EImGuiWindowFlag> WindowFlags;
 
 	UPROPERTY(BlueprintReadWrite, Category = "ImGuiTK Containers")
 	FVector2D InitialSize = FVector2D(400, 300);

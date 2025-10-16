@@ -23,7 +23,9 @@ void UImGuiToolkitWindow::Render()
 		ImGui::SetNextWindowPos(ImVec2(InitialPosition.X, InitialPosition.Y), ImGuiCond_FirstUseEver);
 	}
 
-	if (ImGui::Begin(TCHAR_TO_UTF8(*UniqueWidgetLabel), &bIsOpen))
+	int ImGuiWindowFlags = FImGuiToolkitUtils::CombineImGuiWindowFlags(WindowFlags);
+	
+	if (ImGui::Begin(TCHAR_TO_UTF8(*UniqueWidgetLabel), &bIsOpen, ImGuiWindowFlags))
 	{
 		for (UImGuiToolkitWidget* Widget : Widgets)
 		{

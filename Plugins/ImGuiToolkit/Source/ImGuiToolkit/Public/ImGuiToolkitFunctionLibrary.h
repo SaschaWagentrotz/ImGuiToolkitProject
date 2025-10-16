@@ -4,9 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "Components/Widget.h"
+#include "FImGuiToolkitUtils.h"
 #include "Widgets/TabBar/ImGuiToolkiBeginTabItem.h"
 #include "Containers/ImGuiToolkitBeginTabBar.h"
 #include "Containers/ImGuiToolkitCollapsingHeader.h"
+#include "Containers/ImGuiToolkitBeginMainMenuBar.h"
+#include "Containers/ImGuiToolkitBeginMenu.h"
+#include "Containers/ImGuiToolkitBeginMenuBar.h"
 #include "Containers/ImGuiToolkitTreeNode.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "Widgets/Text/ImGuiToolkitBulletText.h"
@@ -38,6 +42,10 @@
 #include "Widgets/Main/ImGuiToolkitProgressBar.h"
 #include "Widgets/Main/ImGuiToolkitRadioButtonGroup.h"
 #include "Widgets/Main/ImGuiToolkitSmallButton.h"
+#include "Widgets/MenuBar/ImGuiToolkitEndMainMenuBar.h"
+#include "Widgets/MenuBar/ImGuiToolkitEndMenu.h"
+#include "Widgets/MenuBar/ImGuiToolkitEndMenuBar.h"
+#include "Widgets/MenuBar/ImGuiToolkitMenuItem.h"
 #include "Widgets/Text/ImGuiToolkitTextColored.h"
 #include "Widgets/Text/ImGuiToolkitTextLinkOpenURL.h"
 #include "Widgets/Text/ImGuiToolkitTextWrapped.h"
@@ -61,7 +69,7 @@ public:
 
 	// Create a new ImGui window
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
-	static UImGuiToolkitWindow* CreateImGuiWindow(UObject* WorldContextObject, FText WindowTitle);
+	static UImGuiToolkitWindow* CreateImGuiWindow(UObject* WorldContextObject, FText WindowTitle, TArray<EImGuiWindowFlag> WindowFlags);
 
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
 	static FVector2D GetWidgetPosition(UObject* WorldContextObject, UWidget* Widget);
@@ -221,6 +229,26 @@ public:
 	// Create a SliderInt. Format example: "$ %d" = "$ 10" ($ Prefix) "%d km" = "5 km"
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
 	static UImGuiToolkitSliderInt* CreateImGuiSliderInt(UObject* WorldContextObject, FText Label, int32 Value, int32 MinValue, int32 MaxValue, FText Format, UImGuiToolkitContainer* Container = nullptr);
+
+	// Create a MenuBar. Requires "MenuBar" WindowFlag for window that contains this MenuBar.
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
+	static UImGuiToolkitBeginMenuBar* CreateImGuiBeginMenuBar(UObject* WorldContextObject, FText Label, UImGuiToolkitContainer* Container = nullptr);
+
+	// Create a Menu
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
+	static UImGuiToolkitBeginMenu* CreateImGuiBeginMenu(UObject* WorldContextObject, FText Label, UImGuiToolkitContainer* Container = nullptr);
+
+	// Create a MenuItem
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
+	static UImGuiToolkitMenuItem* CreateImGuiMenuItem(UObject* WorldContextObject, FText Label, FText Shortcut, bool bIsSelected, UImGuiToolkitContainer* Container = nullptr);
+
+	// End a MenuBar
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
+	static UImGuiToolkitEndMenuBar* EndImGuiMenuBar(UObject* WorldContextObject, UImGuiToolkitContainer* Container = nullptr);
+
+	// End a Menu
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
+	static UImGuiToolkitEndMenu* EndImGuiMenu(UObject* WorldContextObject, UImGuiToolkitContainer* Container = nullptr);
 	
 private:
 	// Helper function to get a valid outer object for creating ImGui objects.This function allows us to have different behaviors for ImGui objects spawned at runtime or in the editor. When spawned at runtime, the ImGui objects only stay active until the WorldContext becomes invalid (EndPlay), while ImGui elements spawned during editor-time stay active as long as the editor is valid.

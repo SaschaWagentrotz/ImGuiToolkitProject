@@ -19,7 +19,7 @@ void UImGuiToolkitFunctionLibrary::ToggleImGuiDemoWindow()
 	}
 }
 
-UImGuiToolkitWindow* UImGuiToolkitFunctionLibrary::CreateImGuiWindow(UObject* WorldContextObject, FText WindowTitle)
+UImGuiToolkitWindow* UImGuiToolkitFunctionLibrary::CreateImGuiWindow(UObject* WorldContextObject, FText WindowTitle, TArray<EImGuiWindowFlag> WindowFlags)
 {
 	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
 	if (!OuterObject)
@@ -32,6 +32,7 @@ UImGuiToolkitWindow* UImGuiToolkitFunctionLibrary::CreateImGuiWindow(UObject* Wo
 	// Create window with WorldContextObject as outer so it gets cleaned up with the world
 	UImGuiToolkitWindow* Window = NewObject<UImGuiToolkitWindow>(OuterObject);
 	Window->CreateUniqueWidgetLabel(WindowTitle);
+	Window->WindowFlags = WindowFlags;
 
 	// Auto-register with subsystem
 	if (UImGuiToolkitSubsystem* Subsystem = GEngine->GetEngineSubsystem<UImGuiToolkitSubsystem>())
@@ -680,6 +681,117 @@ UImGuiToolkitSliderInt* UImGuiToolkitFunctionLibrary::CreateImGuiSliderInt(UObje
 		Container->AddWidget(SliderInt);
 
 	return SliderInt;
+}
+
+UImGuiToolkitBeginMainMenuBar* UImGuiToolkitFunctionLibrary::CreateImGuiBeginMainMenuBar(UObject* WorldContextObject,
+	FText Label, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitBeginMainMenuBar* BeginMainMenuBar = NewObject<UImGuiToolkitBeginMainMenuBar>(OuterObject);
+	BeginMainMenuBar->CreateUniqueWidgetLabel(Label);
+
+	if (Container)
+		Container->AddWidget(BeginMainMenuBar);
+
+	return BeginMainMenuBar;
+}
+
+UImGuiToolkitBeginMenuBar* UImGuiToolkitFunctionLibrary::CreateImGuiBeginMenuBar(UObject* WorldContextObject,
+	FText Label, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitBeginMenuBar* BeginMenuBar = NewObject<UImGuiToolkitBeginMenuBar>(OuterObject);
+	BeginMenuBar->CreateUniqueWidgetLabel(Label);
+
+	if (Container)
+		Container->AddWidget(BeginMenuBar);
+
+	return BeginMenuBar;
+}
+
+UImGuiToolkitBeginMenu* UImGuiToolkitFunctionLibrary::CreateImGuiBeginMenu(UObject* WorldContextObject, FText Label,
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitBeginMenu* BeginMenu = NewObject<UImGuiToolkitBeginMenu>(OuterObject);
+	BeginMenu->CreateUniqueWidgetLabel(Label);
+
+	if (Container)
+		Container->AddWidget(BeginMenu);
+
+	return BeginMenu;
+}
+
+UImGuiToolkitMenuItem* UImGuiToolkitFunctionLibrary::CreateImGuiMenuItem(UObject* WorldContextObject, FText Label, FText Shortcut, bool bIsSelected,
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitMenuItem* MenuItem = NewObject<UImGuiToolkitMenuItem>(OuterObject);
+	MenuItem->CreateUniqueWidgetLabel(Label);
+	MenuItem->Shortcut = Shortcut;
+	MenuItem->bIsSelected = bIsSelected;
+
+	if (Container)
+		Container->AddWidget(MenuItem);
+
+	return MenuItem;
+}
+
+UImGuiToolkitEndMainMenuBar* UImGuiToolkitFunctionLibrary::EndImGuiMainMenuBar(UObject* WorldContextObject,
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitEndMainMenuBar* EndMainMenuBar = NewObject<UImGuiToolkitEndMainMenuBar>(OuterObject);
+
+	if (Container)
+		Container->AddWidget(EndMainMenuBar);
+
+	return EndMainMenuBar;
+}
+
+UImGuiToolkitEndMenuBar* UImGuiToolkitFunctionLibrary::EndImGuiMenuBar(UObject* WorldContextObject,
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitEndMenuBar* EndMenuBar = NewObject<UImGuiToolkitEndMenuBar>(OuterObject);
+
+	if (Container)
+		Container->AddWidget(EndMenuBar);
+
+	return EndMenuBar;
+}
+
+UImGuiToolkitEndMenu* UImGuiToolkitFunctionLibrary::EndImGuiMenu(UObject* WorldContextObject,
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitEndMenu* EndMenu = NewObject<UImGuiToolkitEndMenu>(OuterObject);
+
+	if (Container)
+		Container->AddWidget(EndMenu);
+
+	return EndMenu;
 }
 
 UObject* UImGuiToolkitFunctionLibrary::GetValidOuterObject(UObject* WorldContextObject)

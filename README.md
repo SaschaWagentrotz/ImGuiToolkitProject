@@ -30,6 +30,7 @@ ImGuiToolkit builds upon and includes code from the following open-source projec
 - [x] Collapsing Header
 - [x] TabBar
 - [x] Tree
+- [x] Menu Bar
 
 ### Layout
 
@@ -62,7 +63,6 @@ ImGuiToolkit builds upon and includes code from the following open-source projec
 - [x] Combo Box
 - [x] Progress Bar
 - [x] Bullet
-- [ ] Menu Bar
 - [x] Set Item Tooltip
 - [ ] Begin/End Tooltip
 - [ ] Popup
