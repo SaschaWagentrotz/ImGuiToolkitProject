@@ -251,7 +251,7 @@ public:
 	static UImGuiToolkitEndMenu* EndImGuiMenu(UObject* WorldContextObject, UImGuiToolkitContainer* Container = nullptr);
 	
 private:
-	// Helper function to get a valid outer object for creating ImGui objects.This function allows us to have different behaviors for ImGui objects spawned at runtime or in the editor. When spawned at runtime, the ImGui objects only stay active until the WorldContext becomes invalid (EndPlay), while ImGui elements spawned during editor-time stay active as long as the editor is valid.
+	// Helper function to get a valid outer object for creating ImGui objects. This function allows us to have different behaviors for ImGui objects spawned at runtime or in the editor. When spawned at runtime, the ImGui objects only stay active until the WorldContext becomes invalid (EndPlay), while ImGui elements spawned during editor-time stay active as long as the editor is valid.
 	static UObject* GetValidOuterObject(UObject* WorldContextObject);
 
 };

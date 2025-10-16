@@ -29,18 +29,15 @@ public:
 	void SetShowImGuiDemoWindow(bool bNewShow);
 	bool GetShowImGuiDemoWindow() const { return bShowDemoWindow; }
 	void ShowImGuiDemoWindow(bool bShow);
-
-	// Register a window
+	
 	UFUNCTION(BlueprintCallable, Category = "ImGui")
 	void RegisterWindow(UImGuiToolkitWindow* Window);
 
 	UFUNCTION(BlueprintCallable, Category = "ImGui")
 	void UnregisterWindow(UImGuiToolkitWindow* Window);
 	
-	// Get all registered windows (called by renderer actor)
 	const TArray<TObjectPtr<UImGuiToolkitWindow>>& GetRegisteredWindows() const { return RegisteredWindows; }
-
-	// Public delegate for rendering - fired by the renderer actor
+	
 	FOnImGuiRender OnImGuiRender;
 
 private:
