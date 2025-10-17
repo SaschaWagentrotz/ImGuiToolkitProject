@@ -86,7 +86,7 @@ and it also takes care of typical variable type conversions for you (e.g. FText 
 ### Input with Keyboard
 
 - [x] Input Text
-- [ ] Input Text Multiline
+- [x] Input Text Multiline
 - [x] Input Float
 - [x] Input Int
 

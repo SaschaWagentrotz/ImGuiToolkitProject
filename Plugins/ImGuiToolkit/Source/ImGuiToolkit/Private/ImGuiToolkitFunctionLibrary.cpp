@@ -780,6 +780,24 @@ UImGuiToolkitInputText* UImGuiToolkitFunctionLibrary::CreateImGuiInputText(UObje
 	return InputText;
 }
 
+UImGuiToolkitInputTextMultiline* UImGuiToolkitFunctionLibrary::CreateImGuiInputTextMultiline(
+	UObject* WorldContextObject, FText Label, FText PreviewText, FVector2D TextBoxSize, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitInputTextMultiline* InputTextMultiline = NewObject<UImGuiToolkitInputTextMultiline>(OuterObject);
+	InputTextMultiline->CreateUniqueWidgetLabel(Label);
+	InputTextMultiline->SetPreviewText(PreviewText);
+	InputTextMultiline->Size = TextBoxSize;
+
+	if (Container)
+		Container->AddWidget(InputTextMultiline);
+
+	return InputTextMultiline;
+}
+
 UImGuiToolkitInputFloat* UImGuiToolkitFunctionLibrary::CreateImGuiInputFloat(UObject* WorldContextObject, FText Label, float PreviewFloat, FString Format, UImGuiToolkitContainer* Container)
 {
 	UObject* OuterObject = GetValidOuterObject(WorldContextObject);

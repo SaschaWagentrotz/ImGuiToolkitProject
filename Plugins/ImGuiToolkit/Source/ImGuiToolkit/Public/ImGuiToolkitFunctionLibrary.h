@@ -27,6 +27,7 @@
 #include "Widgets/Input/ImGuiToolkitInputFloat.h"
 #include "Widgets/Input/ImGuiToolkitInputInt.h"
 #include "Widgets/Input/ImGuiToolkitInputText.h"
+#include "Widgets/Input/ImGuiToolkitInputTextMultiline.h"
 #include "Widgets/Layout/ImGuiToolkitAlignTextToFramePadding.h"
 #include "Widgets/Main/ImGuiToolkitButton.h"
 #include "Widgets/Main/ImGuiToolkitCheckbox.h"
@@ -255,7 +256,10 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
 	static UImGuiToolkitInputText* CreateImGuiInputText(UObject* WorldContextObject, FText Label, FText PreviewText, UImGuiToolkitContainer* Container = nullptr);
 
-	// Create an InputFloat. Format example: "$ %.2f" = "$ 19.99" ($ Prefix + 2 decimals) "%.1f km" = "1.5 km"
+	// Create an InputTextMultiline
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
+	static UImGuiToolkitInputTextMultiline* CreateImGuiInputTextMultiline(UObject* WorldContextObject, FText Label, FText PreviewText, FVector2D TextBoxSize, UImGuiToolkitContainer* Container = nullptr);
+	
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
 	static UImGuiToolkitInputFloat* CreateImGuiInputFloat(UObject* WorldContextObject, FText Label, float PreviewFloat, FString Format = "%.2f", UImGuiToolkitContainer* Container = nullptr);
 

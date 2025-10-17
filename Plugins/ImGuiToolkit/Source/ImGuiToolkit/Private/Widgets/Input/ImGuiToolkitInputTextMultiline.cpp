@@ -1,10 +1,11 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Widgets/Input/ImGuiToolkitInputText.h"
+#include "Widgets/Input/ImGuiToolkitInputTextMultiline.h"
 #include "FImGuiToolkitUtils.h"
 
-void UImGuiToolkitInputText::Render()
+
+void UImGuiToolkitInputTextMultiline::Render()
 {
 	if (!bEnabled)
 		return;
@@ -33,11 +34,14 @@ void UImGuiToolkitInputText::Render()
 		LastSyncedInputText = InputText;
 	}
 
+	ImVec2 TextBoxSize(Size.X, Size.Y);
+
 	// Let ImGui grow/shrink the buffer as the user types.
-	const bool bTextChanged = ImGui::InputText(
+	const bool bTextChanged = ImGui::InputTextMultiline(
 		TCHAR_TO_UTF8(*UniqueWidgetLabel),			// caption
 		InputBuffer.GetData(),						// buffer (UTF-8)
 		static_cast<size_t>(InputBuffer.Num()),		// current capacity in bytes
+		TextBoxSize,								// size of the text box
 		ImGuiInputTextFlags_CallbackResize,			// enable resize callback
 		FImGuiToolkitUtils::ImGuiResizeCallback,	// our callback
 		&InputBuffer								// user data for callback
@@ -51,7 +55,7 @@ void UImGuiToolkitInputText::Render()
 	}
 }
 
-void UImGuiToolkitInputText::SetPreviewText(FText PreviewText)
+void UImGuiToolkitInputTextMultiline::SetPreviewText(FText PreviewText)
 {
 	InputText = PreviewText.ToString();
 }
