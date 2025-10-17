@@ -87,8 +87,8 @@ and it also takes care of typical variable type conversions for you (e.g. FText 
 
 - [x] Input Text
 - [ ] Input Text Multiline
-- [ ] Input Float
-- [ ] Input Int
+- [x] Input Float
+- [x] Input Int
 
 ### Color Editor/Pickers
 
