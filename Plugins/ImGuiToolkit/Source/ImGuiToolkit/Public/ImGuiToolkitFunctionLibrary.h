@@ -24,6 +24,8 @@
 #include "Widgets/Text/ImGuiToolkitText.h"
 #include "Widgets/Text/ImGuiToolkitTextDisabled.h"
 #include "Containers/ImGuiToolkitWindow.h"
+#include "Widgets/Input/ImGuiToolkitInputFloat.h"
+#include "Widgets/Input/ImGuiToolkitInputInt.h"
 #include "Widgets/Input/ImGuiToolkitInputText.h"
 #include "Widgets/Layout/ImGuiToolkitAlignTextToFramePadding.h"
 #include "Widgets/Main/ImGuiToolkitButton.h"
@@ -252,6 +254,15 @@ public:
 	// Create an InputText
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
 	static UImGuiToolkitInputText* CreateImGuiInputText(UObject* WorldContextObject, FText Label, FText PreviewText, UImGuiToolkitContainer* Container = nullptr);
+
+	// Create an InputFloat. Format example: "$ %.2f" = "$ 19.99" ($ Prefix + 2 decimals) "%.1f km" = "1.5 km"
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
+	static UImGuiToolkitInputFloat* CreateImGuiInputFloat(UObject* WorldContextObject, FText Label, float PreviewFloat, FString Format = "%.2f", UImGuiToolkitContainer* Container = nullptr);
+
+	// Create an InputInt
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
+	static UImGuiToolkitInputInt* CreateImGuiInputInt(UObject* WorldContextObject, FText Label, int32 PreviewInt, UImGuiToolkitContainer* Container = nullptr);
+
 	
 private:
 	// Helper function to get a valid outer object for creating ImGui objects. This function allows us to have different behaviors for ImGui objects spawned at runtime or in the editor. When spawned at runtime, the ImGui objects only stay active until the WorldContext becomes invalid (EndPlay), while ImGui elements spawned during editor-time stay active as long as the editor is valid.

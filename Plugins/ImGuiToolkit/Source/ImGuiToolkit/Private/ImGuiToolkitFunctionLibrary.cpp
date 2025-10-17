@@ -780,6 +780,40 @@ UImGuiToolkitInputText* UImGuiToolkitFunctionLibrary::CreateImGuiInputText(UObje
 	return InputText;
 }
 
+UImGuiToolkitInputFloat* UImGuiToolkitFunctionLibrary::CreateImGuiInputFloat(UObject* WorldContextObject, FText Label, float PreviewFloat, FString Format, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitInputFloat* InputFloat = NewObject<UImGuiToolkitInputFloat>(OuterObject);
+	InputFloat->CreateUniqueWidgetLabel(Label);
+	InputFloat->SetPreviewFloat(PreviewFloat);
+	InputFloat->SetFormat(Format);
+
+	if (Container)
+		Container->AddWidget(InputFloat);
+
+	return InputFloat;
+}
+
+UImGuiToolkitInputInt* UImGuiToolkitFunctionLibrary::CreateImGuiInputInt(UObject* WorldContextObject, FText Label,
+	int32 PreviewInt, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitInputInt* InputInt = NewObject<UImGuiToolkitInputInt>(OuterObject);
+	InputInt->CreateUniqueWidgetLabel(Label);
+	InputInt->SetPreviewInt(PreviewInt);
+
+	if (Container)
+		Container->AddWidget(InputInt);
+
+	return InputInt;
+}
+
 UObject* UImGuiToolkitFunctionLibrary::GetValidOuterObject(UObject* WorldContextObject)
 {
 	// If we have a valid WorldContextObject, use it
