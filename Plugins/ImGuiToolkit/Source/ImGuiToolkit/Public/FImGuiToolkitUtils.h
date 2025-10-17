@@ -51,5 +51,6 @@ struct FImGuiToolkitUtils
 	static EImGuiWindowFlag ImGuiWindowFlagToUnrealFlag(ImGuiWindowFlags Flags);
 	static ImGuiWindowFlags UnrealFlagToImGuiWindowFlag(EImGuiWindowFlag Flags);
 	static int32 CombineImGuiWindowFlags(TArray<EImGuiWindowFlag> Flags);
-	
+
+	static int32 ImGuiResizeCallback(ImGuiInputTextCallbackData* Data);
 };

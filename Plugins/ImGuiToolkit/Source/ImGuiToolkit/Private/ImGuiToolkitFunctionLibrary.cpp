@@ -763,6 +763,23 @@ UImGuiToolkitEndMenu* UImGuiToolkitFunctionLibrary::EndImGuiMenu(UObject* WorldC
 	return EndMenu;
 }
 
+UImGuiToolkitInputText* UImGuiToolkitFunctionLibrary::CreateImGuiInputText(UObject* WorldContextObject, FText Label, FText PreviewText,
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitInputText* InputText = NewObject<UImGuiToolkitInputText>(OuterObject);
+	InputText->CreateUniqueWidgetLabel(Label);
+	InputText->SetPreviewText(PreviewText);
+
+	if (Container)
+		Container->AddWidget(InputText);
+
+	return InputText;
+}
+
 UObject* UImGuiToolkitFunctionLibrary::GetValidOuterObject(UObject* WorldContextObject)
 {
 	// If we have a valid WorldContextObject, use it

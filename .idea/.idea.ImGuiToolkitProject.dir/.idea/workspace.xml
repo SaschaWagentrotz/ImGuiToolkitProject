@@ -8,7 +8,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b11a9176-28f3-41c8-9a32-4c393461f013" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/Input/ImGuiToolkitInputText.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/Input/ImGuiToolkitInputText.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ImGuiToolkitProject.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ImGuiToolkitProject.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ImguiDemo/EUB_ImGui_Menu_CreateWindowTest.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ImguiDemo/EUB_ImGui_Menu_CreateWindowTest.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/FImGuiToolkitUtils.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/FImGuiToolkitUtils.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/ImGuiToolkitFunctionLibrary.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/ImGuiToolkitFunctionLibrary.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/ImGuiToolkitSubsystem.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/ImGuiToolkitSubsystem.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/FImGuiToolkitUtils.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/FImGuiToolkitUtils.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/ImGuiToolkitFunctionLibrary.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/ImGuiToolkitFunctionLibrary.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -35,15 +43,22 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/../../../Shared/Epic Games/UE_5.7/Engine/Plugins/Enterprise/VariantManager/Source/VariantManager/Private/LevelVariantSetsEditorToolkit.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../Shared/Epic Games/UE_5.7/Engine/Source/Developer/AssetTools/Private/SFileListReportDialog.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../Shared/Epic Games/UE_5.7/Engine/Source/Developer/Mac/MacTargetPlatformSettings/Classes/MacTargetSettings.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../Shared/Epic Games/UE_5.7/Engine/Source/Developer/Virtualization/Public/IVirtualizationBackend.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../Shared/Epic Games/UE_5.7/Engine/Source/Editor/BlueprintGraph/Private/BlueprintNodeTemplateCache.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../Shared/Epic Games/UE_5.7/Engine/Source/Editor/DistCurveEditor/Private/SDistributionCurveEditor.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../Shared/Epic Games/UE_5.7/Engine/Source/Editor/Kismet/Private/BlueprintWarningsConfigurationPanel.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../Shared/Epic Games/UE_5.7/Engine/Source/Editor/LevelEditor/Public/LevelEditorActions.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../Shared/Epic Games/UE_5.7/Engine/Source/Editor/Persona/Private/AnimationEditorPreviewScene.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../Shared/Epic Games/UE_5.7/Engine/Source/Editor/Persona/Private/PersonaPreviewSceneSkelMeshInstanceController.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../Shared/Epic Games/UE_5.7/Engine/Source/Editor/PhysicsAssetEditor/Private/PhysicsAssetEditorSelection.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../Shared/Epic Games/UE_5.7/Engine/Source/Editor/PropertyEditor/Private/SPropertyTreeViewImpl.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../Shared/Epic Games/UE_5.7/Engine/Source/Editor/Sequencer/Private/Filters/Widgets/SSequencerCustomTextFilterDialog.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../Shared/Epic Games/UE_5.7/Engine/Source/Editor/UnrealEd/Public/Subsystems/PanelExtensionSubsystem.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../Shared/Epic Games/UE_5.7/Engine/Source/Runtime/Apple/MetalRHI/Private/MetalRHIBuffer.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../Shared/Epic Games/UE_5.7/Engine/Source/Runtime/ApplicationCore/Public/GenericPlatform/Accessibility/GenericAccessibleInterfaces.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../Shared/Epic Games/UE_5.7/Engine/Source/Runtime/ApplicationCore/Public/IOS/Accessibility/IOSAccessibilityElement.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../Shared/Epic Games/UE_5.7/Engine/Source/Runtime/Core/Private/Math/UnrealMath.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../Shared/Epic Games/UE_5.7/Engine/Source/Runtime/Core/Private/Math/UnrealMath.tps" root0="FORCE_HIGHLIGHTING" />
@@ -59,14 +74,19 @@
     <setting file="file://$PROJECT_DIR$/../../../Shared/Epic Games/UE_5.7/Engine/Source/Runtime/GeometryCore/Public/Util/ColorConstants.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../Shared/Epic Games/UE_5.7/Engine/Source/Runtime/GeometryFramework/Public/Components/BaseDynamicMeshComponent.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../Shared/Epic Games/UE_5.7/Engine/Source/Runtime/ImageCore/Public/ImageCore.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../Shared/Epic Games/UE_5.7/Engine/Source/Runtime/InteractiveToolsFramework/Private/BaseGizmos/ComponentBoundTransformProxy.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../Shared/Epic Games/UE_5.7/Engine/Source/Runtime/Net/Core/Private/Net/Core/PushModel/PushModel.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../Shared/Epic Games/UE_5.7/Engine/Source/Runtime/OodleDataCompression/Sdks/2.9.13/include/oodle2.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../Shared/Epic Games/UE_5.7/Engine/Source/Runtime/SlateCore/Public/Types/SlateEnums.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../Shared/Epic Games/UE_5.7/Engine/Source/Runtime/SymsLib/syms/core/pe/syms_pe.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../Shared/Epic Games/UE_5.7/Engine/Source/Runtime/TypedElementFramework/Public/DataStorage/Queries/Conditions.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../Shared/Epic Games/UE_5.7/Engine/Source/Runtime/UMG/Private/Components/ComboBox.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Containers/ImGuiToolkitBeginMenu.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Containers/ImGuiToolkitBeginTabBar.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Containers/ImGuiToolkitMainMenuBar.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Containers/ImGuiToolkitMenuBar.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Containers/ImGuiToolkitTreeNode.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/FImGuiToolkitUtils.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/ImGuiToolkitIsItemHovered.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/Input/ImGuiToolkitInputText.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/Layout/ImGuiToolkitAlignTextToFramePadding.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/Layout/ImGuiToolkitDummy.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/Layout/ImGuiToolkitIndent.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -80,7 +100,6 @@
     <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/Main/ImGuiToolkitProgressBar.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/Main/ImGuiToolkitRadioButtonGroup.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/Main/ImGuiToolkitSmallButton.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/MenuBar/ImGuiToolkitEndMainMenuBar.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/MenuBar/ImGuiToolkitEndMenu.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/MenuBar/ImGuiToolkitEndMenuBar.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/MenuBar/ImGuiToolkitMenuItem.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -97,11 +116,10 @@
     <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/Tree/ImGuiToolkitTreePush.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Containers/ImGuiToolkitBeginMenu.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Containers/ImGuiToolkitBeginTabBar.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Containers/ImGuiToolkitMainMenuBar.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Containers/ImGuiToolkitMenuBar.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Containers/ImGuiToolkitTreeNode.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/FImGuiToolkitUtils.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/ImGuiToolkitIsItemHovered.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/Input/ImGuiToolkitInputText.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/Layout/ImGuiToolkitAlignTextToFramePadding.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/Layout/ImGuiToolkitDummy.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/Layout/ImGuiToolkitIndent.h" root0="FORCE_HIGHLIGHTING" />
@@ -115,7 +133,6 @@
     <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/Main/ImGuiToolkitProgressBar.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/Main/ImGuiToolkitRadioButtonGroup.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/Main/ImGuiToolkitSmallButton.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/MenuBar/ImGuiToolkitEndMainMenuBar.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/MenuBar/ImGuiToolkitEndMenu.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/MenuBar/ImGuiToolkitEndMenuBar.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/MenuBar/ImGuiToolkitMenuItem.h" root0="FORCE_HIGHLIGHTING" />
@@ -130,6 +147,7 @@
     <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/Text/ImGuiToolkitTextWrapped.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/Tree/ImGuiToolkitTreePop.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/Tree/ImGuiToolkitTreePush.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ImGui/Public/ImGuiContext.h" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/ImGuiLibrary/imgui.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/ImGuiLibrary/imgui.h" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/ImGuiLibrary/imgui_demo.cpp" root0="SKIP_HIGHLIGHTING" />
@@ -245,7 +263,7 @@
       <workItem from="1760083639882" duration="51394000" />
       <workItem from="1760518560741" duration="220000" />
       <workItem from="1760518794572" duration="9350000" />
-      <workItem from="1760594910324" duration="5827000" />
+      <workItem from="1760594910324" duration="13388000" />
     </task>
     <servers />
   </component>

@@ -119,3 +119,14 @@ int32 FImGuiToolkitUtils::CombineImGuiWindowFlags(TArray<EImGuiWindowFlag> Flags
 	}
 	return Mask;
 }
+
+int32 FImGuiToolkitUtils::ImGuiResizeCallback(ImGuiInputTextCallbackData* Data)
+{
+	if (Data->EventFlag == ImGuiInputTextFlags_CallbackResize)
+	{
+		TArray<char>* Buffer = static_cast<TArray<char>*>(Data->UserData);
+		Buffer->SetNumUninitialized(Data->BufTextLen + 1);
+		Data->Buf = Buffer->GetData();
+	}
+	return 0;
+}
