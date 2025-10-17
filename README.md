@@ -6,11 +6,10 @@ A blueprint-friendly Dear ImGui integration for Unreal Engine.
 
 ⚠️ This is the "project-version", it comes with an Unreal Engine 5.7.0 project and a few examples how to use the ImGuiToolkit plugin.
 
-The goal of ImGuiToolkit is to make it very easy to create Dear ImGui UIs for runtime debug and editor tools in Unreal Engine.
-It ensures seamless interoperability between Unreal and Dear ImGui by providing delegates you can bind to in C++ or Blueprint,
-and it also takes care of typical variable type conversions for you (e.g. FText - const char*, FLinearColor - ImVec4, etc.)
+The goal of ImGuiToolkit is to make creating Dear ImGui interfaces for runtime debugging and editor tools in Unreal Engine as simple as possible.
+It provides seamless integration between Unreal and Dear ImGui through easily bindable delegates in both C++ and Blueprint, and it automatically handles common type conversions for you (for example: FText ↔ const char*, FLinearColor ↔ ImVec4, and so on).
 
-ℹ️️ **Note:** ImGui Toolkit exposes the full power of Dear ImGui in C++. In Blueprints, it offers a curated subset, so you can build your UIs faster, and with fewer decisions.
+ℹ️ Note: ImGuiToolkit gives you full access to Dear ImGui’s capabilities in C++. In Blueprints, it offers a streamlined subset designed to help you build UIs faster and with fewer distractions.
 
 🧩 **Attribution:** ImGuiToolkit builds upon and includes code from the following open-source projects:
 
