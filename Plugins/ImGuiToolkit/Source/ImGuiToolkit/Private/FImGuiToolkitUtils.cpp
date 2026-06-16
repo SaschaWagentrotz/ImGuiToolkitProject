@@ -51,6 +51,19 @@ ImGuiDir FImGuiToolkitUtils::UnrealDirToImGuiDir(EImGuiToolkitDir Dir)
 	}
 }
 
+ImGuiDir FImGuiToolkitUtils::UnrealDockSplitDirectionToImGuiDir(EImGuiToolkitDockSplitDirection Direction)
+{
+	switch (Direction)
+	{
+		case EImGuiToolkitDockSplitDirection::Left:	return ImGuiDir_Left;
+		case EImGuiToolkitDockSplitDirection::Right:	return ImGuiDir_Right;
+		case EImGuiToolkitDockSplitDirection::Up:	return ImGuiDir_Up;
+		case EImGuiToolkitDockSplitDirection::Down:	return ImGuiDir_Down;
+		case EImGuiToolkitDockSplitDirection::Center:	return ImGuiDir_None;
+		default:									return ImGuiDir_None;
+	}
+}
+
 EImGuiWindowFlag FImGuiToolkitUtils::ImGuiWindowFlagToUnrealFlag(ImGuiWindowFlags Flags)
 {
 	switch (Flags)

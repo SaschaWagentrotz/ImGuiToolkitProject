@@ -94,10 +94,35 @@ void UImGuiToolkitHostWidget::RenderHost()
 		? FVector2D(Overlay->GetTickSpaceGeometry().GetAbsoluteSize())
 		: FVector2D::ZeroVector;
 
+	UImGuiToolkitSubsystem* ImGuiToolkitSubsystem = GEngine ? GEngine->GetEngineSubsystem<UImGuiToolkitSubsystem>() : nullptr;
+	bool bHostedDockNodeExists = false;
+
 	if (UImGuiToolkitWindow* Window = HostedWindow)
 	{
 		Window->HostSize = HostSize;
+
+		const bool bHasDockedWindows = ImGuiToolkitSubsystem && ImGuiToolkitSubsystem->HasWindowsDockedToHost(Window);
+		if (bHasDockedWindows)
+		{
+			bHostedDockNodeExists = ImGuiToolkitSubsystem->UpdateHostedDockNodeBounds(Window, Window->HostPosition, Window->HostSize);
+		}
+
+		const bool bWasSuppressingPlacement = Window->bSuppressNextWindowPlacement;
+		Window->bSuppressNextWindowPlacement = bHostedDockNodeExists;
 		Window->Render();
+		Window->bSuppressNextWindowPlacement = bWasSuppressingPlacement;
+	}
+
+	if (ImGuiToolkitSubsystem)
+	{
+		ImGuiToolkitSubsystem->ApplyPendingDockRequests(HostedWindow);
+		bHostedDockNodeExists = ImGuiToolkitSubsystem->UpdateHostedDockNodeBounds(HostedWindow, FVector2D::ZeroVector, HostSize);
+		if (!bHostedDockNodeExists)
+		{
+			ImGuiToolkitSubsystem->ApplyHostedDockRequests(HostedWindow);
+			ImGuiToolkitSubsystem->UpdateHostedDockNodeBounds(HostedWindow, FVector2D::ZeroVector, HostSize);
+		}
+		ImGuiToolkitSubsystem->RenderWindowsDockedToHost(HostedWindow);
 	}
 
 	OnImGuiRender.Broadcast();

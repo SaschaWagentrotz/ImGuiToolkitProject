@@ -15,6 +15,16 @@ enum class EImGuiToolkitDir : uint8
 };
 
 UENUM(BlueprintType)
+enum class EImGuiToolkitDockSplitDirection : uint8
+{
+	Center  = 255	UMETA(DisplayName = "Center"),
+	Left    = 0		UMETA(DisplayName = "Left"),
+	Right   = 1		UMETA(DisplayName = "Right"),
+	Up      = 2		UMETA(DisplayName = "Up"),
+	Down    = 3		UMETA(DisplayName = "Down")
+};
+
+UENUM(BlueprintType)
 enum class EImGuiWindowFlag : uint8
 {
 	None						= 255			UMETA(DisplayName = "None"),
@@ -74,6 +84,7 @@ struct FImGuiToolkitUtils
 
 	static EImGuiToolkitDir ImGuiDirToUnrealDir(ImGuiDir Dir);
 	static ImGuiDir UnrealDirToImGuiDir(EImGuiToolkitDir Dir);
+	static ImGuiDir UnrealDockSplitDirectionToImGuiDir(EImGuiToolkitDockSplitDirection Direction);
 
 	static EImGuiWindowFlag ImGuiWindowFlagToUnrealFlag(ImGuiWindowFlags Flags);
 	static ImGuiWindowFlags UnrealFlagToImGuiWindowFlag(EImGuiWindowFlag Flags);

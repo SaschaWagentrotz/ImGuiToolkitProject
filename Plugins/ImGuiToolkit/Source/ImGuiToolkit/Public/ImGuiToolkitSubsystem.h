@@ -34,14 +34,35 @@ public:
 
 	void RegisterHostWidget(UImGuiToolkitHostWidget* HostWidget);
 	void UnregisterHostWidget(UImGuiToolkitHostWidget* HostWidget);
+	void QueueDockWindow(UImGuiToolkitWindow* WindowToDock, UImGuiToolkitWindow* TargetWindow, EImGuiToolkitDockSplitDirection Direction, float SplitRatio);
+	void ApplyPendingDockRequests(UImGuiToolkitWindow* HostWindow = nullptr);
+	void ApplyHostedDockRequests(UImGuiToolkitWindow* HostWindow);
+	void RenderWindowsDockedToHost(UImGuiToolkitWindow* HostWindow);
+	bool HasWindowsDockedToHost(UImGuiToolkitWindow* HostWindow) const;
+	bool UpdateHostedDockNodeBounds(UImGuiToolkitWindow* HostWindow, const FVector2D& HostPosition, const FVector2D& HostSize);
 	
 	const TArray<TObjectPtr<UImGuiToolkitWindow>>& GetRegisteredWindows() const { return RegisteredWindows; }
 	
 	FOnImGuiRender OnImGuiRender;
 
 private:
+	struct FPendingDockRequest
+	{
+		TWeakObjectPtr<UImGuiToolkitWindow> WindowToDock;
+		TWeakObjectPtr<UImGuiToolkitWindow> TargetWindow;
+		EImGuiToolkitDockSplitDirection Direction = EImGuiToolkitDockSplitDirection::Center;
+		float SplitRatio = 0.5f;
+	};
+
 	bool OnTick(float DeltaTime);
 	void OnEndFrame();
+	bool ApplyDockRequest(const FPendingDockRequest& Request);
+	bool IsWindowHostedByRegisteredHost(UImGuiToolkitWindow* Window) const;
+	bool IsRenderedByHostDocking(UImGuiToolkitWindow* Window) const;
+	void RegisterHostedDockRequest(const FPendingDockRequest& Request);
+	void RegisterPendingDockRequestsForHost(UImGuiToolkitWindow* HostWindow);
+	void RemovePendingDockRequestsForHost(UImGuiToolkitWindow* HostWindow);
+	void RemoveWindowReferences(UImGuiToolkitWindow* Window);
 
 	FTSTicker::FDelegateHandle TickHandle;
 	FDelegateHandle EndFrameHandle;
@@ -52,4 +73,7 @@ private:
 	TArray<TObjectPtr<UImGuiToolkitWindow>> RegisteredWindows;
 
 	TArray<TWeakObjectPtr<UImGuiToolkitHostWidget>> RegisteredHostWidgets;
+	TArray<FPendingDockRequest> PendingDockRequests;
+	TMap<TWeakObjectPtr<UImGuiToolkitWindow>, TArray<FPendingDockRequest>> HostedDockRequests;
+	TMap<TWeakObjectPtr<UImGuiToolkitWindow>, TArray<TWeakObjectPtr<UImGuiToolkitWindow>>> HostedDockedWindows;
 };

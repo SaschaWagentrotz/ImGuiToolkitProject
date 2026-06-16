@@ -19,6 +19,9 @@ public:
 	UImGuiToolkitWindow();
 	
 	virtual void Render() override;
+	void RenderWithHostDockingPlacement();
+
+	const FString& GetImGuiWindowName() const;
 
 	UPROPERTY(BlueprintReadWrite, Category = "ImGuiTK Containers")
 	bool bIsOpen = true;
@@ -40,4 +43,6 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, Category = "ImGuiTK Containers")
 	FVector2D HostPosition = FVector2D(100, 100);
+
+	bool bSuppressNextWindowPlacement = false;
 };

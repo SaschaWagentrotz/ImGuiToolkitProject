@@ -4,17 +4,22 @@ UImGuiToolkitWindow::UImGuiToolkitWindow()
 {
 }
 
+const FString& UImGuiToolkitWindow::GetImGuiWindowName() const
+{
+	return UniqueWidgetLabel;
+}
+
 void UImGuiToolkitWindow::Render()
 {
 	if (!bIsOpen)
 		return;
 
-	if (bIsHosted)
+	if (!bSuppressNextWindowPlacement && bIsHosted)
 	{
 		ImGui::SetNextWindowSize(ImVec2(HostSize.X, HostSize.Y), true);
 		ImGui::SetNextWindowPos(ImVec2(HostPosition.X, HostPosition.Y), true);
 	}
-	else
+	else if (!bSuppressNextWindowPlacement)
 	{
 		ImGui::SetNextWindowSize(ImVec2(InitialSize.X, InitialSize.Y), ImGuiCond_FirstUseEver);
 		ImGui::SetNextWindowPos(ImVec2(InitialPosition.X, InitialPosition.Y), ImGuiCond_FirstUseEver);
@@ -34,4 +39,12 @@ void UImGuiToolkitWindow::Render()
 		}
 	}
 	ImGui::End();
+}
+
+void UImGuiToolkitWindow::RenderWithHostDockingPlacement()
+{
+	const bool bWasSuppressingPlacement = bSuppressNextWindowPlacement;
+	bSuppressNextWindowPlacement = true;
+	Render();
+	bSuppressNextWindowPlacement = bWasSuppressingPlacement;
 }

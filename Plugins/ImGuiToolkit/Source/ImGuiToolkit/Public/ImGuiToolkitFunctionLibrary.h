@@ -116,6 +116,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
 	static void DestroyImGuiWindow(UObject* WorldContextObject, UImGuiToolkitWindow* Window);
 
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Docking", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ClampMin = "0.05", ClampMax = "0.95", UIMin = "0.05", UIMax = "0.95"))
+	static void DockImGuiWindow(UObject* WorldContextObject, UImGuiToolkitWindow* WindowToDock, UImGuiToolkitWindow* TargetWindow, EImGuiToolkitDockSplitDirection Direction = EImGuiToolkitDockSplitDirection::Center, float SplitRatio = 0.5f);
+
 	// Create a SameLine
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
 	static UImGuiToolkitSameLine* CreateImGuiSameLine(UObject* WorldContextObject, float OffsetFromStartX = 0.0f, float Spacing = -1.0f, UImGuiToolkitContainer* Container = nullptr);

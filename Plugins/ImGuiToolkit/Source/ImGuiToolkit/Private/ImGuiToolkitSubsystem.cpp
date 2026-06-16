@@ -7,6 +7,7 @@
 #include "ImGuiToolkitSettings.h"
 
 #include <imgui.h>
+#include <imgui_internal.h>
 
 namespace
 {
@@ -42,6 +43,23 @@ namespace
 		}
 
 		return INDEX_NONE;
+	}
+
+	FString GetImGuiDisplayName(const UImGuiToolkitWindow* Window)
+	{
+		if (!Window)
+		{
+			return FString();
+		}
+
+		FString WindowName = Window->GetImGuiWindowName();
+		FString DisplayName;
+		if (WindowName.Split(TEXT("###"), &DisplayName, nullptr))
+		{
+			return DisplayName;
+		}
+
+		return WindowName;
 	}
 }
 
@@ -221,14 +239,33 @@ void UImGuiToolkitSubsystem::ShowImGuiDemoWindow(bool bShow)
 
 void UImGuiToolkitSubsystem::RegisterWindow(UImGuiToolkitWindow* Window)
 {
-	if (Window && !RegisteredWindows.Contains(Window))
+	if (!Window)
 	{
-		RegisteredWindows.Add(Window);
+		return;
 	}
+
+	const FString NewWindowDisplayName = GetImGuiDisplayName(Window);
+	for (int32 WindowIndex = RegisteredWindows.Num() - 1; WindowIndex >= 0; --WindowIndex)
+	{
+		UImGuiToolkitWindow* RegisteredWindow = RegisteredWindows[WindowIndex];
+		if (!RegisteredWindow || RegisteredWindow == Window)
+		{
+			continue;
+		}
+
+		if (GetImGuiDisplayName(RegisteredWindow) == NewWindowDisplayName)
+		{
+			RemoveWindowReferences(RegisteredWindow);
+			RegisteredWindows.RemoveAtSwap(WindowIndex);
+		}
+	}
+
+	RegisteredWindows.AddUnique(Window);
 }
 
 void UImGuiToolkitSubsystem::UnregisterWindow(UImGuiToolkitWindow* Window)
 {
+	RemoveWindowReferences(Window);
 	RegisteredWindows.Remove(Window);
 }
 
@@ -237,15 +274,59 @@ void UImGuiToolkitSubsystem::RegisterHostWidget(UImGuiToolkitHostWidget* HostWid
 	if (HostWidget)
 	{
 		RegisteredHostWidgets.AddUnique(TWeakObjectPtr<UImGuiToolkitHostWidget>(HostWidget));
+		RegisterPendingDockRequestsForHost(HostWidget->GetHostedWindow());
 	}
 }
 
 void UImGuiToolkitSubsystem::UnregisterHostWidget(UImGuiToolkitHostWidget* HostWidget)
 {
+	UImGuiToolkitWindow* HostedWindow = HostWidget ? HostWidget->GetHostedWindow() : nullptr;
+
 	RegisteredHostWidgets.RemoveAllSwap([HostWidget](const TWeakObjectPtr<UImGuiToolkitHostWidget>& RegisteredHostWidget)
 	{
 		return !RegisteredHostWidget.IsValid() || RegisteredHostWidget.Get() == HostWidget;
 	});
+
+	if (HostedWindow && !IsWindowHostedByRegisteredHost(HostedWindow))
+	{
+		HostedWindow->bIsHosted = false;
+		RemovePendingDockRequestsForHost(HostedWindow);
+	}
+}
+
+bool UImGuiToolkitSubsystem::IsWindowHostedByRegisteredHost(UImGuiToolkitWindow* Window) const
+{
+	if (!Window)
+	{
+		return false;
+	}
+
+	return RegisteredHostWidgets.ContainsByPredicate([Window](const TWeakObjectPtr<UImGuiToolkitHostWidget>& RegisteredHostWidget)
+	{
+		UImGuiToolkitHostWidget* HostWidget = RegisteredHostWidget.Get();
+		return HostWidget && HostWidget->GetHostedWindow() == Window;
+	});
+}
+
+void UImGuiToolkitSubsystem::QueueDockWindow(UImGuiToolkitWindow* WindowToDock, UImGuiToolkitWindow* TargetWindow,
+	EImGuiToolkitDockSplitDirection Direction, float SplitRatio)
+{
+	if (!WindowToDock || !TargetWindow || WindowToDock == TargetWindow)
+	{
+		return;
+	}
+
+	FPendingDockRequest Request;
+	Request.WindowToDock = WindowToDock;
+	Request.TargetWindow = TargetWindow;
+	Request.Direction = Direction;
+	Request.SplitRatio = FMath::Clamp(SplitRatio, 0.05f, 0.95f);
+	PendingDockRequests.Add(Request);
+
+	if (IsWindowHostedByRegisteredHost(TargetWindow))
+	{
+		RegisterHostedDockRequest(Request);
+	}
 }
 
 bool UImGuiToolkitSubsystem::OnTick(float DeltaTime)
@@ -265,13 +346,9 @@ bool UImGuiToolkitSubsystem::OnTick(float DeltaTime)
 	// This runs every frame in both editor and game.
 	for (UImGuiToolkitWindow* Window : RegisteredWindows)
 	{
-		const bool bIsAssignedToHost = RegisteredHostWidgets.ContainsByPredicate([Window](const TWeakObjectPtr<UImGuiToolkitHostWidget>& RegisteredHostWidget)
-		{
-			UImGuiToolkitHostWidget* HostWidget = RegisteredHostWidget.Get();
-			return HostWidget && HostWidget->GetHostedWindow() == Window;
-		});
+		const bool bIsAssignedToHost = IsWindowHostedByRegisteredHost(Window);
 
-		if (!Window || Window->bIsHosted || bIsAssignedToHost)
+		if (!Window || Window->bIsHosted || bIsAssignedToHost || IsRenderedByHostDocking(Window))
 		{
 			continue;
 		}
@@ -281,6 +358,7 @@ bool UImGuiToolkitSubsystem::OnTick(float DeltaTime)
 		{
 			ApplyStyleToCurrentContext();
 			Window->Render();
+			ApplyPendingDockRequests();
 		}
 	}
 
@@ -289,6 +367,7 @@ bool UImGuiToolkitSubsystem::OnTick(float DeltaTime)
 	{
 		ApplyStyleToCurrentContext();
 		ShowImGuiDemoWindow(bShowDemoWindow);
+		ApplyPendingDockRequests();
 
 		// Broadcast delegate
 		OnImGuiRender.Broadcast();
@@ -318,4 +397,349 @@ void UImGuiToolkitSubsystem::ApplyStyleToCurrentContext()
 
 	SetImGuiToolkitStyle();
 	ImGui::GetStyle().ScaleAllSizes(Scale);
+}
+
+void UImGuiToolkitSubsystem::ApplyPendingDockRequests(UImGuiToolkitWindow* HostWindow)
+{
+	for (int32 RequestIndex = PendingDockRequests.Num() - 1; RequestIndex >= 0; --RequestIndex)
+	{
+		const FPendingDockRequest Request = PendingDockRequests[RequestIndex];
+		if (!Request.WindowToDock.IsValid() || !Request.TargetWindow.IsValid())
+		{
+			PendingDockRequests.RemoveAtSwap(RequestIndex);
+			continue;
+		}
+
+		UImGuiToolkitWindow* TargetWindow = Request.TargetWindow.Get();
+		const bool bTargetIsCurrentHost = HostWindow && TargetWindow == HostWindow;
+		const bool bTargetHasHostedDocking = HostedDockedWindows.Contains(TargetWindow) || HostedDockRequests.Contains(TargetWindow);
+		if ((IsWindowHostedByRegisteredHost(TargetWindow) || bTargetHasHostedDocking) && !bTargetIsCurrentHost)
+		{
+			RegisterHostedDockRequest(Request);
+			PendingDockRequests.RemoveAtSwap(RequestIndex);
+			continue;
+		}
+
+		if ((!HostWindow || bTargetIsCurrentHost) && ApplyDockRequest(Request))
+		{
+			PendingDockRequests.RemoveAtSwap(RequestIndex);
+		}
+	}
+}
+
+void UImGuiToolkitSubsystem::ApplyHostedDockRequests(UImGuiToolkitWindow* HostWindow)
+{
+	if (!HostWindow)
+	{
+		return;
+	}
+
+	TArray<FPendingDockRequest>* DockRequests = HostedDockRequests.Find(HostWindow);
+	if (!DockRequests)
+	{
+		return;
+	}
+
+	for (int32 RequestIndex = DockRequests->Num() - 1; RequestIndex >= 0; --RequestIndex)
+	{
+		const FPendingDockRequest& Request = (*DockRequests)[RequestIndex];
+		if (!Request.WindowToDock.IsValid() || !Request.TargetWindow.IsValid())
+		{
+			DockRequests->RemoveAtSwap(RequestIndex);
+			continue;
+		}
+
+		ApplyDockRequest(Request);
+	}
+}
+
+void UImGuiToolkitSubsystem::RenderWindowsDockedToHost(UImGuiToolkitWindow* HostWindow)
+{
+	if (!HostWindow)
+	{
+		return;
+	}
+
+	TArray<TWeakObjectPtr<UImGuiToolkitWindow>>* DockedWindows = HostedDockedWindows.Find(HostWindow);
+	if (!DockedWindows)
+	{
+		return;
+	}
+
+	for (int32 WindowIndex = DockedWindows->Num() - 1; WindowIndex >= 0; --WindowIndex)
+	{
+		UImGuiToolkitWindow* DockedWindow = (*DockedWindows)[WindowIndex].Get();
+		if (!DockedWindow)
+		{
+			DockedWindows->RemoveAtSwap(WindowIndex);
+			continue;
+		}
+
+		DockedWindow->RenderWithHostDockingPlacement();
+	}
+}
+
+bool UImGuiToolkitSubsystem::HasWindowsDockedToHost(UImGuiToolkitWindow* HostWindow) const
+{
+	const TArray<TWeakObjectPtr<UImGuiToolkitWindow>>* DockedWindows = HostedDockedWindows.Find(HostWindow);
+	if (!DockedWindows)
+	{
+		return false;
+	}
+
+	for (const TWeakObjectPtr<UImGuiToolkitWindow>& DockedWindow : *DockedWindows)
+	{
+		if (DockedWindow.IsValid())
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool UImGuiToolkitSubsystem::UpdateHostedDockNodeBounds(UImGuiToolkitWindow* HostWindow, const FVector2D& HostPosition, const FVector2D& HostSize)
+{
+	if (!HostWindow || HostSize.X <= 0.0 || HostSize.Y <= 0.0)
+	{
+		return false;
+	}
+
+	const FTCHARToUTF8 HostWindowName(*HostWindow->GetImGuiWindowName());
+	ImGuiWindow* HostImGuiWindow = ImGui::FindWindowByName(HostWindowName.Get());
+	if (!HostImGuiWindow || !HostImGuiWindow->DockNode)
+	{
+		return false;
+	}
+
+	ImGuiDockNode* RootDockNode = ImGui::DockNodeGetRootNode(HostImGuiWindow->DockNode);
+	if (!RootDockNode)
+	{
+		return false;
+	}
+
+	ImGui::DockBuilderSetNodePos(RootDockNode->ID, ImVec2(HostPosition.X, HostPosition.Y));
+	ImGui::DockBuilderSetNodeSize(RootDockNode->ID, ImVec2(HostSize.X, HostSize.Y));
+	return true;
+}
+
+bool UImGuiToolkitSubsystem::ApplyDockRequest(const FPendingDockRequest& Request)
+{
+	UImGuiToolkitWindow* WindowToDock = Request.WindowToDock.Get();
+	UImGuiToolkitWindow* TargetWindow = Request.TargetWindow.Get();
+	if (!WindowToDock || !TargetWindow || WindowToDock == TargetWindow)
+	{
+		return true;
+	}
+
+	const FTCHARToUTF8 WindowToDockName(*WindowToDock->GetImGuiWindowName());
+	const FTCHARToUTF8 TargetWindowName(*TargetWindow->GetImGuiWindowName());
+
+	ImGuiWindow* TargetImGuiWindow = ImGui::FindWindowByName(TargetWindowName.Get());
+	if (!TargetImGuiWindow || !TargetImGuiWindow->WasActive)
+	{
+		return false;
+	}
+
+	ImGuiID RootDockNodeId = TargetImGuiWindow->DockNode ? TargetImGuiWindow->DockNode->ID : 0;
+	if (RootDockNodeId == 0)
+	{
+		RootDockNodeId = ImGui::DockBuilderAddNode(0);
+		ImGui::DockBuilderSetNodePos(RootDockNodeId, TargetImGuiWindow->Pos);
+		ImGui::DockBuilderSetNodeSize(RootDockNodeId, TargetImGuiWindow->SizeFull);
+	}
+
+	const ImGuiDir SplitDirection = FImGuiToolkitUtils::UnrealDockSplitDirectionToImGuiDir(Request.Direction);
+	if (Request.Direction == EImGuiToolkitDockSplitDirection::Center)
+	{
+		ImGui::DockBuilderDockWindow(TargetWindowName.Get(), RootDockNodeId);
+		ImGui::DockBuilderDockWindow(WindowToDockName.Get(), RootDockNodeId);
+		ImGui::DockBuilderFinish(RootDockNodeId);
+		return true;
+	}
+
+	if (SplitDirection == ImGuiDir_None)
+	{
+		return true;
+	}
+
+	ImGuiID DockedNodeId = 0;
+	ImGuiID TargetNodeId = 0;
+	ImGui::DockBuilderSplitNode(RootDockNodeId, SplitDirection, Request.SplitRatio, &DockedNodeId, &TargetNodeId);
+	ImGui::DockBuilderDockWindow(TargetWindowName.Get(), TargetNodeId);
+	ImGui::DockBuilderDockWindow(WindowToDockName.Get(), DockedNodeId);
+	ImGui::DockBuilderFinish(RootDockNodeId);
+
+	return true;
+}
+
+void UImGuiToolkitSubsystem::RegisterHostedDockRequest(const FPendingDockRequest& Request)
+{
+	UImGuiToolkitWindow* WindowToDock = Request.WindowToDock.Get();
+	UImGuiToolkitWindow* TargetWindow = Request.TargetWindow.Get();
+	if (!WindowToDock || !TargetWindow || WindowToDock == TargetWindow)
+	{
+		return;
+	}
+
+	const FString TargetDisplayName = GetImGuiDisplayName(TargetWindow);
+	const FString WindowToDockDisplayName = GetImGuiDisplayName(WindowToDock);
+	TArray<UImGuiToolkitWindow*> StaleWindows;
+
+	for (const TPair<TWeakObjectPtr<UImGuiToolkitWindow>, TArray<TWeakObjectPtr<UImGuiToolkitWindow>>>& HostedDockedWindowPair : HostedDockedWindows)
+	{
+		UImGuiToolkitWindow* ExistingTargetWindow = HostedDockedWindowPair.Key.Get();
+		if (!ExistingTargetWindow || GetImGuiDisplayName(ExistingTargetWindow) != TargetDisplayName)
+		{
+			continue;
+		}
+
+		for (const TWeakObjectPtr<UImGuiToolkitWindow>& ExistingDockedWindow : HostedDockedWindowPair.Value)
+		{
+			UImGuiToolkitWindow* ExistingDockedWindowPtr = ExistingDockedWindow.Get();
+			if (ExistingDockedWindowPtr && ExistingDockedWindowPtr != WindowToDock && GetImGuiDisplayName(ExistingDockedWindowPtr) == WindowToDockDisplayName)
+			{
+				StaleWindows.AddUnique(ExistingDockedWindowPtr);
+			}
+		}
+	}
+
+	for (UImGuiToolkitWindow* StaleWindow : StaleWindows)
+	{
+		RemoveWindowReferences(StaleWindow);
+		RegisteredWindows.Remove(StaleWindow);
+	}
+
+	TArray<TWeakObjectPtr<UImGuiToolkitWindow>>& DockedWindows = HostedDockedWindows.FindOrAdd(TargetWindow);
+	DockedWindows.AddUnique(TWeakObjectPtr<UImGuiToolkitWindow>(WindowToDock));
+
+	TArray<FPendingDockRequest>& DockRequests = HostedDockRequests.FindOrAdd(TargetWindow);
+	DockRequests.RemoveAllSwap([WindowToDock](const FPendingDockRequest& ExistingRequest)
+	{
+		return ExistingRequest.WindowToDock.Get() == WindowToDock;
+	});
+	DockRequests.Add(Request);
+}
+
+void UImGuiToolkitSubsystem::RegisterPendingDockRequestsForHost(UImGuiToolkitWindow* HostWindow)
+{
+	if (!HostWindow)
+	{
+		return;
+	}
+
+	for (int32 RequestIndex = PendingDockRequests.Num() - 1; RequestIndex >= 0; --RequestIndex)
+	{
+		const FPendingDockRequest Request = PendingDockRequests[RequestIndex];
+		if (!Request.WindowToDock.IsValid() || !Request.TargetWindow.IsValid())
+		{
+			PendingDockRequests.RemoveAtSwap(RequestIndex);
+			continue;
+		}
+
+		if (Request.TargetWindow.Get() == HostWindow)
+		{
+			RegisterHostedDockRequest(Request);
+			PendingDockRequests.RemoveAtSwap(RequestIndex);
+		}
+	}
+}
+
+void UImGuiToolkitSubsystem::RemovePendingDockRequestsForHost(UImGuiToolkitWindow* HostWindow)
+{
+	if (!HostWindow)
+	{
+		return;
+	}
+
+	PendingDockRequests.RemoveAllSwap([HostWindow](const FPendingDockRequest& Request)
+	{
+		return Request.TargetWindow.Get() == HostWindow;
+	});
+}
+
+void UImGuiToolkitSubsystem::RemoveWindowReferences(UImGuiToolkitWindow* Window)
+{
+	if (!Window)
+	{
+		return;
+	}
+
+	PendingDockRequests.RemoveAllSwap([Window](const FPendingDockRequest& Request)
+	{
+		return Request.WindowToDock.Get() == Window || Request.TargetWindow.Get() == Window;
+	});
+
+	for (auto It = HostedDockRequests.CreateIterator(); It; ++It)
+	{
+		if (It.Key().Get() == Window)
+		{
+			It.RemoveCurrent();
+			continue;
+		}
+
+		It.Value().RemoveAllSwap([Window](const FPendingDockRequest& Request)
+		{
+			return Request.WindowToDock.Get() == Window || Request.TargetWindow.Get() == Window;
+		});
+
+		if (It.Value().IsEmpty())
+		{
+			It.RemoveCurrent();
+		}
+	}
+
+	for (auto It = HostedDockedWindows.CreateIterator(); It; ++It)
+	{
+		if (It.Key().Get() == Window)
+		{
+			for (const TWeakObjectPtr<UImGuiToolkitWindow>& DockedWindow : It.Value())
+			{
+				if (UImGuiToolkitWindow* DockedWindowPtr = DockedWindow.Get())
+				{
+					RegisteredWindows.Remove(DockedWindowPtr);
+				}
+			}
+
+			It.RemoveCurrent();
+			continue;
+		}
+
+		It.Value().RemoveAllSwap([Window](const TWeakObjectPtr<UImGuiToolkitWindow>& DockedWindow)
+		{
+			return !DockedWindow.IsValid() || DockedWindow.Get() == Window;
+		});
+
+		if (It.Value().IsEmpty())
+		{
+			It.RemoveCurrent();
+		}
+	}
+}
+
+bool UImGuiToolkitSubsystem::IsRenderedByHostDocking(UImGuiToolkitWindow* Window) const
+{
+	if (!Window)
+	{
+		return false;
+	}
+
+	for (const TPair<TWeakObjectPtr<UImGuiToolkitWindow>, TArray<TWeakObjectPtr<UImGuiToolkitWindow>>>& HostedDockedWindowPair : HostedDockedWindows)
+	{
+		UImGuiToolkitWindow* HostWindow = HostedDockedWindowPair.Key.Get();
+		if (!HostWindow)
+		{
+			continue;
+		}
+
+		for (const TWeakObjectPtr<UImGuiToolkitWindow>& DockedWindow : HostedDockedWindowPair.Value)
+		{
+			if (DockedWindow.Get() == Window)
+			{
+				return true;
+			}
+		}
+	}
+
+	return false;
 }

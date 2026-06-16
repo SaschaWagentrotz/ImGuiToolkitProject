@@ -229,6 +229,21 @@ void UImGuiToolkitFunctionLibrary::DestroyImGuiWindow(UObject* WorldContextObjec
 	}
 }
 
+void UImGuiToolkitFunctionLibrary::DockImGuiWindow(UObject* WorldContextObject, UImGuiToolkitWindow* WindowToDock,
+	UImGuiToolkitWindow* TargetWindow, EImGuiToolkitDockSplitDirection Direction, float SplitRatio)
+{
+	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	if (!OuterObject || !GEngine)
+	{
+		return;
+	}
+
+	if (UImGuiToolkitSubsystem* Subsystem = GEngine->GetEngineSubsystem<UImGuiToolkitSubsystem>())
+	{
+		Subsystem->QueueDockWindow(WindowToDock, TargetWindow, Direction, SplitRatio);
+	}
+}
+
 UImGuiToolkitSameLine* UImGuiToolkitFunctionLibrary::CreateImGuiSameLine(UObject* WorldContextObject, float OffsetFromStartX, float Spacing, UImGuiToolkitContainer* Container)
 {
 	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
