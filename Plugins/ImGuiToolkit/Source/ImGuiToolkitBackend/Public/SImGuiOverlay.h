@@ -1,6 +1,8 @@
 ﻿#pragma once
 
 #include <Framework/Application/IInputProcessor.h>
+#include <Math/Vector2D.h>
+#include <Widgets/SWindow.h>
 #include <Widgets/SLeafWidget.h>
 
 #include <imgui.h>
@@ -41,6 +43,7 @@ public:
 		}
 
 		SLATE_ARGUMENT(TSharedPtr<FImGuiContext>, Context);
+		SLATE_ARGUMENT(TWeakPtr<SWindow>, OwnerWindow);
 		SLATE_ARGUMENT_DEFAULT(bool, HandleInput) = true;
 	SLATE_END_ARGS()
 
@@ -54,9 +57,19 @@ public:
 
 	TSharedPtr<FImGuiContext> GetContext() const;
 	void SetDrawData(const ImDrawData* InDrawData);
+	void SetOwnerWindow(TWeakPtr<SWindow> InOwnerWindow);
+	bool CanProcessInput() const;
+	bool CanProcessKeyboardInput(FSlateApplication& SlateApp) const;
+	bool CanProcessPointerEvent(FSlateApplication& SlateApp, const FPointerEvent& Event) const;
+	bool WasRecentlyPainted() const;
 
 private:
+	TSharedPtr<SWindow> GetOwnerWindow() const;
+	bool IsSlateWindowOwnedByContext(const TSharedPtr<SWindow>& Window) const;
+
 	TSharedPtr<FImGuiContext> Context = nullptr;
+	mutable TWeakPtr<SWindow> OwnerWindow = nullptr;
 	TSharedPtr<IInputProcessor> InputProcessor = nullptr;
 	FImGuiDrawData DrawData;
+	mutable uint64 LastPaintFrameNumber = 0;
 };

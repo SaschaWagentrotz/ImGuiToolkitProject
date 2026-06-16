@@ -1,8 +1,48 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "ImGuiToolkitSubsystem.h"
+
+#include "ImGuiToolkitHostWidget.h"
+#include "Engine/Engine.h"
+#include "Engine/World.h"
+#include "ImGuiConfig.h"
+
 #include <imgui.h>
+
+namespace
+{
+	UWorld* GetObjectWorld(const UObject* Object)
+	{
+		for (const UObject* Current = Object; Current; Current = Current->GetOuter())
+		{
+			if (UWorld* World = Current->GetWorld())
+			{
+				return World;
+			}
+
+			if (const UWorld* World = Cast<UWorld>(Current))
+			{
+				return const_cast<UWorld*>(World);
+			}
+		}
+
+		return nullptr;
+	}
+
+	int32 GetImGuiPieSessionId(const UObject* Object)
+	{
+		UWorld* World = GetObjectWorld(Object);
+		if (!World || World->WorldType != EWorldType::PIE || !GEngine)
+		{
+			return INDEX_NONE;
+		}
+
+		if (const FWorldContext* WorldContext = GEngine->GetWorldContextFromWorld(World))
+		{
+			return WorldContext->PIEInstance;
+		}
+
+		return INDEX_NONE;
+	}
+}
 
 void UImGuiToolkitSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 {
@@ -20,6 +60,8 @@ void UImGuiToolkitSubsystem::Deinitialize()
 
 	if (TickHandle.IsValid())
 		FTSTicker::GetCoreTicker().RemoveTicker(TickHandle);
+
+	StyledContexts.Reset();
 	
 	Super::Deinitialize();
 }
@@ -235,21 +277,62 @@ void UImGuiToolkitSubsystem::UnregisterWindow(UImGuiToolkitWindow* Window)
 	RegisteredWindows.Remove(Window);
 }
 
+void UImGuiToolkitSubsystem::RegisterHostWidget(UImGuiToolkitHostWidget* HostWidget)
+{
+	if (HostWidget)
+	{
+		RegisteredHostWidgets.AddUnique(TWeakObjectPtr<UImGuiToolkitHostWidget>(HostWidget));
+	}
+}
+
+void UImGuiToolkitSubsystem::UnregisterHostWidget(UImGuiToolkitHostWidget* HostWidget)
+{
+	RegisteredHostWidgets.RemoveAllSwap([HostWidget](const TWeakObjectPtr<UImGuiToolkitHostWidget>& RegisteredHostWidget)
+	{
+		return !RegisteredHostWidget.IsValid() || RegisteredHostWidget.Get() == HostWidget;
+	});
+}
+
 bool UImGuiToolkitSubsystem::OnTick(float DeltaTime)
 {
-	// This runs every frame in both editor and game!
+	for (int32 HostIndex = RegisteredHostWidgets.Num() - 1; HostIndex >= 0; --HostIndex)
+	{
+		UImGuiToolkitHostWidget* HostWidget = RegisteredHostWidgets[HostIndex].Get();
+		if (!HostWidget)
+		{
+			RegisteredHostWidgets.RemoveAtSwap(HostIndex);
+			continue;
+		}
+
+		HostWidget->RenderHost();
+	}
+
+	// This runs every frame in both editor and game.
+	for (UImGuiToolkitWindow* Window : RegisteredWindows)
+	{
+		const bool bIsAssignedToHost = RegisteredHostWidgets.ContainsByPredicate([Window](const TWeakObjectPtr<UImGuiToolkitHostWidget>& RegisteredHostWidget)
+		{
+			UImGuiToolkitHostWidget* HostWidget = RegisteredHostWidget.Get();
+			return HostWidget && HostWidget->GetHostedWindow() == Window;
+		});
+
+		if (!Window || Window->bIsHosted || bIsAssignedToHost)
+		{
+			continue;
+		}
+
+		const ImGui::FScopedContext ScopedContext(GetImGuiPieSessionId(Window));
+		if (ScopedContext)
+		{
+			ApplyStyleToCurrentContext();
+			Window->Render();
+		}
+	}
+
 	const ImGui::FScopedContext ScopedContext;
 	if (ScopedContext)
 	{
-		// Render all registered windows
-		for (UImGuiToolkitWindow* Window : RegisteredWindows)
-		{
-			if (Window)
-			{
-				Window->Render();
-			}
-		} 
-
+		ApplyStyleToCurrentContext();
 		ShowImGuiDemoWindow(bShowDemoWindow);
 
 		// Broadcast delegate
@@ -261,28 +344,22 @@ bool UImGuiToolkitSubsystem::OnTick(float DeltaTime)
 
 void UImGuiToolkitSubsystem::OnEndFrame()
 {
-	ImGuiContext* Ctx = ImGui::GetCurrentContext();
-	if (!Ctx)
+	ApplyStyleToCurrentContext();
+}
+
+void UImGuiToolkitSubsystem::ApplyStyleToCurrentContext()
+{
+	ImGuiContext* Context = ImGui::GetCurrentContext();
+	if (!Context || StyledContexts.Contains(Context))
 	{
 		return;
 	}
-	
-	if (bRebuildFontsPending)
-	{
-		const FString FontPath = FPaths::EngineContentDir() / TEXT("Slate/Fonts/Roboto-Regular.ttf");
-		ImGuiIO& io = ImGui::GetIO();
-		io.Fonts->ClearFonts();
-		io.Fonts->AddFontFromFileTTF(TCHAR_TO_UTF8(*FontPath), 16.0f * CustomUIScale);
-	
-		SetImGuiToolkitStyle();
-	
-		ImGui::GetStyle().ScaleAllSizes(CustomUIScale);
-	
-		bRebuildFontsPending = false;
-	}
 
+	ImGuiIO& IO = ImGui::GetIO();
+	IO.FontGlobalScale = CustomUIScale;
 
+	SetImGuiToolkitStyle();
+	ImGui::GetStyle().ScaleAllSizes(CustomUIScale);
 
+	StyledContexts.Add(Context);
 }
-
-

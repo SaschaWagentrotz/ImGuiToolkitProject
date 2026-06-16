@@ -1,20 +1,11 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "Widgets/Input/ImGuiToolkitInputTextMultiline.h"
-#include "FImGuiToolkitUtils.h"
 
+#include "FImGuiToolkitUtils.h"
 
 void UImGuiToolkitInputTextMultiline::Render()
 {
 	if (!bEnabled)
 		return;
-
-	// The code below contains AI-generated slop. It seems to work as it should, but this might need to be reworked.
-
-	// Persistent per-widget state (keep as members if you prefer)
-	TArray<char> InputBuffer;
-	FString LastSyncedInputText;
 
 	// Ensure buffer exists (at least 1 byte for a valid C-string)
 	if (InputBuffer.Num() == 0)
@@ -22,7 +13,7 @@ void UImGuiToolkitInputTextMultiline::Render()
 		InputBuffer.SetNumZeroed(1);
 	}
 
-	// Sync UE → ImGui when the source text changed externally
+	// Sync UE to ImGui when the source text changed externally.
 	if (LastSyncedInputText != InputText)
 	{
 		FTCHARToUTF8 InputTextUtf8(*InputText);
@@ -36,15 +27,14 @@ void UImGuiToolkitInputTextMultiline::Render()
 
 	ImVec2 TextBoxSize(Size.X, Size.Y);
 
-	// Let ImGui grow/shrink the buffer as the user types.
 	const bool bTextChanged = ImGui::InputTextMultiline(
-		TCHAR_TO_UTF8(*UniqueWidgetLabel),			// caption
-		InputBuffer.GetData(),						// buffer (UTF-8)
-		static_cast<size_t>(InputBuffer.Num()),		// current capacity in bytes
-		TextBoxSize,								// size of the text box
-		ImGuiInputTextFlags_CallbackResize,			// enable resize callback
-		FImGuiToolkitUtils::ImGuiResizeCallback,	// our callback
-		&InputBuffer								// user data for callback
+		TCHAR_TO_UTF8(*UniqueWidgetLabel),
+		InputBuffer.GetData(),
+		static_cast<size_t>(InputBuffer.Num()),
+		TextBoxSize,
+		ImGuiInputTextFlags_CallbackResize,
+		FImGuiToolkitUtils::ImGuiResizeCallback,
+		&InputBuffer
 	);
 
 	if (bTextChanged)

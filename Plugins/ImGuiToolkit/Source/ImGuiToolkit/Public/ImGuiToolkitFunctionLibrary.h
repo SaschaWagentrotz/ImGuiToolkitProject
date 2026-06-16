@@ -1,11 +1,12 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
 #include "Components/Widget.h"
 #include "FImGuiToolkitUtils.h"
 #include "Widgets/TabBar/ImGuiToolkiBeginTabItem.h"
+#include "Containers/ImGuiToolkitBeginChild.h"
+#include "Containers/ImGuiToolkitBeginGroup.h"
+#include "Containers/ImGuiToolkitBeginListBox.h"
 #include "Containers/ImGuiToolkitBeginTabBar.h"
 #include "Containers/ImGuiToolkitCollapsingHeader.h"
 #include "Containers/ImGuiToolkitBeginMenu.h"
@@ -32,18 +33,26 @@
 #include "Widgets/Main/ImGuiToolkitButton.h"
 #include "Widgets/Main/ImGuiToolkitCheckbox.h"
 #include "Widgets/Main/ImGuiToolkitCombo.h"
+#include "Widgets/Main/ImGuiToolkitEndListBox.h"
 #include "Widgets/Sliders/ImGuiToolkitDragInt.h"
 #include "Widgets/TabBar/ImGuiToolkitEndTabBar.h"
 #include "Widgets/TabBar/ImGuiToolkitEndTabItem.h"
 #include "Widgets/Tree/ImGuiToolkitTreePop.h"
 #include "Widgets/Tree/ImGuiToolkitTreePush.h"
 #include "Widgets/Layout/ImGuiToolkitNewLine.h"
+#include "Widgets/Layout/ImGuiToolkitPopItemWidth.h"
+#include "Widgets/Layout/ImGuiToolkitPopTextWrapPos.h"
+#include "Widgets/Layout/ImGuiToolkitPushItemWidth.h"
+#include "Widgets/Layout/ImGuiToolkitPushTextWrapPos.h"
 #include "Widgets/Layout/ImGuiToolkitSeparator.h"
+#include "Widgets/Layout/ImGuiToolkitSetNextItemWidth.h"
 #include "Widgets/Layout/ImGuiToolkitDummy.h"
 #include "Widgets/Main/ImGuiToolkitArrowButton.h"
 #include "Widgets/Main/ImGuiToolkitBullet.h"
+#include "Widgets/Main/ImGuiToolkitListBox.h"
 #include "Widgets/Main/ImGuiToolkitProgressBar.h"
 #include "Widgets/Main/ImGuiToolkitRadioButtonGroup.h"
+#include "Widgets/Main/ImGuiToolkitSelectable.h"
 #include "Widgets/Main/ImGuiToolkitSmallButton.h"
 #include "Widgets/MenuBar/ImGuiToolkitEndMenu.h"
 #include "Widgets/MenuBar/ImGuiToolkitEndMenuBar.h"
@@ -62,9 +71,6 @@ class IMGUITOOLKIT_API UImGuiToolkitFunctionLibrary : public UBlueprintFunctionL
 	GENERATED_BODY()
 
 public:
-	// TODO: Tidy all these functions up by grouping them together in a logical way
-	// TODO: Improve comments (function tooltips) to be more descriptive
-	
 	// Toggle the ImGui DemoWindow (needs to be called again to close it)
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit")
 	static void ToggleImGuiDemoWindow();
@@ -72,6 +78,36 @@ public:
 	// Create a new ImGui window
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
 	static UImGuiToolkitWindow* CreateImGuiWindow(UObject* WorldContextObject, FText WindowTitle, TArray<EImGuiWindowFlag> WindowFlags);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
+	static UImGuiToolkitBeginChild* CreateImGuiBeginChild(UObject* WorldContextObject, FText Label, FVector2D Size, TArray<EImGuiChildFlag> ChildFlags, TArray<EImGuiWindowFlag> WindowFlags, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
+	static UImGuiToolkitBeginGroup* CreateImGuiBeginGroup(UObject* WorldContextObject, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
+	static UImGuiToolkitBeginListBox* CreateImGuiBeginListBox(UObject* WorldContextObject, FText Label, FVector2D Size = FVector2D(0, 0), UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", DeprecatedFunction, DeprecationMessage = "End widgets are no longer required. ImGuiToolkit container widgets close themselves during Render."))
+	static UImGuiToolkitEndListBox* EndImGuiListBox(UObject* WorldContextObject, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
+	static UImGuiToolkitListBox* CreateImGuiListBox(UObject* WorldContextObject, FText Label, TArray<FText> ListItems, int32 InitialIndex = 0, int32 HeightInItems = -1, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
+	static UImGuiToolkitPushItemWidth* CreateImGuiPushItemWidth(UObject* WorldContextObject, float ItemWidth, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
+	static UImGuiToolkitPopItemWidth* CreateImGuiPopItemWidth(UObject* WorldContextObject, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
+	static UImGuiToolkitSetNextItemWidth* CreateImGuiSetNextItemWidth(UObject* WorldContextObject, float ItemWidth, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
+	static UImGuiToolkitPushTextWrapPos* CreateImGuiPushTextWrapPos(UObject* WorldContextObject, float WrapLocalPosX = 0.0f, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
+	static UImGuiToolkitPopTextWrapPos* CreateImGuiPopTextWrapPos(UObject* WorldContextObject, UImGuiToolkitContainer* Container = nullptr);
 
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
 	static FVector2D GetWidgetPosition(UObject* WorldContextObject, UWidget* Widget);
@@ -105,7 +141,7 @@ public:
 	static UImGuiToolkitText* CreateImGuiText(UObject* WorldContextObject, FText Text, UImGuiToolkitContainer* Container = nullptr);
 
 	// Use AlignTextToFramePadding() to align text baseline to the baseline of framed widgets elements, otherwise a Text+SameLine+Button sequence will have the text a little too high by default.
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", HidePin = "WorldContextObject"))
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
 	static UImGuiToolkitAlignTextToFramePadding* CreateImGuiAlignTextToFramePadding(UObject* WorldContextObject, UImGuiToolkitContainer* Container = nullptr);
 	
 	// Create a Text Disabled
@@ -152,12 +188,15 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
 	static UImGuiToolkitCheckbox* CreateImGuiCheckbox(UObject* WorldContextObject, FText Label, FText Tooltip, bool bIsChecked, UImGuiToolkitContainer* Container = nullptr);
 
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
+	static UImGuiToolkitSelectable* CreateImGuiSelectable(UObject* WorldContextObject, FText Label, bool bIsSelected, TArray<EImGuiSelectableFlag> SelectableFlags, FVector2D Size = FVector2D(0, 0), FText Tooltip = FText::GetEmpty(), UImGuiToolkitContainer* Container = nullptr);
+
 	// Create a TabBar
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext , HidePin = "WorldContextObject"))
 	static UImGuiToolkitBeginTabBar* CreateImGuiBeginTabBar(UObject* WorldContextObject, FText Label, UImGuiToolkitContainer* Container = nullptr);
 
 	// End a TabBar
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", DeprecatedFunction, DeprecationMessage = "End widgets are no longer required. ImGuiToolkit container widgets close themselves during Render."))
 	static UImGuiToolkitEndTabBar* EndImGuiTabBar(UObject* WorldContextObject, UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a TabItem
@@ -165,7 +204,7 @@ public:
 	static UImGuiToolkiBeginTabItem* CreateImGuiBeginTabItem(UObject* WorldContextObject, FText Label, UImGuiToolkitContainer* Container = nullptr);
 
 	// End a TabItem
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", DeprecatedFunction, DeprecationMessage = "End widgets are no longer required. ImGuiToolkit container widgets close themselves during Render."))
 	static UImGuiToolkitEndTabItem* EndImGuiTabItem(UObject* WorldContextObject, UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a ComboBox
@@ -245,11 +284,11 @@ public:
 	static UImGuiToolkitMenuItem* CreateImGuiMenuItem(UObject* WorldContextObject, FText Label, FText Shortcut, bool bIsSelected, UImGuiToolkitContainer* Container = nullptr);
 
 	// End a MenuBar
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", DeprecatedFunction, DeprecationMessage = "End widgets are no longer required. ImGuiToolkit container widgets close themselves during Render."))
 	static UImGuiToolkitEndMenuBar* EndImGuiMenuBar(UObject* WorldContextObject, UImGuiToolkitContainer* Container = nullptr);
 
 	// End a Menu
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", DeprecatedFunction, DeprecationMessage = "End widgets are no longer required. ImGuiToolkit container widgets close themselves during Render."))
 	static UImGuiToolkitEndMenu* EndImGuiMenu(UObject* WorldContextObject, UImGuiToolkitContainer* Container = nullptr);
 
 	// Create an InputText

@@ -1,11 +1,11 @@
 ﻿using UnrealBuildTool;
 
-public class ImGui : ModuleRules
+public class ImGuiToolkitBackend : ModuleRules
 {
 	protected virtual bool WithImPlot => true;
 	protected virtual bool WithNetImGui => true;
 
-	public ImGui(ReadOnlyTargetRules Target) : base(Target)
+	public ImGuiToolkitBackend(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
@@ -42,6 +42,7 @@ public class ImGui : ModuleRules
 		}
 
 		PublicDefinitions.Add("IMGUI_USER_CONFIG=\"ImGuiConfig.h\"");
+		PublicDefinitions.Add("IMGUI_API=IMGUITOOLKITBACKEND_API");
 
 		if (WithImPlot)
 		{

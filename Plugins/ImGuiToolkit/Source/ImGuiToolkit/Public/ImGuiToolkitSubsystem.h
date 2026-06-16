@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
@@ -7,9 +5,9 @@
 #include "Containers/ImGuiToolkitWindow.h"
 #include "ImGuiToolkitSubsystem.generated.h"
 
-/**
- * 
- */
+class UImGuiToolkitHostWidget;
+struct ImGuiContext;
+
 DECLARE_MULTICAST_DELEGATE(FOnImGuiRender);
 
 UCLASS()
@@ -22,6 +20,7 @@ public:
 	virtual void Deinitialize() override;
 
 	void SetImGuiToolkitStyle();
+	void ApplyStyleToCurrentContext();
 
 	UPROPERTY()
 	float CustomUIScale = 2.0f;
@@ -35,6 +34,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "ImGui")
 	void UnregisterWindow(UImGuiToolkitWindow* Window);
+
+	void RegisterHostWidget(UImGuiToolkitHostWidget* HostWidget);
+	void UnregisterHostWidget(UImGuiToolkitHostWidget* HostWidget);
 	
 	const TArray<TObjectPtr<UImGuiToolkitWindow>>& GetRegisteredWindows() const { return RegisteredWindows; }
 	
@@ -47,9 +49,11 @@ private:
 	FTSTicker::FDelegateHandle TickHandle;
 	FDelegateHandle EndFrameHandle;
 
-	bool bRebuildFontsPending = true;
 	bool bShowDemoWindow = false;
+	TSet<ImGuiContext*> StyledContexts;
 
 	UPROPERTY()
 	TArray<TObjectPtr<UImGuiToolkitWindow>> RegisteredWindows;
+
+	TArray<TWeakObjectPtr<UImGuiToolkitHostWidget>> RegisteredHostWidgets;
 };

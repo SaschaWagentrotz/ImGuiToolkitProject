@@ -40,6 +40,33 @@ enum class EImGuiWindowFlag : uint8
     NoDocking                   = 19			UMETA(DisplayName = "No Docking"),
 };
 
+UENUM(BlueprintType)
+enum class EImGuiChildFlag : uint8
+{
+	None						= 255			UMETA(DisplayName = "None"),
+	Borders						= 0				UMETA(DisplayName = "Borders"),
+	AlwaysUseWindowPadding		= 1				UMETA(DisplayName = "Always Use Window Padding"),
+	ResizeX						= 2				UMETA(DisplayName = "Resize X"),
+	ResizeY						= 3				UMETA(DisplayName = "Resize Y"),
+	AutoResizeX					= 4				UMETA(DisplayName = "Auto Resize X"),
+	AutoResizeY					= 5				UMETA(DisplayName = "Auto Resize Y"),
+	AlwaysAutoResize			= 6				UMETA(DisplayName = "Always Auto Resize"),
+	FrameStyle					= 7				UMETA(DisplayName = "Frame Style"),
+	NavFlattened				= 8				UMETA(DisplayName = "Nav Flattened"),
+};
+
+UENUM(BlueprintType)
+enum class EImGuiSelectableFlag : uint8
+{
+	None						= 255			UMETA(DisplayName = "None"),
+	NoAutoClosePopups			= 0				UMETA(DisplayName = "No Auto Close Popups"),
+	SpanAllColumns				= 1				UMETA(DisplayName = "Span All Columns"),
+	AllowDoubleClick			= 2				UMETA(DisplayName = "Allow Double Click"),
+	Disabled					= 3				UMETA(DisplayName = "Disabled"),
+	AllowOverlap				= 4				UMETA(DisplayName = "Allow Overlap"),
+	Highlight					= 5				UMETA(DisplayName = "Highlight"),
+};
+
 struct FImGuiToolkitUtils
 {
 	static ImVec4 LinearColorToImVec4(const FLinearColor& Color);
@@ -51,6 +78,10 @@ struct FImGuiToolkitUtils
 	static EImGuiWindowFlag ImGuiWindowFlagToUnrealFlag(ImGuiWindowFlags Flags);
 	static ImGuiWindowFlags UnrealFlagToImGuiWindowFlag(EImGuiWindowFlag Flags);
 	static int32 CombineImGuiWindowFlags(TArray<EImGuiWindowFlag> Flags);
+	static ImGuiChildFlags UnrealFlagToImGuiChildFlag(EImGuiChildFlag Flags);
+	static int32 CombineImGuiChildFlags(TArray<EImGuiChildFlag> Flags);
+	static ImGuiSelectableFlags UnrealFlagToImGuiSelectableFlag(EImGuiSelectableFlag Flags);
+	static int32 CombineImGuiSelectableFlags(TArray<EImGuiSelectableFlag> Flags);
 
 	static int32 ImGuiResizeCallback(ImGuiInputTextCallbackData* Data);
 };

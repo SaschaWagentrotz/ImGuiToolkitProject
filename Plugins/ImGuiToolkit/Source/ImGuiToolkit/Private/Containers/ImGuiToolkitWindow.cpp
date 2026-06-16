@@ -1,6 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "Containers/ImGuiToolkitWindow.h"
 
 UImGuiToolkitWindow::UImGuiToolkitWindow()
@@ -24,8 +21,9 @@ void UImGuiToolkitWindow::Render()
 	}
 
 	int ImGuiWindowFlags = FImGuiToolkitUtils::CombineImGuiWindowFlags(WindowFlags);
+	bool* OpenPtr = bIsHosted ? nullptr : &bIsOpen;
 	
-	if (ImGui::Begin(TCHAR_TO_UTF8(*UniqueWidgetLabel), &bIsOpen, ImGuiWindowFlags))
+	if (ImGui::Begin(TCHAR_TO_UTF8(*UniqueWidgetLabel), OpenPtr, ImGuiWindowFlags))
 	{
 		for (UImGuiToolkitWidget* Widget : Widgets)
 		{

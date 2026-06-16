@@ -1,5 +1,6 @@
 #include "ImGuiContext.h"
 
+#include <Containers/StringConv.h>
 #include <Framework/Application/SlateApplication.h>
 #include <HAL/LowLevelMemTracker.h>
 #include <HAL/PlatformApplicationMisc.h>
@@ -67,7 +68,7 @@ static void ImGui_CreateWindow(ImGuiViewport* Viewport)
 		const bool bPopupWindow = (Viewport->Flags & ImGuiViewportFlags_NoTaskBarIcon);
 		const bool bNoFocusOnAppearing = (Viewport->Flags & ImGuiViewportFlags_NoFocusOnAppearing);
 
-		// #TODO(Ves): Still blits a black background in the window frame :(
+		// Slate still blits a black background in the window frame.
 		static FWindowStyle WindowStyle = FWindowStyle()
 		                                  .SetActiveTitleBrush(FSlateNoResource())
 		                                  .SetInactiveTitleBrush(FSlateNoResource())
@@ -109,6 +110,11 @@ static void ImGui_CreateWindow(ImGuiViewport* Viewport)
 		else
 		{
 			FSlateApplication::Get().AddWindow(Window);
+		}
+
+		if (const TSharedPtr<SImGuiOverlay> Overlay = ViewportData->Overlay.Pin())
+		{
+			Overlay->SetOwnerWindow(Window);
 		}
 
 		if (!(Viewport->Flags & ImGuiViewportFlags_OwnedByApp))
@@ -293,8 +299,10 @@ const char* ImGui_GetClipboardText(ImGuiContext* Context)
 		FString ClipboardText;
 		FPlatformApplicationMisc::ClipboardPaste(ClipboardText);
 
-		ClipboardBuffer->SetNumUninitialized(FPlatformString::ConvertedLength<UTF8CHAR>(*ClipboardText));
-		FPlatformString::Convert(reinterpret_cast<UTF8CHAR*>(ClipboardBuffer->GetData()), ClipboardBuffer->Num(), *ClipboardText, ClipboardText.Len() + 1);
+		const FTCHARToUTF8 ClipboardTextUtf8(*ClipboardText);
+		ClipboardBuffer->SetNumUninitialized(ClipboardTextUtf8.Length() + 1);
+		FMemory::Memcpy(ClipboardBuffer->GetData(), ClipboardTextUtf8.Get(), ClipboardTextUtf8.Length());
+		(*ClipboardBuffer)[ClipboardTextUtf8.Length()] = '\0';
 
 		return ClipboardBuffer->GetData();
 	}

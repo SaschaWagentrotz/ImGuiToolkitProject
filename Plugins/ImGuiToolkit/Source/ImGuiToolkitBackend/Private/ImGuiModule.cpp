@@ -15,6 +15,27 @@
 #include "ImGuiContext.h"
 #include "SImGuiOverlay.h"
 
+namespace
+{
+	constexpr int32 DefaultImGuiOverlayZOrder = 0;
+	constexpr int32 GameViewportImGuiOverlayZOrder = 10000;
+
+	void ConfigureViewportOnlyContext(const TSharedPtr<FImGuiContext>& Context)
+	{
+		ImGui::FScopedContext ScopedContext(Context);
+		if (!ScopedContext.IsValid())
+		{
+			return;
+		}
+
+		ImGuiIO& IO = ImGui::GetIO();
+		IO.ConfigFlags &= ~ImGuiConfigFlags_ViewportsEnable;
+		IO.BackendFlags &= ~ImGuiBackendFlags_PlatformHasViewports;
+		IO.BackendFlags &= ~ImGuiBackendFlags_RendererHasViewports;
+		ImGui::DestroyPlatformWindows();
+	}
+}
+
 void FImGuiModule::StartupModule()
 {
 #if WITH_EDITOR
@@ -140,17 +161,21 @@ void FImGuiModule::OnViewportCreated() const
 		return;
 	}
 
+	ConfigureViewportOnlyContext(Context);
+
 	ImGui::FScopedContext ScopedContext(Context);
 
 	FImGuiViewportData* ViewportData = FImGuiViewportData::GetOrCreate(ImGui::GetMainViewport());
 	if (ViewportData && !ViewportData->Overlay.IsValid())
 	{
-		const TSharedRef<SImGuiOverlay> Overlay = SNew(SImGuiOverlay).Context(Context);
-
 		ViewportData->Window = GameViewport->GetWindow();
+		const TSharedRef<SImGuiOverlay> Overlay = SNew(SImGuiOverlay)
+			.Context(Context)
+			.OwnerWindow(ViewportData->Window);
+
 		ViewportData->Overlay = Overlay;
 
-		GameViewport->AddViewportWidgetContent(Overlay, TNumericLimits<int32>::Max());
+		GameViewport->AddViewportWidgetContent(Overlay, GameViewportImGuiOverlayZOrder);
 	}
 #endif
 }
@@ -164,12 +189,14 @@ TSharedPtr<FImGuiContext> FImGuiModule::CreateWindowContext(const TSharedRef<SWi
 	FImGuiViewportData* ViewportData = FImGuiViewportData::GetOrCreate(ImGui::GetMainViewport());
 	if (ViewportData)
 	{
-		const TSharedRef<SImGuiOverlay> Overlay = SNew(SImGuiOverlay).Context(Context);
+		const TSharedRef<SImGuiOverlay> Overlay = SNew(SImGuiOverlay)
+			.Context(Context)
+			.OwnerWindow(TWeakPtr<SWindow>(Window));
 
 		ViewportData->Window = Window;
 		ViewportData->Overlay = Overlay;
 
-		Window->AddOverlaySlot(TNumericLimits<int32>::Max())[Overlay];
+		Window->AddOverlaySlot(DefaultImGuiOverlayZOrder)[Overlay];
 	}
 
 	return Context;
@@ -184,18 +211,21 @@ TSharedPtr<FImGuiContext> FImGuiModule::CreateViewportContext(UGameViewportClien
 	}
 
 	const TSharedRef<FImGuiContext> Context = FImGuiContext::Create();
+	ConfigureViewportOnlyContext(Context);
 
 	ImGui::FScopedContext ScopedContext(Context);
 
 	FImGuiViewportData* ViewportData = FImGuiViewportData::GetOrCreate(ImGui::GetMainViewport());
 	if (ViewportData)
 	{
-		const TSharedRef<SImGuiOverlay> Overlay = SNew(SImGuiOverlay).Context(Context);
-
 		ViewportData->Window = GameViewport->GetWindow();
+		const TSharedRef<SImGuiOverlay> Overlay = SNew(SImGuiOverlay)
+			.Context(Context)
+			.OwnerWindow(ViewportData->Window);
+
 		ViewportData->Overlay = Overlay;
 
-		GameViewport->AddViewportWidgetContent(Overlay, TNumericLimits<int32>::Max());
+		GameViewport->AddViewportWidgetContent(Overlay, GameViewportImGuiOverlayZOrder);
 	}
 
 	return Context;
@@ -204,4 +234,4 @@ TSharedPtr<FImGuiContext> FImGuiModule::CreateViewportContext(UGameViewportClien
 #endif
 }
 
-IMPLEMENT_MODULE(FImGuiModule, ImGui);
+IMPLEMENT_MODULE(FImGuiModule, ImGuiToolkitBackend);

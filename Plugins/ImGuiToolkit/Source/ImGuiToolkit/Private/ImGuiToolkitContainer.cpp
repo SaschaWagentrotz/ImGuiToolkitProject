@@ -34,9 +34,10 @@ TArray<UImGuiToolkitWidget*> UImGuiToolkitContainer::GetWidgets()
 
 void UImGuiToolkitContainer::RenderChildren()
 {
-	for (UImGuiToolkitWidget* Widget : Widgets)
+	const TArray<UImGuiToolkitWidget*> WidgetsToRender = Widgets;
+	for (UImGuiToolkitWidget* Widget : WidgetsToRender)
 	{
-		if (Widget && Widget->bEnabled)
+		if (IsValid(Widget) && Widgets.Contains(Widget) && Widget->bEnabled)
 		{
 			Widget->Render();
 		}

@@ -1,6 +1,5 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #include "ImGuiToolkitFunctionLibrary.h"
+
 #include "Containers/ImGuiToolkitWindow.h"
 #include "Widgets/Main/ImGuiToolkitButton.h"
 #include "Widgets/Layout/ImGuiToolkitSameLine.h"
@@ -8,8 +7,6 @@
 #include "Components/Widget.h"
 #include "Containers/ImGuiToolkitCollapsingHeader.h"
 #include "Widgets/Text/ImGuiToolkitText.h"
-
-// TODO: Tidy all these functions up by grouping them together in a logical way
 
 void UImGuiToolkitFunctionLibrary::ToggleImGuiDemoWindow()
 {
@@ -41,6 +38,168 @@ UImGuiToolkitWindow* UImGuiToolkitFunctionLibrary::CreateImGuiWindow(UObject* Wo
 	}
 
 	return Window;
+}
+
+UImGuiToolkitBeginChild* UImGuiToolkitFunctionLibrary::CreateImGuiBeginChild(UObject* WorldContextObject, FText Label, FVector2D Size,
+	TArray<EImGuiChildFlag> ChildFlags, TArray<EImGuiWindowFlag> WindowFlags, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitBeginChild* BeginChild = NewObject<UImGuiToolkitBeginChild>(OuterObject);
+	BeginChild->CreateUniqueWidgetLabel(Label);
+	BeginChild->Size = Size;
+	BeginChild->ChildFlags = ChildFlags;
+	BeginChild->WindowFlags = WindowFlags;
+
+	if (Container)
+		Container->AddWidget(BeginChild);
+
+	return BeginChild;
+}
+
+UImGuiToolkitBeginGroup* UImGuiToolkitFunctionLibrary::CreateImGuiBeginGroup(UObject* WorldContextObject, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitBeginGroup* BeginGroup = NewObject<UImGuiToolkitBeginGroup>(OuterObject);
+
+	if (Container)
+		Container->AddWidget(BeginGroup);
+
+	return BeginGroup;
+}
+
+UImGuiToolkitBeginListBox* UImGuiToolkitFunctionLibrary::CreateImGuiBeginListBox(UObject* WorldContextObject,
+	FText Label, FVector2D Size, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitBeginListBox* BeginListBox = NewObject<UImGuiToolkitBeginListBox>(OuterObject);
+	BeginListBox->CreateUniqueWidgetLabel(Label);
+	BeginListBox->Size = Size;
+
+	if (Container)
+		Container->AddWidget(BeginListBox);
+
+	return BeginListBox;
+}
+
+UImGuiToolkitEndListBox* UImGuiToolkitFunctionLibrary::EndImGuiListBox(UObject* WorldContextObject,
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitEndListBox* EndListBox = NewObject<UImGuiToolkitEndListBox>(OuterObject);
+
+	if (Container)
+		Container->AddWidget(EndListBox);
+
+	return EndListBox;
+}
+
+UImGuiToolkitListBox* UImGuiToolkitFunctionLibrary::CreateImGuiListBox(UObject* WorldContextObject, FText Label,
+	TArray<FText> ListItems, int32 InitialIndex, int32 HeightInItems, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitListBox* ListBox = NewObject<UImGuiToolkitListBox>(OuterObject);
+	ListBox->CreateUniqueWidgetLabel(Label);
+	ListBox->ListItems = ListItems;
+	ListBox->SelectedIndex = InitialIndex;
+	ListBox->HeightInItems = HeightInItems;
+
+	if (Container)
+		Container->AddWidget(ListBox);
+
+	return ListBox;
+}
+
+UImGuiToolkitPushItemWidth* UImGuiToolkitFunctionLibrary::CreateImGuiPushItemWidth(UObject* WorldContextObject,
+	float ItemWidth, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPushItemWidth* PushItemWidth = NewObject<UImGuiToolkitPushItemWidth>(OuterObject);
+	PushItemWidth->ItemWidth = ItemWidth;
+
+	if (Container)
+		Container->AddWidget(PushItemWidth);
+
+	return PushItemWidth;
+}
+
+UImGuiToolkitPopItemWidth* UImGuiToolkitFunctionLibrary::CreateImGuiPopItemWidth(UObject* WorldContextObject,
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPopItemWidth* PopItemWidth = NewObject<UImGuiToolkitPopItemWidth>(OuterObject);
+
+	if (Container)
+		Container->AddWidget(PopItemWidth);
+
+	return PopItemWidth;
+}
+
+UImGuiToolkitSetNextItemWidth* UImGuiToolkitFunctionLibrary::CreateImGuiSetNextItemWidth(UObject* WorldContextObject,
+	float ItemWidth, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitSetNextItemWidth* SetNextItemWidth = NewObject<UImGuiToolkitSetNextItemWidth>(OuterObject);
+	SetNextItemWidth->ItemWidth = ItemWidth;
+
+	if (Container)
+		Container->AddWidget(SetNextItemWidth);
+
+	return SetNextItemWidth;
+}
+
+UImGuiToolkitPushTextWrapPos* UImGuiToolkitFunctionLibrary::CreateImGuiPushTextWrapPos(UObject* WorldContextObject,
+	float WrapLocalPosX, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPushTextWrapPos* PushTextWrapPos = NewObject<UImGuiToolkitPushTextWrapPos>(OuterObject);
+	PushTextWrapPos->WrapLocalPosX = WrapLocalPosX;
+
+	if (Container)
+		Container->AddWidget(PushTextWrapPos);
+
+	return PushTextWrapPos;
+}
+
+UImGuiToolkitPopTextWrapPos* UImGuiToolkitFunctionLibrary::CreateImGuiPopTextWrapPos(UObject* WorldContextObject,
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPopTextWrapPos* PopTextWrapPos = NewObject<UImGuiToolkitPopTextWrapPos>(OuterObject);
+
+	if (Container)
+		Container->AddWidget(PopTextWrapPos);
+
+	return PopTextWrapPos;
 }
 
 FVector2D UImGuiToolkitFunctionLibrary::GetWidgetPosition(UObject* WorldContextObject, UWidget* Widget)
@@ -344,6 +503,26 @@ UImGuiToolkitCheckbox* UImGuiToolkitFunctionLibrary::CreateImGuiCheckbox(UObject
 		Container->AddWidget(Checkbox);
 
 	return Checkbox;
+}
+
+UImGuiToolkitSelectable* UImGuiToolkitFunctionLibrary::CreateImGuiSelectable(UObject* WorldContextObject, FText Label,
+	bool bIsSelected, TArray<EImGuiSelectableFlag> SelectableFlags, FVector2D Size, FText Tooltip, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitSelectable* Selectable = NewObject<UImGuiToolkitSelectable>(OuterObject);
+	Selectable->CreateUniqueWidgetLabel(Label);
+	Selectable->bIsSelected = bIsSelected;
+	Selectable->SelectableFlags = SelectableFlags;
+	Selectable->Size = Size;
+	Selectable->Tooltip = Tooltip;
+
+	if (Container)
+		Container->AddWidget(Selectable);
+
+	return Selectable;
 }
 
 UImGuiToolkitBeginTabBar* UImGuiToolkitFunctionLibrary::CreateImGuiBeginTabBar(UObject* WorldContextObject, FText Label,

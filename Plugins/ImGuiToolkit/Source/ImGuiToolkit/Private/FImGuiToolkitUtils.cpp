@@ -114,8 +114,66 @@ int32 FImGuiToolkitUtils::CombineImGuiWindowFlags(TArray<EImGuiWindowFlag> Flags
 	ImGuiWindowFlags Mask = ImGuiWindowFlags_None;
 	for (EImGuiWindowFlag Flag : Flags)
 	{
+		if (Flag == EImGuiWindowFlag::None)
+		{
+			continue;
+		}
+
 		const uint32 Bit = static_cast<uint32>(Flag);
 		Mask |= static_cast<ImGuiWindowFlags>(1u << Bit);
+	}
+	return Mask;
+}
+
+ImGuiChildFlags FImGuiToolkitUtils::UnrealFlagToImGuiChildFlag(EImGuiChildFlag Flags)
+{
+	switch (Flags)
+	{
+		case EImGuiChildFlag::Borders:					return ImGuiChildFlags_Borders;
+		case EImGuiChildFlag::AlwaysUseWindowPadding:	return ImGuiChildFlags_AlwaysUseWindowPadding;
+		case EImGuiChildFlag::ResizeX:					return ImGuiChildFlags_ResizeX;
+		case EImGuiChildFlag::ResizeY:					return ImGuiChildFlags_ResizeY;
+		case EImGuiChildFlag::AutoResizeX:				return ImGuiChildFlags_AutoResizeX;
+		case EImGuiChildFlag::AutoResizeY:				return ImGuiChildFlags_AutoResizeY;
+		case EImGuiChildFlag::AlwaysAutoResize:			return ImGuiChildFlags_AlwaysAutoResize;
+		case EImGuiChildFlag::FrameStyle:				return ImGuiChildFlags_FrameStyle;
+		case EImGuiChildFlag::NavFlattened:				return ImGuiChildFlags_NavFlattened;
+		case EImGuiChildFlag::None:						return ImGuiChildFlags_None;
+		default:										return ImGuiChildFlags_None;
+	}
+}
+
+int32 FImGuiToolkitUtils::CombineImGuiChildFlags(TArray<EImGuiChildFlag> Flags)
+{
+	ImGuiChildFlags Mask = ImGuiChildFlags_None;
+	for (EImGuiChildFlag Flag : Flags)
+	{
+		Mask |= UnrealFlagToImGuiChildFlag(Flag);
+	}
+	return Mask;
+}
+
+ImGuiSelectableFlags FImGuiToolkitUtils::UnrealFlagToImGuiSelectableFlag(EImGuiSelectableFlag Flags)
+{
+	switch (Flags)
+	{
+		case EImGuiSelectableFlag::NoAutoClosePopups:	return ImGuiSelectableFlags_NoAutoClosePopups;
+		case EImGuiSelectableFlag::SpanAllColumns:		return ImGuiSelectableFlags_SpanAllColumns;
+		case EImGuiSelectableFlag::AllowDoubleClick:	return ImGuiSelectableFlags_AllowDoubleClick;
+		case EImGuiSelectableFlag::Disabled:			return ImGuiSelectableFlags_Disabled;
+		case EImGuiSelectableFlag::AllowOverlap:		return ImGuiSelectableFlags_AllowOverlap;
+		case EImGuiSelectableFlag::Highlight:			return ImGuiSelectableFlags_Highlight;
+		case EImGuiSelectableFlag::None:				return ImGuiSelectableFlags_None;
+		default:										return ImGuiSelectableFlags_None;
+	}
+}
+
+int32 FImGuiToolkitUtils::CombineImGuiSelectableFlags(TArray<EImGuiSelectableFlag> Flags)
+{
+	ImGuiSelectableFlags Mask = ImGuiSelectableFlags_None;
+	for (EImGuiSelectableFlag Flag : Flags)
+	{
+		Mask |= UnrealFlagToImGuiSelectableFlag(Flag);
 	}
 	return Mask;
 }

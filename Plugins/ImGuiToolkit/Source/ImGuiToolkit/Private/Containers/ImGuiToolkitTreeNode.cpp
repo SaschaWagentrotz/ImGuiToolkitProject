@@ -1,18 +1,13 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "Containers/ImGuiToolkitTreeNode.h"
 
 void UImGuiToolkitTreeNode::Render()
 {
+	if (!bEnabled)
+		return;
+
 	if (ImGui::TreeNode(TCHAR_TO_UTF8(*UniqueWidgetLabel)))
 	{
-		for (UImGuiToolkitWidget* Widget : Widgets)
-		{
-			if (Widget)
-			{
-				Widget->Render();
-			}
-		}
+		RenderChildren();
+		ImGui::TreePop();
 	}
 }
