@@ -22,9 +22,6 @@ public:
 	void SetImGuiToolkitStyle();
 	void ApplyStyleToCurrentContext();
 
-	UPROPERTY()
-	float CustomUIScale = 2.0f;
-
 	void SetShowImGuiDemoWindow(bool bNewShow);
 	bool GetShowImGuiDemoWindow() const { return bShowDemoWindow; }
 	void ShowImGuiDemoWindow(bool bShow);
@@ -50,7 +47,6 @@ private:
 	FDelegateHandle EndFrameHandle;
 
 	bool bShowDemoWindow = false;
-	TSet<ImGuiContext*> StyledContexts;
 
 	UPROPERTY()
 	TArray<TObjectPtr<UImGuiToolkitWindow>> RegisteredWindows;

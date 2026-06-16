@@ -26,7 +26,19 @@ THIRD_PARTY_INCLUDES_START
 #endif
 THIRD_PARTY_INCLUDES_END
 
+#include "ImGuiToolkitSettings.h"
 #include "SImGuiOverlay.h"
+
+namespace
+{
+	constexpr float DefaultImGuiFontSize = 16.0f;
+
+	float GetConfiguredImGuiScale()
+	{
+		const UImGuiToolkitSettings* Settings = GetDefault<UImGuiToolkitSettings>();
+		return FMath::Clamp(Settings ? Settings->Scale : 1.0f, 0.25f, 4.0f);
+	}
+}
 
 FImGuiViewportData* FImGuiViewportData::GetOrCreate(ImGuiViewport* Viewport)
 {
@@ -410,11 +422,7 @@ void FImGuiContext::Initialize()
 	PlatformIO.Platform_SetClipboardTextFn = ImGui_SetClipboardText;
 	PlatformIO.Platform_OpenInShellFn = ImGui_OpenInShell;
 
-	const FString FontPath = FPaths::EngineContentDir() / TEXT("Slate/Fonts/Roboto-Regular.ttf");
-	if (FPaths::FileExists(*FontPath))
-	{
-		IO.Fonts->AddFontFromFileTTF(TCHAR_TO_UTF8(*FontPath), 16);
-	}
+	UpdateConfiguredFontAtlas();
 
 	if (FSlateApplication::IsInitialized())
 	{
@@ -596,6 +604,8 @@ void FImGuiContext::BeginFrame()
 
 	ImGui::FScopedContext ScopedContext(AsShared());
 
+	UpdateConfiguredFontAtlas();
+
 	ImGuiIO& IO = ImGui::GetIO();
 
 	IO.DeltaTime = FApp::GetDeltaTime();
@@ -620,6 +630,36 @@ void FImGuiContext::BeginFrame()
 	}
 
 	ImGui::NewFrame();
+}
+
+void FImGuiContext::UpdateConfiguredFontAtlas()
+{
+	ImGuiIO& IO = ImGui::GetIO();
+	const float Scale = GetConfiguredImGuiScale();
+	if (FMath::IsNearlyEqual(ConfiguredFontScale, Scale))
+	{
+		return;
+	}
+
+	IO.Fonts->Clear();
+
+	const float FontSize = DefaultImGuiFontSize * Scale;
+	const FString FontPath = FPaths::EngineContentDir() / TEXT("Slate/Fonts/Roboto-Regular.ttf");
+	if (FPaths::FileExists(*FontPath))
+	{
+		IO.Fonts->AddFontFromFileTTF(TCHAR_TO_UTF8(*FontPath), FontSize);
+	}
+	else
+	{
+		ImFontConfig FontConfig;
+		FontConfig.SizePixels = FontSize;
+		IO.Fonts->AddFontDefault(&FontConfig);
+	}
+
+	IO.FontDefault = nullptr;
+	IO.FontGlobalScale = 1.0f;
+	FontAtlasTexturePtr.Reset();
+	ConfiguredFontScale = Scale;
 }
 
 void FImGuiContext::EndFrame()

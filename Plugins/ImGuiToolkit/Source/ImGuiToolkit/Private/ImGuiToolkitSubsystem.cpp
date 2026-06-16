@@ -4,6 +4,7 @@
 #include "Engine/Engine.h"
 #include "Engine/World.h"
 #include "ImGuiConfig.h"
+#include "ImGuiToolkitSettings.h"
 
 #include <imgui.h>
 
@@ -61,162 +62,116 @@ void UImGuiToolkitSubsystem::Deinitialize()
 	if (TickHandle.IsValid())
 		FTSTicker::GetCoreTicker().RemoveTicker(TickHandle);
 
-	StyledContexts.Reset();
-	
 	Super::Deinitialize();
 }
 
-static inline ImVec4 SRGB(float r, float g, float b, float a = 1.0f)
+static inline ImVec4 ToImGuiColor(const FLinearColor& Color)
 {
-	return ImVec4(r/255.0f, g/255.0f, b/255.0f, a);
+	const FColor SRGBColor = Color.ToFColorSRGB();
+	return ImVec4(
+		SRGBColor.R / 255.0f,
+		SRGBColor.G / 255.0f,
+		SRGBColor.B / 255.0f,
+		SRGBColor.A / 255.0f
+	);
 }
 
 void UImGuiToolkitSubsystem::SetImGuiToolkitStyle()
 {
+	const UImGuiToolkitSettings* Settings = GetDefault<UImGuiToolkitSettings>();
+	if (!Settings)
+	{
+		return;
+	}
+
 	ImGuiStyle* dst_style = NULL;
 	ImGuiStyle& style = dst_style ? *dst_style : ImGui::GetStyle();
+	style = ImGuiStyle();
     ImVec4* colors = style.Colors;
 
-	const ImVec4 col_text                 = SRGB(230,230,230);
-    const ImVec4 col_text_disabled        = SRGB(132,137,145);
-
-    const ImVec4 col_bg_window            = SRGB(16,17,19, 240/255.0f);
-    const ImVec4 col_bg_child             = SRGB(20,21,24, 240/255.0f);
-    const ImVec4 col_bg_popup             = SRGB(22,23,26, 240/255.0f);
-
-    const ImVec4 col_border               = SRGB(56,60,66);
-    const ImVec4 col_border_shadow        = SRGB(0,0,0, 0.0f);
-
-    const ImVec4 col_frame_bg             = SRGB(34,37,42, 220/255.0f);
-    const ImVec4 col_frame_bg_hovered     = SRGB(42,46,52, 230/255.0f);
-    const ImVec4 col_frame_bg_active      = SRGB(48,53,60);
-
-    const ImVec4 col_menu_bar_bg          = SRGB(24,26,29);
-
-    const ImVec4 col_scrollbar_bg         = SRGB(16,17,19, 135/255.0f);
-    const ImVec4 col_scrollbar_grab       = SRGB(67,72,79);
-    const ImVec4 col_scrollbar_hover      = SRGB(86,92,100);
-    const ImVec4 col_scrollbar_active     = SRGB(104,112,122);
-
-    const ImVec4 col_header               = SRGB(45,49,56, 200/255.0f);
-    const ImVec4 col_header_hovered       = SRGB(55,60,68, 230/255.0f);
-    const ImVec4 col_header_active        = SRGB(60,66,75);
-
-    const ImVec4 col_table_header_bg      = SRGB(40,43,49);
-    const ImVec4 col_table_border_strong  = SRGB(70,74,82);
-    const ImVec4 col_table_border_light   = SRGB(52,56,63);
-
-    const ImVec4 col_plot_lines           = SRGB(156,156,156);
-    const ImVec4 col_plot_lines_hover     = SRGB(255,110,96);
-    const ImVec4 col_plot_hist            = SRGB(229,178,59);
-    const ImVec4 col_plot_hist_hover      = SRGB(255,171,51);
-
-    const ImVec4 col_dragdrop_target      = SRGB(255,220,0, 230/255.0f);
-    const ImVec4 col_text_selected_bg     = SRGB(60,120,200, 100/255.0f);
-
-    const ImVec4 col_title_bg             = SRGB(26,27,31);
-    const ImVec4 col_title_bg_active      = SRGB(34,36,41);
-    const ImVec4 col_title_bg_collapsed   = SRGB(0,0,0, 130/255.0f);
-
-    // ---- Accent (used for selected/active states) ----
-    const ImVec4 col_accent               = SRGB(45,120,225);   // UE-like selection blue
-    const ImVec4 col_accent_hover         = SRGB(70,145,245);
-    const ImVec4 col_accent_active        = SRGB(35,100,210);
-
-    // ---- Buttons: grey by default; blue only when active ----
-    const ImVec4 col_button_idle          = SRGB(52,54,58, 220/255.0f);
-    const ImVec4 col_button_hover         = SRGB(70,73,78);
-    const ImVec4 col_button_active        = col_accent_active;
-
-    // ---- Tabs (neutral; selected = blue) ----
-    const ImVec4 col_tab_base             = SRGB(40,44,50);
-    const ImVec4 col_tab_hovered          = SRGB(55,60,68);
-    const ImVec4 col_tab_selected         = col_accent;
-    const ImVec4 col_tab_dimmed           = SRGB(38,40,44);
-    const ImVec4 col_tab_dimmed_selected  = SRGB(45,48,53);
-
     // ---- Assignments ----
-    colors[ImGuiCol_Text]                   = col_text;
-    colors[ImGuiCol_TextDisabled]           = col_text_disabled;
+    colors[ImGuiCol_Text]                   = ToImGuiColor(Settings->Text);
+    colors[ImGuiCol_TextDisabled]           = ToImGuiColor(Settings->TextDisabled);
 
-    colors[ImGuiCol_WindowBg]               = col_bg_window;
-    colors[ImGuiCol_ChildBg]                = col_bg_child;
-    colors[ImGuiCol_PopupBg]                = col_bg_popup;
+    colors[ImGuiCol_WindowBg]               = ToImGuiColor(Settings->WindowBg);
+    colors[ImGuiCol_ChildBg]                = ToImGuiColor(Settings->ChildBg);
+    colors[ImGuiCol_PopupBg]                = ToImGuiColor(Settings->PopupBg);
 
-    colors[ImGuiCol_Border]                 = col_border;
-    colors[ImGuiCol_BorderShadow]           = col_border_shadow;
+    colors[ImGuiCol_Border]                 = ToImGuiColor(Settings->Border);
+    colors[ImGuiCol_BorderShadow]           = ToImGuiColor(Settings->BorderShadow);
 
-    colors[ImGuiCol_FrameBg]                = col_frame_bg;
-    colors[ImGuiCol_FrameBgHovered]         = col_frame_bg_hovered;
-    colors[ImGuiCol_FrameBgActive]          = col_frame_bg_active;
+    colors[ImGuiCol_FrameBg]                = ToImGuiColor(Settings->FrameBg);
+    colors[ImGuiCol_FrameBgHovered]         = ToImGuiColor(Settings->FrameBgHovered);
+    colors[ImGuiCol_FrameBgActive]          = ToImGuiColor(Settings->FrameBgActive);
 
     // Buttons (UE behavior)
-    colors[ImGuiCol_Button]                 = col_button_idle;
-    colors[ImGuiCol_ButtonHovered]          = col_button_hover;
-    colors[ImGuiCol_ButtonActive]           = col_button_active;
+    colors[ImGuiCol_Button]                 = ToImGuiColor(Settings->Button);
+    colors[ImGuiCol_ButtonHovered]          = ToImGuiColor(Settings->ButtonHovered);
+    colors[ImGuiCol_ButtonActive]           = ToImGuiColor(Settings->ButtonActive);
 
     // Sliders / checks use accent to signal interaction
-    colors[ImGuiCol_CheckMark]              = col_accent;
-    colors[ImGuiCol_SliderGrab]             = col_accent_hover;
-    colors[ImGuiCol_SliderGrabActive]       = col_accent_active;
+    colors[ImGuiCol_CheckMark]              = ToImGuiColor(Settings->CheckMark);
+    colors[ImGuiCol_SliderGrab]             = ToImGuiColor(Settings->SliderGrab);
+    colors[ImGuiCol_SliderGrabActive]       = ToImGuiColor(Settings->SliderGrabActive);
 
     // Headers stay neutral (not blue)
-    colors[ImGuiCol_Header]                 = col_header;
-    colors[ImGuiCol_HeaderHovered]          = col_header_hovered;
-    colors[ImGuiCol_HeaderActive]           = col_header_active;
+    colors[ImGuiCol_Header]                 = ToImGuiColor(Settings->Header);
+    colors[ImGuiCol_HeaderHovered]          = ToImGuiColor(Settings->HeaderHovered);
+    colors[ImGuiCol_HeaderActive]           = ToImGuiColor(Settings->HeaderActive);
 
     // Separators / grips
-    colors[ImGuiCol_Separator]              = col_border;
-    colors[ImGuiCol_SeparatorHovered]       = col_accent_hover;
-    colors[ImGuiCol_SeparatorActive]        = col_accent_active;
+    colors[ImGuiCol_Separator]              = ToImGuiColor(Settings->Separator);
+    colors[ImGuiCol_SeparatorHovered]       = ToImGuiColor(Settings->SeparatorHovered);
+    colors[ImGuiCol_SeparatorActive]        = ToImGuiColor(Settings->SeparatorActive);
 
-    colors[ImGuiCol_ResizeGrip]             = ImVec4(col_accent.x, col_accent.y, col_accent.z, 0.22f);
-    colors[ImGuiCol_ResizeGripHovered]      = ImVec4(col_accent.x, col_accent.y, col_accent.z, 0.72f);
-    colors[ImGuiCol_ResizeGripActive]       = ImVec4(col_accent.x, col_accent.y, col_accent.z, 0.95f);
+    colors[ImGuiCol_ResizeGrip]             = ToImGuiColor(Settings->ResizeGrip);
+    colors[ImGuiCol_ResizeGripHovered]      = ToImGuiColor(Settings->ResizeGripHovered);
+    colors[ImGuiCol_ResizeGripActive]       = ToImGuiColor(Settings->ResizeGripActive);
 
     // Tabs
-    colors[ImGuiCol_Tab]                    = col_tab_base;
-    colors[ImGuiCol_TabHovered]             = col_tab_hovered;
-    colors[ImGuiCol_TabSelected]            = col_tab_selected;
-    colors[ImGuiCol_TabSelectedOverline]    = col_accent;
-    colors[ImGuiCol_TabDimmed]              = col_tab_dimmed;
-    colors[ImGuiCol_TabDimmedSelected]      = col_tab_dimmed_selected;
-    colors[ImGuiCol_TabDimmedSelectedOverline] = ImVec4(0,0,0,0);
+    colors[ImGuiCol_Tab]                    = ToImGuiColor(Settings->Tab);
+    colors[ImGuiCol_TabHovered]             = ToImGuiColor(Settings->TabHovered);
+    colors[ImGuiCol_TabSelected]            = ToImGuiColor(Settings->TabSelected);
+    colors[ImGuiCol_TabSelectedOverline]    = ToImGuiColor(Settings->TabSelectedOverline);
+    colors[ImGuiCol_TabDimmed]              = ToImGuiColor(Settings->TabDimmed);
+    colors[ImGuiCol_TabDimmedSelected]      = ToImGuiColor(Settings->TabDimmedSelected);
+    colors[ImGuiCol_TabDimmedSelectedOverline] = ToImGuiColor(Settings->TabDimmedSelectedOverline);
 
     // Docking
-    colors[ImGuiCol_DockingPreview]         = ImVec4(col_accent.x, col_accent.y, col_accent.z, 0.70f);
-    colors[ImGuiCol_DockingEmptyBg]         = SRGB(34,36,41);
+    colors[ImGuiCol_DockingPreview]         = ToImGuiColor(Settings->DockingPreview);
+    colors[ImGuiCol_DockingEmptyBg]         = ToImGuiColor(Settings->DockingEmptyBg);
 
     // Scrollbars
-    colors[ImGuiCol_ScrollbarBg]            = col_scrollbar_bg;
-    colors[ImGuiCol_ScrollbarGrab]          = col_scrollbar_grab;
-    colors[ImGuiCol_ScrollbarGrabHovered]   = col_scrollbar_hover;
-    colors[ImGuiCol_ScrollbarGrabActive]    = col_scrollbar_active;
+    colors[ImGuiCol_ScrollbarBg]            = ToImGuiColor(Settings->ScrollbarBg);
+    colors[ImGuiCol_ScrollbarGrab]          = ToImGuiColor(Settings->ScrollbarGrab);
+    colors[ImGuiCol_ScrollbarGrabHovered]   = ToImGuiColor(Settings->ScrollbarGrabHovered);
+    colors[ImGuiCol_ScrollbarGrabActive]    = ToImGuiColor(Settings->ScrollbarGrabActive);
 
     // Tables / plots
-    colors[ImGuiCol_TableHeaderBg]          = col_table_header_bg;
-    colors[ImGuiCol_TableBorderStrong]      = col_table_border_strong;
-    colors[ImGuiCol_TableBorderLight]       = col_table_border_light;
-    colors[ImGuiCol_TableRowBg]             = ImVec4(0,0,0,0);
-    colors[ImGuiCol_TableRowBgAlt]          = SRGB(255,255,255, 16/255.0f);
+    colors[ImGuiCol_TableHeaderBg]          = ToImGuiColor(Settings->TableHeaderBg);
+    colors[ImGuiCol_TableBorderStrong]      = ToImGuiColor(Settings->TableBorderStrong);
+    colors[ImGuiCol_TableBorderLight]       = ToImGuiColor(Settings->TableBorderLight);
+    colors[ImGuiCol_TableRowBg]             = ToImGuiColor(Settings->TableRowBg);
+    colors[ImGuiCol_TableRowBgAlt]          = ToImGuiColor(Settings->TableRowBgAlt);
 
-    colors[ImGuiCol_PlotLines]              = col_plot_lines;
-    colors[ImGuiCol_PlotLinesHovered]       = col_plot_lines_hover;
-    colors[ImGuiCol_PlotHistogram]          = col_plot_hist;
-    colors[ImGuiCol_PlotHistogramHovered]   = col_plot_hist_hover;
+    colors[ImGuiCol_PlotLines]              = ToImGuiColor(Settings->PlotLines);
+    colors[ImGuiCol_PlotLinesHovered]       = ToImGuiColor(Settings->PlotLinesHovered);
+    colors[ImGuiCol_PlotHistogram]          = ToImGuiColor(Settings->PlotHistogram);
+    colors[ImGuiCol_PlotHistogramHovered]   = ToImGuiColor(Settings->PlotHistogramHovered);
 
     // Links / selection / nav / modals
-    colors[ImGuiCol_TextLink]               = col_accent;
-    colors[ImGuiCol_TextSelectedBg]         = col_text_selected_bg;
-    colors[ImGuiCol_DragDropTarget]         = col_dragdrop_target;
-    colors[ImGuiCol_NavCursor]              = col_accent;
-    colors[ImGuiCol_NavWindowingHighlight]  = SRGB(255,255,255, 180/255.0f);
-    colors[ImGuiCol_NavWindowingDimBg]      = SRGB(0,0,0, 120/255.0f);
-    colors[ImGuiCol_ModalWindowDimBg]       = SRGB(0,0,0, 150/255.0f);
+    colors[ImGuiCol_TextLink]               = ToImGuiColor(Settings->TextLink);
+    colors[ImGuiCol_TextSelectedBg]         = ToImGuiColor(Settings->TextSelectedBg);
+    colors[ImGuiCol_DragDropTarget]         = ToImGuiColor(Settings->DragDropTarget);
+    colors[ImGuiCol_NavCursor]              = ToImGuiColor(Settings->NavCursor);
+    colors[ImGuiCol_NavWindowingHighlight]  = ToImGuiColor(Settings->NavWindowingHighlight);
+    colors[ImGuiCol_NavWindowingDimBg]      = ToImGuiColor(Settings->NavWindowingDimBg);
+    colors[ImGuiCol_ModalWindowDimBg]       = ToImGuiColor(Settings->ModalWindowDimBg);
 
-    colors[ImGuiCol_TitleBg]                = col_title_bg;
-    colors[ImGuiCol_TitleBgActive]          = col_title_bg_active;
-    colors[ImGuiCol_TitleBgCollapsed]       = col_title_bg_collapsed;
+    colors[ImGuiCol_TitleBg]                = ToImGuiColor(Settings->TitleBg);
+    colors[ImGuiCol_TitleBgActive]          = ToImGuiColor(Settings->TitleBgActive);
+    colors[ImGuiCol_TitleBgCollapsed]       = ToImGuiColor(Settings->TitleBgCollapsed);
+    colors[ImGuiCol_MenuBarBg]              = ToImGuiColor(Settings->MenuBarBg);
 
     // ---- Layout / metrics ----
     style.FramePadding            = ImVec2(8.0f, 5.0f);
@@ -350,16 +305,17 @@ void UImGuiToolkitSubsystem::OnEndFrame()
 void UImGuiToolkitSubsystem::ApplyStyleToCurrentContext()
 {
 	ImGuiContext* Context = ImGui::GetCurrentContext();
-	if (!Context || StyledContexts.Contains(Context))
+	if (!Context)
 	{
 		return;
 	}
 
+	const UImGuiToolkitSettings* Settings = GetDefault<UImGuiToolkitSettings>();
+	const float Scale = FMath::Clamp(Settings ? Settings->Scale : 1.0f, 0.25f, 4.0f);
+
 	ImGuiIO& IO = ImGui::GetIO();
-	IO.FontGlobalScale = CustomUIScale;
+	IO.FontGlobalScale = 1.0f;
 
 	SetImGuiToolkitStyle();
-	ImGui::GetStyle().ScaleAllSizes(CustomUIScale);
-
-	StyledContexts.Add(Context);
+	ImGui::GetStyle().ScaleAllSizes(Scale);
 }

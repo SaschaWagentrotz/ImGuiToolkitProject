@@ -6,7 +6,7 @@
 UENUM(BlueprintType)
 enum class EImGuiToolkitDir : uint8
 {
-	None    = -1,
+	None    = 255,
 	Left    = 0,
 	Right   = 1,
 	Up      = 2,
@@ -17,7 +17,7 @@ enum class EImGuiToolkitDir : uint8
 UENUM(BlueprintType)
 enum class EImGuiWindowFlag : uint8
 {
-	None						= -1			UMETA(DisplayName = "None"),
+	None						= 255			UMETA(DisplayName = "None"),
     NoTitleBar                  = 0				UMETA(DisplayName = "No Title Bar"),
     NoResize                    = 1				UMETA(DisplayName = "No Resize"),
     NoMove                      = 2				UMETA(DisplayName = "No Move"),

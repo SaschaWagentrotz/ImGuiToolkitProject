@@ -9,90 +9,6 @@
   <component name="ChangeListManager">
     <list default="true" id="b11a9176-28f3-41c8-9a32-4c393461f013" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ImGuiToolkitProject.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ImGuiToolkitProject.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultEditor.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEditor.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ImguiDemo/BP_ImGuiDemoSpawner.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ImguiDemo/BP_ImGui_Tester.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ImguiDemo/BP_ImGui_Tester.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ImguiDemo/EUB_ImGui.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ImguiDemo/EUB_ImGui.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ImguiDemo/EUW_ImGui_Host.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ImguiDemo/EUW_ImGui_Host.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Maps/Blank.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Blank.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/ImGuiToolkit.uplugin" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/ImGuiToolkit.uplugin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/ImGuiToolkit.Build.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/ImGuiToolkit.Build.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Containers/ImGuiToolkitBeginMenu.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Containers/ImGuiToolkitBeginMenu.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Containers/ImGuiToolkitBeginMenuBar.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Containers/ImGuiToolkitBeginMenuBar.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Containers/ImGuiToolkitBeginTabBar.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Containers/ImGuiToolkitBeginTabBar.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Containers/ImGuiToolkitCollapsingHeader.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Containers/ImGuiToolkitCollapsingHeader.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Containers/ImGuiToolkitTreeNode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Containers/ImGuiToolkitTreeNode.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Containers/ImGuiToolkitWindow.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Containers/ImGuiToolkitWindow.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/FImGuiToolkitUtils.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/FImGuiToolkitUtils.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/ImGuiToolkitContainer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/ImGuiToolkitContainer.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/ImGuiToolkitFunctionLibrary.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/ImGuiToolkitFunctionLibrary.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/ImGuiToolkitSubsystem.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/ImGuiToolkitSubsystem.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/Input/ImGuiToolkitInputText.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/Input/ImGuiToolkitInputText.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/Input/ImGuiToolkitInputTextMultiline.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/Input/ImGuiToolkitInputTextMultiline.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/MenuBar/ImGuiToolkitEndMenu.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/MenuBar/ImGuiToolkitEndMenu.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/MenuBar/ImGuiToolkitEndMenuBar.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/MenuBar/ImGuiToolkitEndMenuBar.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/TabBar/ImGuiToolkiBeginTabItem.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/TabBar/ImGuiToolkiBeginTabItem.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/TabBar/ImGuiToolkitEndTabBar.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/TabBar/ImGuiToolkitEndTabBar.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/TabBar/ImGuiToolkitEndTabItem.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/TabBar/ImGuiToolkitEndTabItem.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/FImGuiToolkitUtils.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/FImGuiToolkitUtils.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/ImGuiToolkitFunctionLibrary.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/ImGuiToolkitFunctionLibrary.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/ImGuiToolkitSubsystem.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/ImGuiToolkitSubsystem.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/Input/ImGuiToolkitInputText.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/Input/ImGuiToolkitInputText.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/Input/ImGuiToolkitInputTextMultiline.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/Input/ImGuiToolkitInputTextMultiline.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/TabBar/ImGuiToolkiBeginTabItem.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/TabBar/ImGuiToolkiBeginTabItem.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ImGui/ImGui.Build.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ImGui/Private/ImGuiConfig.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ImGui/Private/ImGuiContext.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ImGui/Private/ImGuiModule.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ImGui/Private/SImGuiOverlay.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ImGui/Public/ImGuiConfig.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ImGui/Public/ImGuiConfig.inl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ImGui/Public/ImGuiContext.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ImGui/Public/ImGuiModule.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ImGui/Public/SImGuiOverlay.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/ImGuiLibrary/ImGuiLibrary.Build.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/ImGuiLibrary/LICENSE.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/ImGuiLibrary/imconfig.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/ImGuiLibrary/imgui.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/ImGuiLibrary/imgui.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/ImGuiLibrary/imgui_demo.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/ImGuiLibrary/imgui_draw.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/ImGuiLibrary/imgui_internal.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/ImGuiLibrary/imgui_tables.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/ImGuiLibrary/imgui_widgets.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/ImGuiLibrary/imstb_rectpack.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/ImGuiLibrary/imstb_textedit.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/ImGuiLibrary/imstb_truetype.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/ImPlotLibrary/ImPlotLibrary.Build.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/ImPlotLibrary/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/ImPlotLibrary/implot.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/ImPlotLibrary/implot.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/ImPlotLibrary/implot_demo.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/ImPlotLibrary/implot_internal.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/ImPlotLibrary/implot_items.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/NetImGuiLibrary/LICENSE.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/NetImGuiLibrary/NetImGuiLibrary.Build.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/NetImGuiLibrary/NetImgui_Api.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/NetImGuiLibrary/NetImgui_Config.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/NetImGuiLibrary/Private/NetImgui_Api.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/NetImGuiLibrary/Private/NetImgui_Client.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/NetImGuiLibrary/Private/NetImgui_Client.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/NetImGuiLibrary/Private/NetImgui_Client.inl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/NetImGuiLibrary/Private/NetImgui_CmdPackets.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/NetImGuiLibrary/Private/NetImgui_CmdPackets.inl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/NetImGuiLibrary/Private/NetImgui_CmdPackets_DrawFrame.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/NetImGuiLibrary/Private/NetImgui_CmdPackets_DrawFrame.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/NetImGuiLibrary/Private/NetImgui_Network.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/NetImGuiLibrary/Private/NetImgui_NetworkPosix.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/NetImGuiLibrary/Private/NetImgui_NetworkUE4.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/NetImGuiLibrary/Private/NetImgui_NetworkWin32.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/NetImGuiLibrary/Private/NetImgui_Shared.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/NetImGuiLibrary/Private/NetImgui_Shared.inl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/NetImGuiLibrary/Private/NetImgui_WarningDisable.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/NetImGuiLibrary/Private/NetImgui_WarningDisableImgui.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/NetImGuiLibrary/Private/NetImgui_WarningDisableStd.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/NetImGuiLibrary/Private/NetImgui_WarningReenable.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/NetImGuiServer/Background.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,6 +17,10 @@
   </component>
   <component name="DpaMonitoringSettings">
     <option name="firstShow" value="false" />
+  </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="1" />
+    <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -237,7 +157,14 @@
     <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/ImGuiLibrary/imgui_internal.h" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ThirdParty/VesCodes/ThirdParty/ImGuiLibrary/imgui_widgets.cpp" root0="FORCE_HIGHLIGHTING" />
   </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="Toolset" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -249,8 +176,10 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
     &quot;Uproject.ImGuiToolkitProject.executor&quot;: &quot;Run&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -273,7 +202,7 @@
         <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
         <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../../../Shared/Epic Games/UE_5.7" />
         <option name="PASS_PARENT_ENVS" value="1" />
-        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="USE_EXTERNAL_CONSOLE" value="1" />
         <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
         <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/ImGuiToolkitProject.uproject" />
       </configuration_1>
@@ -286,7 +215,7 @@
         <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
         <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../../../Shared/Epic Games/UE_5.7" />
         <option name="PASS_PARENT_ENVS" value="1" />
-        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="USE_EXTERNAL_CONSOLE" value="1" />
         <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
         <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/ImGuiToolkitProject.uproject" />
       </configuration_2>
@@ -299,7 +228,7 @@
         <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
         <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../../../Shared/Epic Games/UE_5.7" />
         <option name="PASS_PARENT_ENVS" value="1" />
-        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="USE_EXTERNAL_CONSOLE" value="1" />
         <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
         <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/ImGuiToolkitProject.uproject" />
       </configuration_3>
@@ -312,7 +241,7 @@
         <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
         <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../../../Shared/Epic Games/UE_5.7" />
         <option name="PASS_PARENT_ENVS" value="1" />
-        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="USE_EXTERNAL_CONSOLE" value="1" />
         <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
         <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/ImGuiToolkitProject.uproject" />
       </configuration_4>
@@ -325,21 +254,13 @@
         <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
         <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../../../Shared/Epic Games/UE_5.7" />
         <option name="PASS_PARENT_ENVS" value="1" />
-        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="USE_EXTERNAL_CONSOLE" value="1" />
         <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
         <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/ImGuiToolkitProject.uproject" />
       </configuration_5>
       <option name="DEFAULT_PROJECT_PATH" value="$PROJECT_DIR$/ImGuiToolkitProject.uproject" />
       <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/ImGuiToolkitProject.uproject" />
       <option name="AUTO_SELECT_PRIORITY" value="10010" />
-      <method v="2">
-        <option name="Build" />
-      </method>
-    </configuration>
-    <configuration default="true" type="Uproject" factoryName="rider.uproject">
-      <option name="DEFAULT_PROJECT_PATH" value="" />
-      <option name="PROJECT_FILE_PATH" value="" />
-      <option name="AUTO_SELECT_PRIORITY" value="0" />
       <method v="2">
         <option name="Build" />
       </method>
@@ -361,6 +282,8 @@
       <workItem from="1781507873200" duration="55000" />
       <workItem from="1781507938622" duration="9931000" />
       <workItem from="1781554320458" duration="3616000" />
+      <workItem from="1781613010623" duration="17000" />
+      <workItem from="1781613806598" duration="4000" />
     </task>
     <servers />
   </component>

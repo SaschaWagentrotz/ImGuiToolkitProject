@@ -64,6 +64,7 @@ private:
 	void Initialize();
 
 	void OnDisplayMetricsChanged(const FDisplayMetrics& DisplayMetrics);
+	void UpdateConfiguredFontAtlas();
 
 	ImGuiContext* Context = nullptr;
 
@@ -74,6 +75,7 @@ private:
 	char IniFilenameUtf8[1024] = {};
 	char LogFilenameUtf8[1024] = {};
 	TArray<char> ClipboardBuffer;
+	float ConfiguredFontScale = -1.0f;
 
 #if WITH_NETIMGUI
 	bool bIsRemote = false;

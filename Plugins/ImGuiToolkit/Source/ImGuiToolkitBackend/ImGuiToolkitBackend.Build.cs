@@ -12,6 +12,8 @@ public class ImGuiToolkitBackend : ModuleRules
 		PublicDependencyModuleNames.AddRange(new[]
 		{
 			"Core",
+			"CoreUObject",
+			"DeveloperSettings",
 			"ImGuiLibrary",
 		});
 
@@ -27,7 +29,6 @@ public class ImGuiToolkitBackend : ModuleRules
 		{
 			PrivateDependencyModuleNames.AddRange(new[]
 			{
-				"CoreUObject",
 				"Engine"
 			});
 		}
