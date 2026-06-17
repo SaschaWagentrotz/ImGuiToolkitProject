@@ -55,6 +55,13 @@ void UImGuiToolkitHostWidget::ReleaseSlateResources(bool bReleaseChildren)
 	Context.Reset();
 }
 
+void UImGuiToolkitHostWidget::BeginDestroy()
+{
+	UnregisterHost();
+
+	Super::BeginDestroy();
+}
+
 UImGuiToolkitWindow* UImGuiToolkitHostWidget::GetHostedWindow()
 {
 	return HostedWindow;

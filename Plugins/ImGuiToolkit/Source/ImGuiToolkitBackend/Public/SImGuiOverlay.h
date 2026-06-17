@@ -66,7 +66,6 @@ public:
 private:
 	TSharedPtr<SWindow> GetOwnerWindow() const;
 	bool IsSlateWindowOwnedByContext(const TSharedPtr<SWindow>& Window) const;
-	bool IsPointerBlockedBySlateWindow(FSlateApplication& SlateApp, const FPointerEvent& Event) const;
 	void ClearPointerInput() const;
 
 	TSharedPtr<FImGuiContext> Context = nullptr;

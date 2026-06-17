@@ -29,6 +29,7 @@ public:
 	void RenderHost();
 
 	virtual void ReleaseSlateResources(bool bReleaseChildren) override;
+	virtual void BeginDestroy() override;
 
 #if WITH_EDITOR
 	virtual const FText GetPaletteCategory() override;

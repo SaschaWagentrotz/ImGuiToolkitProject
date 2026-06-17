@@ -289,8 +289,9 @@ void UImGuiToolkitSubsystem::UnregisterHostWidget(UImGuiToolkitHostWidget* HostW
 
 	if (HostedWindow && !IsWindowHostedByRegisteredHost(HostedWindow))
 	{
+		RemoveWindowReferences(HostedWindow);
 		HostedWindow->bIsHosted = false;
-		RemovePendingDockRequestsForHost(HostedWindow);
+		HostedWindow->bIsOpen = false;
 	}
 }
 

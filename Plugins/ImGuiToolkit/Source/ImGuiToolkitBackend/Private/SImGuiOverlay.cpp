@@ -293,7 +293,7 @@ public:
 
 		IO.AddMousePosEvent(Position.X, Position.Y);
 
-		return false;
+		return IO.WantCaptureMouse;
 	}
 
 	virtual bool HandleMouseButtonDownEvent(FSlateApplication& SlateApp, const FPointerEvent& Event) override
@@ -321,7 +321,7 @@ public:
 			IO.AddMouseButtonEvent(ImGuiMouseButton_Middle, true);
 		}
 
-		return false;
+		return IO.WantCaptureMouse;
 	}
 
 	virtual bool HandleMouseButtonUpEvent(FSlateApplication& SlateApp, const FPointerEvent& Event) override
@@ -371,7 +371,7 @@ public:
 
 		IO.AddMouseWheelEvent(0.0f, Event.GetWheelDelta());
 
-		return false;
+		return IO.WantCaptureMouse;
 	}
 
 	bool HandleTextEditShortcutFallback(ImGuiIO& IO, const FKey& Key, const FModifierKeysState& ModifierKeys) const
@@ -686,12 +686,6 @@ bool SImGuiOverlay::CanProcessKeyboardInput(FSlateApplication& SlateApp) const
 		return false;
 	}
 
-	if (SlateApp.AnyMenusVisible())
-	{
-		ClearPointerInput();
-		return false;
-	}
-
 	return IsSlateWindowOwnedByContext(SlateApp.GetActiveTopLevelWindow());
 }
 
@@ -723,10 +717,20 @@ bool SImGuiOverlay::CanProcessPointerEvent(FSlateApplication& SlateApp, const FP
 		return false;
 	}
 
-	if (IsPointerBlockedBySlateWindow(SlateApp, Event))
+	const FWidgetPath WidgetsUnderCursor = SlateApp.LocateWindowUnderMouse(
+		Event.GetScreenSpacePosition(),
+		SlateApp.GetInteractiveTopLevelWindows()
+	);
+
+	if (WidgetsUnderCursor.IsValid())
 	{
-		ClearPointerInput();
-		return false;
+		const bool bIsOwnedWindow = IsSlateWindowOwnedByContext(WidgetsUnderCursor.GetWindow().ToSharedPtr());
+		if (!bIsOwnedWindow)
+		{
+			ClearPointerInput();
+		}
+
+		return bIsOwnedWindow;
 	}
 
 	return IsSlateWindowOwnedByContext(SlateApp.GetActiveTopLevelWindow());
@@ -740,10 +744,13 @@ bool SImGuiOverlay::WasRecentlyPainted() const
 TSharedPtr<SWindow> SImGuiOverlay::GetOwnerWindow() const
 {
 	TSharedPtr<SWindow> Window = OwnerWindow.Pin();
-	if (!Window.IsValid() && FSlateApplication::IsInitialized())
+	if (FSlateApplication::IsInitialized())
 	{
-		Window = FSlateApplication::Get().FindWidgetWindow(AsShared());
-		OwnerWindow = Window;
+		if (const TSharedPtr<SWindow> CurrentWidgetWindow = FSlateApplication::Get().FindWidgetWindow(AsShared()))
+		{
+			Window = CurrentWidgetWindow;
+			OwnerWindow = Window;
+		}
 	}
 
 	return Window;
@@ -780,19 +787,4 @@ bool SImGuiOverlay::IsSlateWindowOwnedByContext(const TSharedPtr<SWindow>& Windo
 	}
 
 	return false;
-}
-
-bool SImGuiOverlay::IsPointerBlockedBySlateWindow(FSlateApplication& SlateApp, const FPointerEvent& Event) const
-{
-	if (IsSlateWindowOwnedByContext(SlateApp.GetActiveTopLevelWindow()))
-	{
-		return false;
-	}
-
-	const FWidgetPath WidgetsUnderCursor = SlateApp.LocateWindowUnderMouse(
-		Event.GetScreenSpacePosition(),
-		SlateApp.GetInteractiveTopLevelWindows()
-	);
-
-	return WidgetsUnderCursor.IsValid() && !IsSlateWindowOwnedByContext(WidgetsUnderCursor.GetWindow().ToSharedPtr());
 }
