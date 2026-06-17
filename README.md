@@ -52,7 +52,7 @@ It provides seamless integration between Unreal and Dear ImGui through easily bi
 - [x] Text Colored
 - [x] Text Disabled
 - [x] Text Wrapped
-- [x] Text Link Open URL (gets displayed as a link, but doesnt open the browser)
+- [x] Text Link Open URL
 
 ### Main
 
@@ -97,15 +97,24 @@ It provides seamless integration between Unreal and Dear ImGui through easily bi
 
 ### Selectables
 
-- [ ] Selectable
+- [x] Selectable
 - [ ] Multi Selectable
+
+### Settings / Backend
+
+- [x] Plugin settings
+- [x] Runtime and editor-hosted style settings
+- [x] Docking support
+- [x] ImPlot backend context support
+- [x] NetImgui backend integration
 
 ## Other TODOs
 
-- [ ] ImGui windows should not always be rendered on top of Slate windows
-- [ ] ImGui windows behind slate windows should not "steal" input
-- [ ] Get copy+paste to work (InputText and others)
-- [ ] Finish the ImGui Host EditorUtility Widget (ImGui window should also only be rendered when the host window is visible)
+- [x] ImGui windows should not always be rendered on top of Slate windows
+- [x] ImGui windows behind slate windows should not "steal" input
+- [x] Get copy+paste to work for InputText / InputTextMultiline
+- [x] Finish the ImGui Host EditorUtility Widget visibility behavior
 - [ ] Create useful real-world examples (one runtime and one editor tool)
-- [ ] Add ImPlot support (with example)
-- [ ] Add PluginSettings and expose properties like "Scale" and maybe even some style settings
+- [ ] Add Blueprint-friendly ImPlot wrappers and an example
+- [ ] Add Blueprint-friendly table wrappers
+- [ ] Add Blueprint-friendly color editor/picker wrappers

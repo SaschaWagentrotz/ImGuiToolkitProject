@@ -258,7 +258,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
 	static UImGuiToolkitBullet* CreateImGuiBullet(UObject* WorldContextObject, UImGuiToolkitContainer* Container = nullptr);
 
-	// Create a Text Link Open URL. TODO: This displays as a link, but clicking it does not open the browser. Needs investigation.
+	// Create a Text Link Open URL.
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
 	static UImGuiToolkitTextLinkOpenURL* CreateTextLinkOpenURL(UObject* WorldContextObject, FText Text, FString URL, UImGuiToolkitContainer* Container = nullptr);
 

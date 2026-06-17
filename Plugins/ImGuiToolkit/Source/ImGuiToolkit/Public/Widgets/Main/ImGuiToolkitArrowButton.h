@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "FImGuiToolkitUtils.h"
-#include "Containers/ImGuiToolkitWindow.h"
+#include "ImGuiToolkitWidget.h"
 #include "ImGuiToolkitArrowButton.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnImGuiArrowButtonClicked, UImGuiToolkitArrowButton*, ArrowButton);
@@ -13,11 +13,13 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnImGuiArrowButtonHovered, UImGuiTo
  * 
  */
 UCLASS()
-class IMGUITOOLKIT_API UImGuiToolkitArrowButton : public UImGuiToolkitWindow
+class IMGUITOOLKIT_API UImGuiToolkitArrowButton : public UImGuiToolkitWidget
 {
 	GENERATED_BODY()
 
 public:
+	UImGuiToolkitArrowButton();
+
 	virtual void Render() override;
 
 	UPROPERTY(BlueprintReadWrite, Category = "ImGui Toolkit Widget")

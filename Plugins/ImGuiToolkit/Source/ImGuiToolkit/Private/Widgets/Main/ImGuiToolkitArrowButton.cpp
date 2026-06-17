@@ -3,6 +3,11 @@
 
 #include "Widgets/Main/ImGuiToolkitArrowButton.h"
 
+UImGuiToolkitArrowButton::UImGuiToolkitArrowButton()
+{
+	CreateUniqueWidgetLabel(FText::FromString(TEXT("ArrowButton")));
+}
+
 void UImGuiToolkitArrowButton::Render()
 {
 	if (!bEnabled)
