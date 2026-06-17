@@ -21,6 +21,75 @@ public:
 	UPROPERTY(EditAnywhere, Category = "General", meta = (ClampMin = "0.25", ClampMax = "4.0", UIMin = "0.25", UIMax = "4.0"))
 	float Scale = 2.0f;
 
+	UPROPERTY(EditAnywhere, Category = "Fonts", meta = (ClampMin = "1.0", UIMin = "8.0", UIMax = "32.0"))
+	float FontSize = 16.0f;
+
+	UPROPERTY(EditAnywhere, Category = "Fonts", meta = (FilePathFilter = "TrueType/OpenType Font (*.ttf;*.otf)|*.ttf;*.otf"))
+	FString FontPath;
+
+	UPROPERTY(EditAnywhere, Category = "Layout")
+	FVector2D FramePadding = FVector2D(8.0f, 5.0f);
+
+	UPROPERTY(EditAnywhere, Category = "Layout")
+	FVector2D ItemSpacing = FVector2D(8.0f, 6.0f);
+
+	UPROPERTY(EditAnywhere, Category = "Layout")
+	FVector2D ItemInnerSpacing = FVector2D(6.0f, 5.0f);
+
+	UPROPERTY(EditAnywhere, Category = "Layout")
+	FVector2D CellPadding = FVector2D(6.0f, 4.0f);
+
+	UPROPERTY(EditAnywhere, Category = "Layout", meta = (ClampMin = "1.0", UIMin = "4.0", UIMax = "32.0"))
+	float ScrollbarSize = 14.0f;
+
+	UPROPERTY(EditAnywhere, Category = "Layout", meta = (ClampMin = "1.0", UIMin = "4.0", UIMax = "32.0"))
+	float GrabMinSize = 10.0f;
+
+	UPROPERTY(EditAnywhere, Category = "Layout")
+	FVector2D SeparatorTextPadding = FVector2D(18.0f, 3.0f);
+
+	UPROPERTY(EditAnywhere, Category = "Rounding", meta = (ClampMin = "0.0", UIMin = "0.0", UIMax = "16.0"))
+	float WindowRounding = 3.0f;
+
+	UPROPERTY(EditAnywhere, Category = "Rounding", meta = (ClampMin = "0.0", UIMin = "0.0", UIMax = "16.0"))
+	float ChildRounding = 3.0f;
+
+	UPROPERTY(EditAnywhere, Category = "Rounding", meta = (ClampMin = "0.0", UIMin = "0.0", UIMax = "16.0"))
+	float FrameRounding = 3.0f;
+
+	UPROPERTY(EditAnywhere, Category = "Rounding", meta = (ClampMin = "0.0", UIMin = "0.0", UIMax = "16.0"))
+	float PopupRounding = 3.0f;
+
+	UPROPERTY(EditAnywhere, Category = "Rounding", meta = (ClampMin = "0.0", UIMin = "0.0", UIMax = "16.0"))
+	float ScrollbarRounding = 3.0f;
+
+	UPROPERTY(EditAnywhere, Category = "Rounding", meta = (ClampMin = "0.0", UIMin = "0.0", UIMax = "16.0"))
+	float GrabRounding = 3.0f;
+
+	UPROPERTY(EditAnywhere, Category = "Rounding", meta = (ClampMin = "0.0", UIMin = "0.0", UIMax = "16.0"))
+	float TabRounding = 3.0f;
+
+	UPROPERTY(EditAnywhere, Category = "Borders", meta = (ClampMin = "0.0", UIMin = "0.0", UIMax = "8.0"))
+	float WindowBorderSize = 1.0f;
+
+	UPROPERTY(EditAnywhere, Category = "Borders", meta = (ClampMin = "0.0", UIMin = "0.0", UIMax = "8.0"))
+	float ChildBorderSize = 1.0f;
+
+	UPROPERTY(EditAnywhere, Category = "Borders", meta = (ClampMin = "0.0", UIMin = "0.0", UIMax = "8.0"))
+	float PopupBorderSize = 1.0f;
+
+	UPROPERTY(EditAnywhere, Category = "Borders", meta = (ClampMin = "0.0", UIMin = "0.0", UIMax = "8.0"))
+	float FrameBorderSize = 1.0f;
+
+	UPROPERTY(EditAnywhere, Category = "Borders", meta = (ClampMin = "0.0", UIMin = "0.0", UIMax = "8.0"))
+	float TabBorderSize = 1.0f;
+
+	UPROPERTY(EditAnywhere, Category = "Borders", meta = (ClampMin = "0.0", UIMin = "0.0", UIMax = "8.0"))
+	float TabBarBorderSize = 1.0f;
+
+	UPROPERTY(EditAnywhere, Category = "Borders", meta = (ClampMin = "0.0", UIMin = "0.0", UIMax = "8.0"))
+	float TabBarOverlineSize = 2.0f;
+
 	UPROPERTY(EditAnywhere, Category = "Colors|Text")
 	FLinearColor Text = FLinearColor::FromSRGBColor(FColor(230, 230, 230));
 

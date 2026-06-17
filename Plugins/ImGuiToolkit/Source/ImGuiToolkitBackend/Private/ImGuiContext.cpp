@@ -31,12 +31,24 @@ THIRD_PARTY_INCLUDES_END
 
 namespace
 {
-	constexpr float DefaultImGuiFontSize = 16.0f;
+	constexpr float MinImGuiFontSize = 1.0f;
 
-	float GetConfiguredImGuiScale(EImGuiToolkitStyleTarget StyleTarget)
+	const FImGuiToolkitStyleSettings& GetConfiguredStyleSettings(EImGuiToolkitStyleTarget StyleTarget)
 	{
+		static const FImGuiToolkitStyleSettings DefaultStyleSettings;
 		const UImGuiToolkitSettings* Settings = GetDefault<UImGuiToolkitSettings>();
-		return Settings ? Settings->GetScaleForTarget(StyleTarget) : 1.0f;
+		return Settings ? Settings->GetStyleSettingsForTarget(StyleTarget) : DefaultStyleSettings;
+	}
+
+	FString ResolveConfiguredFontPath(const FString& ConfiguredFontPath)
+	{
+		FString FontPath = ConfiguredFontPath.TrimStartAndEnd();
+		if (FontPath.IsEmpty())
+		{
+			return FPaths::EngineContentDir() / TEXT("Slate/Fonts/Roboto-Regular.ttf");
+		}
+
+		return FPaths::IsRelative(FontPath) ? FPaths::ConvertRelativePathToFull(FPaths::ProjectDir(), FontPath) : FontPath;
 	}
 }
 
@@ -637,16 +649,20 @@ void FImGuiContext::BeginFrame()
 void FImGuiContext::UpdateConfiguredFontAtlas()
 {
 	ImGuiIO& IO = ImGui::GetIO();
-	const float Scale = GetConfiguredImGuiScale(StyleTarget);
-	if (FMath::IsNearlyEqual(ConfiguredFontScale, Scale))
+	const FImGuiToolkitStyleSettings& StyleSettings = GetConfiguredStyleSettings(StyleTarget);
+	const float Scale = FMath::Clamp(StyleSettings.Scale, 0.25f, 4.0f);
+	const float BaseFontSize = FMath::Max(StyleSettings.FontSize, MinImGuiFontSize);
+	const FString FontPath = ResolveConfiguredFontPath(StyleSettings.FontPath);
+	if (FMath::IsNearlyEqual(ConfiguredFontScale, Scale)
+		&& FMath::IsNearlyEqual(ConfiguredFontSize, BaseFontSize)
+		&& ConfiguredFontPath == FontPath)
 	{
 		return;
 	}
 
 	IO.Fonts->Clear();
 
-	const float FontSize = DefaultImGuiFontSize * Scale;
-	const FString FontPath = FPaths::EngineContentDir() / TEXT("Slate/Fonts/Roboto-Regular.ttf");
+	const float FontSize = BaseFontSize * Scale;
 	if (FPaths::FileExists(*FontPath))
 	{
 		IO.Fonts->AddFontFromFileTTF(TCHAR_TO_UTF8(*FontPath), FontSize);
@@ -662,6 +678,8 @@ void FImGuiContext::UpdateConfiguredFontAtlas()
 	IO.FontGlobalScale = 1.0f;
 	FontAtlasTexturePtr.Reset();
 	ConfiguredFontScale = Scale;
+	ConfiguredFontSize = BaseFontSize;
+	ConfiguredFontPath = FontPath;
 }
 
 void FImGuiContext::EndFrame()

@@ -108,6 +108,11 @@ static inline ImVec4 ToImGuiColor(const FLinearColor& Color)
 	);
 }
 
+static inline ImVec2 ToImGuiVec2(const FVector2D& Vector)
+{
+	return ImVec2(Vector.X, Vector.Y);
+}
+
 void UImGuiToolkitSubsystem::SetImGuiToolkitStyle(const FImGuiToolkitStyleSettings& StyleSettings)
 {
 	ImGuiStyle& style = ImGui::GetStyle();
@@ -199,36 +204,36 @@ void UImGuiToolkitSubsystem::SetImGuiToolkitStyle(const FImGuiToolkitStyleSettin
     colors[ImGuiCol_MenuBarBg]              = ToImGuiColor(StyleSettings.MenuBarBg);
 
     // ---- Layout / metrics ----
-    style.FramePadding            = ImVec2(8.0f, 5.0f);
-    style.ItemSpacing             = ImVec2(8.0f, 6.0f);
-    style.ItemInnerSpacing        = ImVec2(6.0f, 5.0f);
-    style.CellPadding             = ImVec2(6.0f, 4.0f);
+    style.FramePadding            = ToImGuiVec2(StyleSettings.FramePadding);
+    style.ItemSpacing             = ToImGuiVec2(StyleSettings.ItemSpacing);
+    style.ItemInnerSpacing        = ToImGuiVec2(StyleSettings.ItemInnerSpacing);
+    style.CellPadding             = ToImGuiVec2(StyleSettings.CellPadding);
 
-    style.ScrollbarSize           = 14.0f;
-    style.GrabMinSize             = 10.0f;
+    style.ScrollbarSize           = StyleSettings.ScrollbarSize;
+    style.GrabMinSize             = StyleSettings.GrabMinSize;
 
-    style.WindowRounding          = 3.0f;
-    style.ChildRounding           = 3.0f;
-    style.FrameRounding           = 3.0f;
-    style.PopupRounding           = 3.0f;
-    style.ScrollbarRounding       = 3.0f;
-    style.GrabRounding            = 3.0f;
-    style.TabRounding             = 3.0f;
+    style.WindowRounding          = StyleSettings.WindowRounding;
+    style.ChildRounding           = StyleSettings.ChildRounding;
+    style.FrameRounding           = StyleSettings.FrameRounding;
+    style.PopupRounding           = StyleSettings.PopupRounding;
+    style.ScrollbarRounding       = StyleSettings.ScrollbarRounding;
+    style.GrabRounding            = StyleSettings.GrabRounding;
+    style.TabRounding             = StyleSettings.TabRounding;
 
-    style.WindowBorderSize        = 1.0f;
-    style.ChildBorderSize         = 1.0f;
-    style.PopupBorderSize         = 1.0f;
-    style.FrameBorderSize         = 1.0f;
-    style.TabBorderSize           = 1.0f;
+    style.WindowBorderSize        = StyleSettings.WindowBorderSize;
+    style.ChildBorderSize         = StyleSettings.ChildBorderSize;
+    style.PopupBorderSize         = StyleSettings.PopupBorderSize;
+    style.FrameBorderSize         = StyleSettings.FrameBorderSize;
+    style.TabBorderSize           = StyleSettings.TabBorderSize;
 
     style.WindowTitleAlign        = ImVec2(0.0f, 0.5f);
     style.ColorButtonPosition     = ImGuiDir_Right;
     style.ButtonTextAlign         = ImVec2(0.5f, 0.5f);
     style.SelectableTextAlign     = ImVec2(0.0f, 0.5f);
 
-    style.TabBarBorderSize        = 1.0f;
-    style.TabBarOverlineSize      = 2.0f;
-    style.SeparatorTextPadding    = ImVec2(18.0f, 3.0f);
+    style.TabBarBorderSize        = StyleSettings.TabBarBorderSize;
+    style.TabBarOverlineSize      = StyleSettings.TabBarOverlineSize;
+    style.SeparatorTextPadding    = ToImGuiVec2(StyleSettings.SeparatorTextPadding);
 }
 
 void UImGuiToolkitSubsystem::SetShowImGuiDemoWindow(bool bNewShow)

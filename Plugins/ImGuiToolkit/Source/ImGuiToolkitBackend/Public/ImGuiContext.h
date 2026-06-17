@@ -81,6 +81,8 @@ private:
 	TArray<char> ClipboardBuffer;
 	EImGuiToolkitStyleTarget StyleTarget = EImGuiToolkitStyleTarget::Runtime;
 	float ConfiguredFontScale = -1.0f;
+	float ConfiguredFontSize = -1.0f;
+	FString ConfiguredFontPath;
 
 #if WITH_NETIMGUI
 	bool bIsRemote = false;
