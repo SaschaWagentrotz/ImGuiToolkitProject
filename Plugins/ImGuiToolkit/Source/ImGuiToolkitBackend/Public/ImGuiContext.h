@@ -83,6 +83,7 @@ private:
 	float ConfiguredFontScale = -1.0f;
 	float ConfiguredFontSize = -1.0f;
 	FString ConfiguredFontPath;
+	TArray<uint8> ConfiguredFontData;
 
 #if WITH_NETIMGUI
 	bool bIsRemote = false;

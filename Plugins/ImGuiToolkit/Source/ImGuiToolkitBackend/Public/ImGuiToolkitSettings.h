@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/DeveloperSettings.h"
+#include "UObject/SoftObjectPath.h"
 #include "ImGuiToolkitSettings.generated.h"
 
 enum class EImGuiToolkitStyleTarget : uint8
@@ -24,8 +25,8 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Fonts", meta = (ClampMin = "1.0", UIMin = "8.0", UIMax = "32.0"))
 	float FontSize = 16.0f;
 
-	UPROPERTY(EditAnywhere, Category = "Fonts", meta = (FilePathFilter = "TrueType/OpenType Font (*.ttf;*.otf)|*.ttf;*.otf"))
-	FString FontPath;
+	UPROPERTY(EditAnywhere, Category = "Fonts", meta = (AllowedClasses = "/Script/Engine.FontFace", DisplayName = "Font File Override"))
+	FSoftObjectPath FontFileOverride;
 
 	UPROPERTY(EditAnywhere, Category = "Layout")
 	FVector2D FramePadding = FVector2D(8.0f, 5.0f);

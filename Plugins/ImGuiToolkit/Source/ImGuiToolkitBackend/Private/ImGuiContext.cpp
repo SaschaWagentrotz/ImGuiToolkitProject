@@ -11,6 +11,7 @@
 #include <Widgets/SWindow.h>
 
 #if WITH_ENGINE
+#include <Engine/FontFace.h>
 #include <ImageUtils.h>
 #endif
 
@@ -40,9 +41,9 @@ namespace
 		return Settings ? Settings->GetStyleSettingsForTarget(StyleTarget) : DefaultStyleSettings;
 	}
 
-	FString ResolveConfiguredFontPath(const FString& ConfiguredFontPath)
+	FString ResolveFontFilePath(const FString& FontFilename)
 	{
-		FString FontPath = ConfiguredFontPath.TrimStartAndEnd();
+		FString FontPath = FontFilename.TrimStartAndEnd();
 		if (FontPath.IsEmpty())
 		{
 			return FPaths::EngineContentDir() / TEXT("Slate/Fonts/Roboto-Regular.ttf");
@@ -50,6 +51,38 @@ namespace
 
 		return FPaths::IsRelative(FontPath) ? FPaths::ConvertRelativePathToFull(FPaths::ProjectDir(), FontPath) : FontPath;
 	}
+
+#if WITH_ENGINE
+	void CopyFontFaceData(const FFontFaceDataConstPtr& FontFaceData, TArray<uint8>& OutFontData)
+	{
+		OutFontData.Reset();
+		if (FontFaceData.IsValid() && FontFaceData->HasData())
+		{
+			OutFontData = FontFaceData->GetData();
+		}
+	}
+
+	bool ResolveConfiguredFontFileOverride(const FSoftObjectPath& FontFileOverride, TArray<uint8>& OutFontData, FString& OutFontPath)
+	{
+		OutFontData.Reset();
+		OutFontPath.Reset();
+
+		if (FontFileOverride.IsNull())
+		{
+			return false;
+		}
+
+		UObject* FontObject = FontFileOverride.TryLoad();
+		if (const UFontFace* FontFace = Cast<UFontFace>(FontObject))
+		{
+			CopyFontFaceData(FontFace->GetFontFaceData(), OutFontData);
+			OutFontPath = ResolveFontFilePath(FontFace->GetFontFilename());
+			return OutFontData.Num() > 0 || !OutFontPath.IsEmpty();
+		}
+
+		return false;
+	}
+#endif
 }
 
 FImGuiViewportData* FImGuiViewportData::GetOrCreate(ImGuiViewport* Viewport)
@@ -652,10 +685,10 @@ void FImGuiContext::UpdateConfiguredFontAtlas()
 	const FImGuiToolkitStyleSettings& StyleSettings = GetConfiguredStyleSettings(StyleTarget);
 	const float Scale = FMath::Clamp(StyleSettings.Scale, 0.25f, 4.0f);
 	const float BaseFontSize = FMath::Max(StyleSettings.FontSize, MinImGuiFontSize);
-	const FString FontPath = ResolveConfiguredFontPath(StyleSettings.FontPath);
+	const FString FontFileOverridePath = StyleSettings.FontFileOverride.ToString();
 	if (FMath::IsNearlyEqual(ConfiguredFontScale, Scale)
 		&& FMath::IsNearlyEqual(ConfiguredFontSize, BaseFontSize)
-		&& ConfiguredFontPath == FontPath)
+		&& ConfiguredFontPath == FontFileOverridePath)
 	{
 		return;
 	}
@@ -663,15 +696,35 @@ void FImGuiContext::UpdateConfiguredFontAtlas()
 	IO.Fonts->Clear();
 
 	const float FontSize = BaseFontSize * Scale;
-	if (FPaths::FileExists(*FontPath))
+	TArray<uint8> FontData;
+	FString FontPath;
+#if WITH_ENGINE
+	ResolveConfiguredFontFileOverride(StyleSettings.FontFileOverride, FontData, FontPath);
+#endif
+
+	if (FontData.Num() > 0)
 	{
-		IO.Fonts->AddFontFromFileTTF(TCHAR_TO_UTF8(*FontPath), FontSize);
+		ConfiguredFontData = MoveTemp(FontData);
+
+		ImFontConfig FontConfig;
+		FontConfig.FontDataOwnedByAtlas = false;
+		IO.Fonts->AddFontFromMemoryTTF(ConfiguredFontData.GetData(), ConfiguredFontData.Num(), FontSize, &FontConfig);
 	}
 	else
 	{
-		ImFontConfig FontConfig;
-		FontConfig.SizePixels = FontSize;
-		IO.Fonts->AddFontDefault(&FontConfig);
+		const FString FontPathToLoad = FontPath.IsEmpty() ? ResolveFontFilePath(FString()) : FontPath;
+		if (FPaths::FileExists(*FontPathToLoad))
+		{
+			ConfiguredFontData.Reset();
+			IO.Fonts->AddFontFromFileTTF(TCHAR_TO_UTF8(*FontPathToLoad), FontSize);
+		}
+		else
+		{
+			ConfiguredFontData.Reset();
+			ImFontConfig FontConfig;
+			FontConfig.SizePixels = FontSize;
+			IO.Fonts->AddFontDefault(&FontConfig);
+		}
 	}
 
 	IO.FontDefault = nullptr;
@@ -679,7 +732,7 @@ void FImGuiContext::UpdateConfiguredFontAtlas()
 	FontAtlasTexturePtr.Reset();
 	ConfiguredFontScale = Scale;
 	ConfiguredFontSize = BaseFontSize;
-	ConfiguredFontPath = FontPath;
+	ConfiguredFontPath = FontFileOverridePath;
 }
 
 void FImGuiContext::EndFrame()
