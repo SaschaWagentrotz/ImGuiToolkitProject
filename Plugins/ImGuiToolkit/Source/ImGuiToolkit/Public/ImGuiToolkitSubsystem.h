@@ -55,8 +55,7 @@ private:
 	};
 
 	bool OnTick(float DeltaTime);
-	void OnEndFrame();
-	bool ApplyDockRequest(const FPendingDockRequest& Request);
+	bool ApplyDockRequest(const FPendingDockRequest& Request, bool bHostedDocking = false);
 	bool IsWindowHostedByRegisteredHost(UImGuiToolkitWindow* Window) const;
 	bool IsRenderedByHostDocking(UImGuiToolkitWindow* Window) const;
 	void RegisterHostedDockRequest(const FPendingDockRequest& Request);
@@ -65,7 +64,6 @@ private:
 	void RemoveWindowReferences(UImGuiToolkitWindow* Window);
 
 	FTSTicker::FDelegateHandle TickHandle;
-	FDelegateHandle EndFrameHandle;
 
 	bool bShowDemoWindow = false;
 

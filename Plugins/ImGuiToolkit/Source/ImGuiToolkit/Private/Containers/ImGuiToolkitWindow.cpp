@@ -14,6 +14,8 @@ void UImGuiToolkitWindow::Render()
 	if (!bIsOpen)
 		return;
 
+	const bool bRenderHosted = bIsHosted || bRenderAsHostedWindow;
+
 	if (!bSuppressNextWindowPlacement && bIsHosted)
 	{
 		ImGui::SetNextWindowSize(ImVec2(HostSize.X, HostSize.Y), true);
@@ -25,10 +27,15 @@ void UImGuiToolkitWindow::Render()
 		ImGui::SetNextWindowPos(ImVec2(InitialPosition.X, InitialPosition.Y), ImGuiCond_FirstUseEver);
 	}
 
-	int ImGuiWindowFlags = FImGuiToolkitUtils::CombineImGuiWindowFlags(WindowFlags);
+	ImGuiWindowFlags CombinedWindowFlags = FImGuiToolkitUtils::CombineImGuiWindowFlags(WindowFlags);
+	if (bRenderHosted)
+	{
+		CombinedWindowFlags |= ImGuiWindowFlags_NoResize;
+	}
+
 	bool* OpenPtr = bIsHosted ? nullptr : &bIsOpen;
 	
-	if (ImGui::Begin(TCHAR_TO_UTF8(*UniqueWidgetLabel), OpenPtr, ImGuiWindowFlags))
+	if (ImGui::Begin(TCHAR_TO_UTF8(*UniqueWidgetLabel), OpenPtr, CombinedWindowFlags))
 	{
 		for (UImGuiToolkitWidget* Widget : Widgets)
 		{
@@ -44,7 +51,10 @@ void UImGuiToolkitWindow::Render()
 void UImGuiToolkitWindow::RenderWithHostDockingPlacement()
 {
 	const bool bWasSuppressingPlacement = bSuppressNextWindowPlacement;
+	const bool bWasRenderingAsHostedWindow = bRenderAsHostedWindow;
 	bSuppressNextWindowPlacement = true;
+	bRenderAsHostedWindow = true;
 	Render();
+	bRenderAsHostedWindow = bWasRenderingAsHostedWindow;
 	bSuppressNextWindowPlacement = bWasSuppressingPlacement;
 }

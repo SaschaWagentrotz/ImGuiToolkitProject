@@ -14,6 +14,25 @@
 #include <Widgets/SNullWidget.h>
 #include <imgui.h>
 
+namespace
+{
+	void ApplyHostedImGuiChromeStyle()
+	{
+		ImGuiStyle& Style = ImGui::GetStyle();
+		const ImVec4 Transparent(0.0f, 0.0f, 0.0f, 0.0f);
+
+		Style.WindowBorderSize = 0.0f;
+		Style.DockingSeparatorSize = 0.0f;
+		Style.Colors[ImGuiCol_Border] = Transparent;
+		Style.Colors[ImGuiCol_BorderShadow] = Transparent;
+		Style.Colors[ImGuiCol_ResizeGrip] = Transparent;
+		Style.Colors[ImGuiCol_ResizeGripHovered] = Transparent;
+		Style.Colors[ImGuiCol_ResizeGripActive] = Transparent;
+		Style.Colors[ImGuiCol_SeparatorHovered] = Transparent;
+		Style.Colors[ImGuiCol_SeparatorActive] = Transparent;
+	}
+}
+
 TSharedRef<SWidget> UImGuiToolkitHostWidget::RebuildWidget()
 {
 	Context = FImGuiContext::Create();
@@ -96,6 +115,7 @@ void UImGuiToolkitHostWidget::RenderHost()
 			Subsystem->ApplyStyleToCurrentContext();
 		}
 	}
+	ApplyHostedImGuiChromeStyle();
 
 	const FVector2D HostSize = Overlay.IsValid()
 		? FVector2D(Overlay->GetTickSpaceGeometry().GetAbsoluteSize())

@@ -45,4 +45,7 @@ public:
 	FVector2D HostPosition = FVector2D(100, 100);
 
 	bool bSuppressNextWindowPlacement = false;
+
+private:
+	bool bRenderAsHostedWindow = false;
 };

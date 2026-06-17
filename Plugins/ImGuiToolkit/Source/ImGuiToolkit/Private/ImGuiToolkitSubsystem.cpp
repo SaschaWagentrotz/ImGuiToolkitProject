@@ -61,6 +61,24 @@ namespace
 
 		return WindowName;
 	}
+
+	void ApplyHostedDockNodeChromeFlags(ImGuiDockNode* DockNode)
+	{
+		if (!DockNode)
+		{
+			return;
+		}
+
+		DockNode->SetLocalFlags(
+			DockNode->LocalFlags
+			| ImGuiDockNodeFlags_NoResize
+			| ImGuiDockNodeFlags_NoWindowMenuButton
+			| ImGuiDockNodeFlags_NoCloseButton
+		);
+
+		ApplyHostedDockNodeChromeFlags(DockNode->ChildNodes[0]);
+		ApplyHostedDockNodeChromeFlags(DockNode->ChildNodes[1]);
+	}
 }
 
 void UImGuiToolkitSubsystem::Initialize(FSubsystemCollectionBase& Collection)
@@ -68,15 +86,10 @@ void UImGuiToolkitSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 	Super::Initialize(Collection);
 
 	TickHandle = FTSTicker::GetCoreTicker().AddTicker(FTickerDelegate::CreateUObject(this, &UImGuiToolkitSubsystem::OnTick), 0.0f);
-
-	EndFrameHandle = FCoreDelegates::OnEndFrame.AddUObject(this, &UImGuiToolkitSubsystem::OnEndFrame);
 }
 
 void UImGuiToolkitSubsystem::Deinitialize()
 {
-	if (EndFrameHandle.IsValid())
-		FCoreDelegates::OnEndFrame.Remove(EndFrameHandle);
-
 	if (TickHandle.IsValid())
 		FTSTicker::GetCoreTicker().RemoveTicker(TickHandle);
 
@@ -255,6 +268,11 @@ void UImGuiToolkitSubsystem::RegisterWindow(UImGuiToolkitWindow* Window)
 
 		if (GetImGuiDisplayName(RegisteredWindow) == NewWindowDisplayName)
 		{
+			if (IsWindowHostedByRegisteredHost(RegisteredWindow) || IsRenderedByHostDocking(RegisteredWindow))
+			{
+				continue;
+			}
+
 			RemoveWindowReferences(RegisteredWindow);
 			RegisteredWindows.RemoveAtSwap(WindowIndex);
 		}
@@ -377,11 +395,6 @@ bool UImGuiToolkitSubsystem::OnTick(float DeltaTime)
 	return true; // Keep ticking
 }
 
-void UImGuiToolkitSubsystem::OnEndFrame()
-{
-	ApplyStyleToCurrentContext();
-}
-
 void UImGuiToolkitSubsystem::ApplyStyleToCurrentContext()
 {
 	ImGuiContext* Context = ImGui::GetCurrentContext();
@@ -421,7 +434,7 @@ void UImGuiToolkitSubsystem::ApplyPendingDockRequests(UImGuiToolkitWindow* HostW
 			continue;
 		}
 
-		if ((!HostWindow || bTargetIsCurrentHost) && ApplyDockRequest(Request))
+		if ((!HostWindow || bTargetIsCurrentHost) && ApplyDockRequest(Request, bTargetIsCurrentHost))
 		{
 			PendingDockRequests.RemoveAtSwap(RequestIndex);
 		}
@@ -450,7 +463,7 @@ void UImGuiToolkitSubsystem::ApplyHostedDockRequests(UImGuiToolkitWindow* HostWi
 			continue;
 		}
 
-		ApplyDockRequest(Request);
+		ApplyDockRequest(Request, true);
 	}
 }
 
@@ -519,12 +532,13 @@ bool UImGuiToolkitSubsystem::UpdateHostedDockNodeBounds(UImGuiToolkitWindow* Hos
 		return false;
 	}
 
+	ApplyHostedDockNodeChromeFlags(RootDockNode);
 	ImGui::DockBuilderSetNodePos(RootDockNode->ID, ImVec2(HostPosition.X, HostPosition.Y));
 	ImGui::DockBuilderSetNodeSize(RootDockNode->ID, ImVec2(HostSize.X, HostSize.Y));
 	return true;
 }
 
-bool UImGuiToolkitSubsystem::ApplyDockRequest(const FPendingDockRequest& Request)
+bool UImGuiToolkitSubsystem::ApplyDockRequest(const FPendingDockRequest& Request, bool bHostedDocking)
 {
 	UImGuiToolkitWindow* WindowToDock = Request.WindowToDock.Get();
 	UImGuiToolkitWindow* TargetWindow = Request.TargetWindow.Get();
@@ -545,9 +559,15 @@ bool UImGuiToolkitSubsystem::ApplyDockRequest(const FPendingDockRequest& Request
 	ImGuiID RootDockNodeId = TargetImGuiWindow->DockNode ? TargetImGuiWindow->DockNode->ID : 0;
 	if (RootDockNodeId == 0)
 	{
-		RootDockNodeId = ImGui::DockBuilderAddNode(0);
+		const ImGuiDockNodeFlags DockNodeFlags = bHostedDocking ? ImGuiDockNodeFlags_NoResize : ImGuiDockNodeFlags_None;
+		RootDockNodeId = ImGui::DockBuilderAddNode(0, DockNodeFlags);
 		ImGui::DockBuilderSetNodePos(RootDockNodeId, TargetImGuiWindow->Pos);
 		ImGui::DockBuilderSetNodeSize(RootDockNodeId, TargetImGuiWindow->SizeFull);
+	}
+
+	if (bHostedDocking)
+	{
+		ApplyHostedDockNodeChromeFlags(ImGui::DockBuilderGetNode(RootDockNodeId));
 	}
 
 	const ImGuiDir SplitDirection = FImGuiToolkitUtils::UnrealDockSplitDirectionToImGuiDir(Request.Direction);
@@ -556,6 +576,10 @@ bool UImGuiToolkitSubsystem::ApplyDockRequest(const FPendingDockRequest& Request
 		ImGui::DockBuilderDockWindow(TargetWindowName.Get(), RootDockNodeId);
 		ImGui::DockBuilderDockWindow(WindowToDockName.Get(), RootDockNodeId);
 		ImGui::DockBuilderFinish(RootDockNodeId);
+		if (bHostedDocking)
+		{
+			ApplyHostedDockNodeChromeFlags(ImGui::DockBuilderGetNode(RootDockNodeId));
+		}
 		return true;
 	}
 
@@ -567,9 +591,17 @@ bool UImGuiToolkitSubsystem::ApplyDockRequest(const FPendingDockRequest& Request
 	ImGuiID DockedNodeId = 0;
 	ImGuiID TargetNodeId = 0;
 	ImGui::DockBuilderSplitNode(RootDockNodeId, SplitDirection, Request.SplitRatio, &DockedNodeId, &TargetNodeId);
+	if (bHostedDocking)
+	{
+		ApplyHostedDockNodeChromeFlags(ImGui::DockBuilderGetNode(RootDockNodeId));
+	}
 	ImGui::DockBuilderDockWindow(TargetWindowName.Get(), TargetNodeId);
 	ImGui::DockBuilderDockWindow(WindowToDockName.Get(), DockedNodeId);
 	ImGui::DockBuilderFinish(RootDockNodeId);
+	if (bHostedDocking)
+	{
+		ApplyHostedDockNodeChromeFlags(ImGui::DockBuilderGetNode(RootDockNodeId));
+	}
 
 	return true;
 }
