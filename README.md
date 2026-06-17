@@ -67,7 +67,7 @@ It provides seamless integration between Unreal and Dear ImGui through easily bi
 - [x] Set Item Tooltip
 - [ ] Begin/End Tooltip
 - [ ] Popup
-- [ ] Table
+- [x] Table
 - [x] Help Marker
 
 ### Images
@@ -116,5 +116,5 @@ It provides seamless integration between Unreal and Dear ImGui through easily bi
 - [x] Finish the ImGui Host EditorUtility Widget visibility behavior
 - [ ] Create useful real-world examples (one runtime and one editor tool)
 - [ ] Add Blueprint-friendly ImPlot wrappers and an example
-- [ ] Add Blueprint-friendly table wrappers
+- [x] Add Blueprint-friendly table wrappers
 - [ ] Add Blueprint-friendly color editor/picker wrappers

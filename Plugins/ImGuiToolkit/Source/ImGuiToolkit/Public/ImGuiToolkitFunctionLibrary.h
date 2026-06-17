@@ -8,6 +8,7 @@
 #include "Containers/ImGuiToolkitBeginGroup.h"
 #include "Containers/ImGuiToolkitBeginListBox.h"
 #include "Containers/ImGuiToolkitBeginTabBar.h"
+#include "Containers/ImGuiToolkitBeginTable.h"
 #include "Containers/ImGuiToolkitCollapsingHeader.h"
 #include "Containers/ImGuiToolkitBeginMenu.h"
 #include "Containers/ImGuiToolkitBeginMenuBar.h"
@@ -37,6 +38,13 @@
 #include "Widgets/Sliders/ImGuiToolkitDragInt.h"
 #include "Widgets/TabBar/ImGuiToolkitEndTabBar.h"
 #include "Widgets/TabBar/ImGuiToolkitEndTabItem.h"
+#include "Widgets/Tables/ImGuiToolkitTableHeader.h"
+#include "Widgets/Tables/ImGuiToolkitTableHeadersRow.h"
+#include "Widgets/Tables/ImGuiToolkitTableNextColumn.h"
+#include "Widgets/Tables/ImGuiToolkitTableNextRow.h"
+#include "Widgets/Tables/ImGuiToolkitTableSetColumnIndex.h"
+#include "Widgets/Tables/ImGuiToolkitTableSetupColumn.h"
+#include "Widgets/Tables/ImGuiToolkitTableSetupScrollFreeze.h"
 #include "Widgets/Tree/ImGuiToolkitTreePop.h"
 #include "Widgets/Tree/ImGuiToolkitTreePush.h"
 #include "Widgets/Layout/ImGuiToolkitNewLine.h"
@@ -193,6 +201,30 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
 	static UImGuiToolkitSelectable* CreateImGuiSelectable(UObject* WorldContextObject, FText Label, bool bIsSelected, TArray<EImGuiSelectableFlag> SelectableFlags, FVector2D Size = FVector2D(0, 0), FText Tooltip = FText::GetEmpty(), UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Tables", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ClampMin = "1", UIMin = "1"))
+	static UImGuiToolkitBeginTable* CreateImGuiBeginTable(UObject* WorldContextObject, FText Label, int32 ColumnCount, TArray<EImGuiTableFlag> TableFlags, FVector2D OuterSize = FVector2D(0, 0), float InnerWidth = 0.0f, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Tables", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
+	static UImGuiToolkitTableSetupColumn* CreateImGuiTableSetupColumn(UObject* WorldContextObject, FText Label, TArray<EImGuiTableColumnFlag> ColumnFlags, float InitialWidthOrWeight = 0.0f, int32 UserID = 0, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Tables", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ClampMin = "0", UIMin = "0"))
+	static UImGuiToolkitTableSetupScrollFreeze* CreateImGuiTableSetupScrollFreeze(UObject* WorldContextObject, int32 FrozenColumnCount = 0, int32 FrozenRowCount = 0, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Tables", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
+	static UImGuiToolkitTableHeadersRow* CreateImGuiTableHeadersRow(UObject* WorldContextObject, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Tables", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
+	static UImGuiToolkitTableHeader* CreateImGuiTableHeader(UObject* WorldContextObject, FText Label, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Tables", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
+	static UImGuiToolkitTableNextRow* CreateImGuiTableNextRow(UObject* WorldContextObject, TArray<EImGuiTableRowFlag> RowFlags, float MinimumRowHeight = 0.0f, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Tables", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
+	static UImGuiToolkitTableNextColumn* CreateImGuiTableNextColumn(UObject* WorldContextObject, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Tables", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ClampMin = "0", UIMin = "0"))
+	static UImGuiToolkitTableSetColumnIndex* CreateImGuiTableSetColumnIndex(UObject* WorldContextObject, int32 ColumnIndex, UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a TabBar
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext , HidePin = "WorldContextObject"))

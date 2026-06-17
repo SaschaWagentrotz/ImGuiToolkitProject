@@ -540,6 +540,141 @@ UImGuiToolkitSelectable* UImGuiToolkitFunctionLibrary::CreateImGuiSelectable(UOb
 	return Selectable;
 }
 
+UImGuiToolkitBeginTable* UImGuiToolkitFunctionLibrary::CreateImGuiBeginTable(UObject* WorldContextObject, FText Label,
+	int32 ColumnCount, TArray<EImGuiTableFlag> TableFlags, FVector2D OuterSize, float InnerWidth, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitBeginTable* BeginTable = NewObject<UImGuiToolkitBeginTable>(OuterObject);
+	BeginTable->CreateUniqueWidgetLabel(Label);
+	BeginTable->ColumnCount = FMath::Max(1, ColumnCount);
+	BeginTable->TableFlags = TableFlags;
+	BeginTable->OuterSize = OuterSize;
+	BeginTable->InnerWidth = InnerWidth;
+
+	if (Container)
+		Container->AddWidget(BeginTable);
+
+	return BeginTable;
+}
+
+UImGuiToolkitTableSetupColumn* UImGuiToolkitFunctionLibrary::CreateImGuiTableSetupColumn(UObject* WorldContextObject,
+	FText Label, TArray<EImGuiTableColumnFlag> ColumnFlags, float InitialWidthOrWeight, int32 UserID, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitTableSetupColumn* TableSetupColumn = NewObject<UImGuiToolkitTableSetupColumn>(OuterObject);
+	TableSetupColumn->Label = Label;
+	TableSetupColumn->ColumnFlags = ColumnFlags;
+	TableSetupColumn->InitialWidthOrWeight = InitialWidthOrWeight;
+	TableSetupColumn->UserID = UserID;
+
+	if (Container)
+		Container->AddWidget(TableSetupColumn);
+
+	return TableSetupColumn;
+}
+
+UImGuiToolkitTableSetupScrollFreeze* UImGuiToolkitFunctionLibrary::CreateImGuiTableSetupScrollFreeze(
+	UObject* WorldContextObject, int32 FrozenColumnCount, int32 FrozenRowCount, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitTableSetupScrollFreeze* TableSetupScrollFreeze = NewObject<UImGuiToolkitTableSetupScrollFreeze>(OuterObject);
+	TableSetupScrollFreeze->FrozenColumnCount = FMath::Max(0, FrozenColumnCount);
+	TableSetupScrollFreeze->FrozenRowCount = FMath::Max(0, FrozenRowCount);
+
+	if (Container)
+		Container->AddWidget(TableSetupScrollFreeze);
+
+	return TableSetupScrollFreeze;
+}
+
+UImGuiToolkitTableHeadersRow* UImGuiToolkitFunctionLibrary::CreateImGuiTableHeadersRow(UObject* WorldContextObject,
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitTableHeadersRow* TableHeadersRow = NewObject<UImGuiToolkitTableHeadersRow>(OuterObject);
+
+	if (Container)
+		Container->AddWidget(TableHeadersRow);
+
+	return TableHeadersRow;
+}
+
+UImGuiToolkitTableHeader* UImGuiToolkitFunctionLibrary::CreateImGuiTableHeader(UObject* WorldContextObject, FText Label,
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitTableHeader* TableHeader = NewObject<UImGuiToolkitTableHeader>(OuterObject);
+	TableHeader->Label = Label;
+
+	if (Container)
+		Container->AddWidget(TableHeader);
+
+	return TableHeader;
+}
+
+UImGuiToolkitTableNextRow* UImGuiToolkitFunctionLibrary::CreateImGuiTableNextRow(UObject* WorldContextObject,
+	TArray<EImGuiTableRowFlag> RowFlags, float MinimumRowHeight, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitTableNextRow* TableNextRow = NewObject<UImGuiToolkitTableNextRow>(OuterObject);
+	TableNextRow->RowFlags = RowFlags;
+	TableNextRow->MinimumRowHeight = MinimumRowHeight;
+
+	if (Container)
+		Container->AddWidget(TableNextRow);
+
+	return TableNextRow;
+}
+
+UImGuiToolkitTableNextColumn* UImGuiToolkitFunctionLibrary::CreateImGuiTableNextColumn(UObject* WorldContextObject,
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitTableNextColumn* TableNextColumn = NewObject<UImGuiToolkitTableNextColumn>(OuterObject);
+
+	if (Container)
+		Container->AddWidget(TableNextColumn);
+
+	return TableNextColumn;
+}
+
+UImGuiToolkitTableSetColumnIndex* UImGuiToolkitFunctionLibrary::CreateImGuiTableSetColumnIndex(UObject* WorldContextObject,
+	int32 ColumnIndex, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitTableSetColumnIndex* TableSetColumnIndex = NewObject<UImGuiToolkitTableSetColumnIndex>(OuterObject);
+	TableSetColumnIndex->ColumnIndex = FMath::Max(0, ColumnIndex);
+
+	if (Container)
+		Container->AddWidget(TableSetColumnIndex);
+
+	return TableSetColumnIndex;
+}
+
 UImGuiToolkitBeginTabBar* UImGuiToolkitFunctionLibrary::CreateImGuiBeginTabBar(UObject* WorldContextObject, FText Label,
 	UImGuiToolkitContainer* Container)
 {

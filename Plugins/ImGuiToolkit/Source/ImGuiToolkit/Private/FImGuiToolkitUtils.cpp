@@ -191,6 +191,118 @@ int32 FImGuiToolkitUtils::CombineImGuiSelectableFlags(TArray<EImGuiSelectableFla
 	return Mask;
 }
 
+ImGuiTableFlags FImGuiToolkitUtils::UnrealFlagToImGuiTableFlag(EImGuiTableFlag Flags)
+{
+	switch (Flags)
+	{
+		case EImGuiTableFlag::Resizable:					return ImGuiTableFlags_Resizable;
+		case EImGuiTableFlag::Reorderable:					return ImGuiTableFlags_Reorderable;
+		case EImGuiTableFlag::Hideable:						return ImGuiTableFlags_Hideable;
+		case EImGuiTableFlag::Sortable:						return ImGuiTableFlags_Sortable;
+		case EImGuiTableFlag::NoSavedSettings:				return ImGuiTableFlags_NoSavedSettings;
+		case EImGuiTableFlag::ContextMenuInBody:				return ImGuiTableFlags_ContextMenuInBody;
+		case EImGuiTableFlag::RowBg:						return ImGuiTableFlags_RowBg;
+		case EImGuiTableFlag::BordersInnerH:					return ImGuiTableFlags_BordersInnerH;
+		case EImGuiTableFlag::BordersOuterH:					return ImGuiTableFlags_BordersOuterH;
+		case EImGuiTableFlag::BordersInnerV:					return ImGuiTableFlags_BordersInnerV;
+		case EImGuiTableFlag::BordersOuterV:					return ImGuiTableFlags_BordersOuterV;
+		case EImGuiTableFlag::BordersH:						return ImGuiTableFlags_BordersH;
+		case EImGuiTableFlag::BordersV:						return ImGuiTableFlags_BordersV;
+		case EImGuiTableFlag::BordersInner:					return ImGuiTableFlags_BordersInner;
+		case EImGuiTableFlag::BordersOuter:					return ImGuiTableFlags_BordersOuter;
+		case EImGuiTableFlag::Borders:						return ImGuiTableFlags_Borders;
+		case EImGuiTableFlag::NoBordersInBody:				return ImGuiTableFlags_NoBordersInBody;
+		case EImGuiTableFlag::NoBordersInBodyUntilResize:	return ImGuiTableFlags_NoBordersInBodyUntilResize;
+		case EImGuiTableFlag::SizingFixedFit:				return ImGuiTableFlags_SizingFixedFit;
+		case EImGuiTableFlag::SizingFixedSame:				return ImGuiTableFlags_SizingFixedSame;
+		case EImGuiTableFlag::SizingStretchProp:				return ImGuiTableFlags_SizingStretchProp;
+		case EImGuiTableFlag::SizingStretchSame:				return ImGuiTableFlags_SizingStretchSame;
+		case EImGuiTableFlag::NoHostExtendX:					return ImGuiTableFlags_NoHostExtendX;
+		case EImGuiTableFlag::NoHostExtendY:					return ImGuiTableFlags_NoHostExtendY;
+		case EImGuiTableFlag::NoKeepColumnsVisible:			return ImGuiTableFlags_NoKeepColumnsVisible;
+		case EImGuiTableFlag::PreciseWidths:					return ImGuiTableFlags_PreciseWidths;
+		case EImGuiTableFlag::NoClip:						return ImGuiTableFlags_NoClip;
+		case EImGuiTableFlag::PadOuterX:						return ImGuiTableFlags_PadOuterX;
+		case EImGuiTableFlag::NoPadOuterX:					return ImGuiTableFlags_NoPadOuterX;
+		case EImGuiTableFlag::NoPadInnerX:					return ImGuiTableFlags_NoPadInnerX;
+		case EImGuiTableFlag::ScrollX:						return ImGuiTableFlags_ScrollX;
+		case EImGuiTableFlag::ScrollY:						return ImGuiTableFlags_ScrollY;
+		case EImGuiTableFlag::SortMulti:						return ImGuiTableFlags_SortMulti;
+		case EImGuiTableFlag::SortTristate:					return ImGuiTableFlags_SortTristate;
+		case EImGuiTableFlag::HighlightHoveredColumn:		return ImGuiTableFlags_HighlightHoveredColumn;
+		case EImGuiTableFlag::None:							return ImGuiTableFlags_None;
+		default:											return ImGuiTableFlags_None;
+	}
+}
+
+int32 FImGuiToolkitUtils::CombineImGuiTableFlags(TArray<EImGuiTableFlag> Flags)
+{
+	ImGuiTableFlags Mask = ImGuiTableFlags_None;
+	for (EImGuiTableFlag Flag : Flags)
+	{
+		Mask |= UnrealFlagToImGuiTableFlag(Flag);
+	}
+	return Mask;
+}
+
+ImGuiTableColumnFlags FImGuiToolkitUtils::UnrealFlagToImGuiTableColumnFlag(EImGuiTableColumnFlag Flags)
+{
+	switch (Flags)
+	{
+		case EImGuiTableColumnFlag::Disabled:				return ImGuiTableColumnFlags_Disabled;
+		case EImGuiTableColumnFlag::DefaultHide:				return ImGuiTableColumnFlags_DefaultHide;
+		case EImGuiTableColumnFlag::DefaultSort:				return ImGuiTableColumnFlags_DefaultSort;
+		case EImGuiTableColumnFlag::WidthStretch:			return ImGuiTableColumnFlags_WidthStretch;
+		case EImGuiTableColumnFlag::WidthFixed:				return ImGuiTableColumnFlags_WidthFixed;
+		case EImGuiTableColumnFlag::NoResize:				return ImGuiTableColumnFlags_NoResize;
+		case EImGuiTableColumnFlag::NoReorder:				return ImGuiTableColumnFlags_NoReorder;
+		case EImGuiTableColumnFlag::NoHide:					return ImGuiTableColumnFlags_NoHide;
+		case EImGuiTableColumnFlag::NoClip:					return ImGuiTableColumnFlags_NoClip;
+		case EImGuiTableColumnFlag::NoSort:					return ImGuiTableColumnFlags_NoSort;
+		case EImGuiTableColumnFlag::NoSortAscending:			return ImGuiTableColumnFlags_NoSortAscending;
+		case EImGuiTableColumnFlag::NoSortDescending:		return ImGuiTableColumnFlags_NoSortDescending;
+		case EImGuiTableColumnFlag::NoHeaderLabel:			return ImGuiTableColumnFlags_NoHeaderLabel;
+		case EImGuiTableColumnFlag::NoHeaderWidth:			return ImGuiTableColumnFlags_NoHeaderWidth;
+		case EImGuiTableColumnFlag::PreferSortAscending:		return ImGuiTableColumnFlags_PreferSortAscending;
+		case EImGuiTableColumnFlag::PreferSortDescending:	return ImGuiTableColumnFlags_PreferSortDescending;
+		case EImGuiTableColumnFlag::IndentEnable:			return ImGuiTableColumnFlags_IndentEnable;
+		case EImGuiTableColumnFlag::IndentDisable:			return ImGuiTableColumnFlags_IndentDisable;
+		case EImGuiTableColumnFlag::AngledHeader:			return ImGuiTableColumnFlags_AngledHeader;
+		case EImGuiTableColumnFlag::None:					return ImGuiTableColumnFlags_None;
+		default:											return ImGuiTableColumnFlags_None;
+	}
+}
+
+int32 FImGuiToolkitUtils::CombineImGuiTableColumnFlags(TArray<EImGuiTableColumnFlag> Flags)
+{
+	ImGuiTableColumnFlags Mask = ImGuiTableColumnFlags_None;
+	for (EImGuiTableColumnFlag Flag : Flags)
+	{
+		Mask |= UnrealFlagToImGuiTableColumnFlag(Flag);
+	}
+	return Mask;
+}
+
+ImGuiTableRowFlags FImGuiToolkitUtils::UnrealFlagToImGuiTableRowFlag(EImGuiTableRowFlag Flags)
+{
+	switch (Flags)
+	{
+		case EImGuiTableRowFlag::Headers:	return ImGuiTableRowFlags_Headers;
+		case EImGuiTableRowFlag::None:		return ImGuiTableRowFlags_None;
+		default:							return ImGuiTableRowFlags_None;
+	}
+}
+
+int32 FImGuiToolkitUtils::CombineImGuiTableRowFlags(TArray<EImGuiTableRowFlag> Flags)
+{
+	ImGuiTableRowFlags Mask = ImGuiTableRowFlags_None;
+	for (EImGuiTableRowFlag Flag : Flags)
+	{
+		Mask |= UnrealFlagToImGuiTableRowFlag(Flag);
+	}
+	return Mask;
+}
+
 int32 FImGuiToolkitUtils::ImGuiResizeCallback(ImGuiInputTextCallbackData* Data)
 {
 	if (Data->EventFlag == ImGuiInputTextFlags_CallbackResize)
