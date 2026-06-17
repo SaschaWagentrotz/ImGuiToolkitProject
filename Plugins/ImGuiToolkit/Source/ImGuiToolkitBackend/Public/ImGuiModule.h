@@ -3,6 +3,7 @@
 #include <Misc/EngineVersionComparison.h>
 #include <Modules/ModuleManager.h>
 
+enum class EImGuiToolkitStyleTarget : uint8;
 class FImGuiContext;
 class SWindow;
 class UGameViewportClient;
@@ -26,10 +27,10 @@ public:
 #endif
 
 	/// Creates an ImGui context for a Slate window
-	static TSharedPtr<FImGuiContext> CreateWindowContext(const TSharedRef<SWindow>& Window);
+	static TSharedPtr<FImGuiContext> CreateWindowContext(const TSharedRef<SWindow>& Window, EImGuiToolkitStyleTarget StyleTarget);
 
 	/// Creates an ImGui context for a game viewport
-	static TSharedPtr<FImGuiContext> CreateViewportContext(UGameViewportClient* GameViewport);
+	static TSharedPtr<FImGuiContext> CreateViewportContext(UGameViewportClient* GameViewport, EImGuiToolkitStyleTarget StyleTarget);
 
 private:
 	void OnEndPIE(bool bIsSimulating);

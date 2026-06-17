@@ -8,7 +8,7 @@ namespace
 	}
 }
 
-UImGuiToolkitSettings::UImGuiToolkitSettings()
+FImGuiToolkitStyleSettings::FImGuiToolkitStyleSettings()
 {
 	Text = FromSRGB(230, 230, 230);
 	TextDisabled = FromSRGB(132, 137, 145);
@@ -82,6 +82,23 @@ UImGuiToolkitSettings::UImGuiToolkitSettings()
 	NavWindowingHighlight = FromSRGB(255, 255, 255, 180);
 	NavWindowingDimBg = FromSRGB(0, 0, 0, 120);
 	ModalWindowDimBg = FromSRGB(0, 0, 0, 150);
+}
+
+UImGuiToolkitSettings::UImGuiToolkitSettings()
+{
+	RuntimeStyle = FImGuiToolkitStyleSettings();
+	EditorHostedStyle = RuntimeStyle;
+}
+
+const FImGuiToolkitStyleSettings& UImGuiToolkitSettings::GetStyleSettingsForTarget(EImGuiToolkitStyleTarget StyleTarget) const
+{
+	return StyleTarget == EImGuiToolkitStyleTarget::EditorHosted ? EditorHostedStyle : RuntimeStyle;
+}
+
+float UImGuiToolkitSettings::GetScaleForTarget(EImGuiToolkitStyleTarget StyleTarget) const
+{
+	const FImGuiToolkitStyleSettings& StyleSettings = GetStyleSettingsForTarget(StyleTarget);
+	return FMath::Clamp(StyleSettings.Scale, 0.25f, 4.0f);
 }
 
 FName UImGuiToolkitSettings::GetCategoryName() const

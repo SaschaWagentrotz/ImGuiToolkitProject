@@ -31,11 +31,22 @@ namespace
 		Style.Colors[ImGuiCol_SeparatorHovered] = Transparent;
 		Style.Colors[ImGuiCol_SeparatorActive] = Transparent;
 	}
+
+	EImGuiToolkitStyleTarget GetHostStyleTarget(const UWidget* Widget)
+	{
+		const UWorld* World = Widget ? Widget->GetWorld() : nullptr;
+		if (!World || World->WorldType == EWorldType::Editor || World->WorldType == EWorldType::EditorPreview)
+		{
+			return EImGuiToolkitStyleTarget::EditorHosted;
+		}
+
+		return EImGuiToolkitStyleTarget::Runtime;
+	}
 }
 
 TSharedRef<SWidget> UImGuiToolkitHostWidget::RebuildWidget()
 {
-	Context = FImGuiContext::Create();
+	Context = FImGuiContext::Create(GetHostStyleTarget(this));
 
 	{
 		const ImGui::FScopedContext ScopedContext(Context);

@@ -78,7 +78,7 @@ TSharedPtr<FImGuiContext> FImGuiModule::FindOrCreateSessionContext(const int32 P
 			const TSharedPtr<SWindow> MainFrameWindow = MainFrameModule ? MainFrameModule->GetParentWindow() : nullptr;
 			if (MainFrameWindow.IsValid())
 			{
-				Context = CreateWindowContext(MainFrameWindow.ToSharedRef());
+				Context = CreateWindowContext(MainFrameWindow.ToSharedRef(), EImGuiToolkitStyleTarget::EditorHosted);
 			}
 		}
 		else
@@ -89,11 +89,11 @@ TSharedPtr<FImGuiContext> FImGuiModule::FindOrCreateSessionContext(const int32 P
 			UGameViewportClient* GameViewport = WorldContext ? WorldContext->GameViewport : GEngine->GameViewport;
 			if (IsValid(GameViewport))
 			{
-				Context = CreateViewportContext(GameViewport);
+				Context = CreateViewportContext(GameViewport, EImGuiToolkitStyleTarget::Runtime);
 			}
 			else
 			{
-				Context = FImGuiContext::Create();
+				Context = FImGuiContext::Create(EImGuiToolkitStyleTarget::Runtime);
 			}
 #endif
 		}
@@ -180,9 +180,9 @@ void FImGuiModule::OnViewportCreated() const
 #endif
 }
 
-TSharedPtr<FImGuiContext> FImGuiModule::CreateWindowContext(const TSharedRef<SWindow>& Window)
+TSharedPtr<FImGuiContext> FImGuiModule::CreateWindowContext(const TSharedRef<SWindow>& Window, EImGuiToolkitStyleTarget StyleTarget)
 {
-	const TSharedRef<FImGuiContext> Context = FImGuiContext::Create();
+	const TSharedRef<FImGuiContext> Context = FImGuiContext::Create(StyleTarget);
 
 	ImGui::FScopedContext ScopedContext(Context);
 
@@ -202,7 +202,7 @@ TSharedPtr<FImGuiContext> FImGuiModule::CreateWindowContext(const TSharedRef<SWi
 	return Context;
 }
 
-TSharedPtr<FImGuiContext> FImGuiModule::CreateViewportContext(UGameViewportClient* GameViewport)
+TSharedPtr<FImGuiContext> FImGuiModule::CreateViewportContext(UGameViewportClient* GameViewport, EImGuiToolkitStyleTarget StyleTarget)
 {
 #if WITH_ENGINE
 	if (!IsValid(GameViewport))
@@ -210,7 +210,7 @@ TSharedPtr<FImGuiContext> FImGuiModule::CreateViewportContext(UGameViewportClien
 		return nullptr;
 	}
 
-	const TSharedRef<FImGuiContext> Context = FImGuiContext::Create();
+	const TSharedRef<FImGuiContext> Context = FImGuiContext::Create(StyleTarget);
 	ConfigureViewportOnlyContext(Context);
 
 	ImGui::FScopedContext ScopedContext(Context);

@@ -6,6 +6,7 @@
 #include "ImGuiToolkitSubsystem.generated.h"
 
 class UImGuiToolkitHostWidget;
+struct FImGuiToolkitStyleSettings;
 struct ImGuiContext;
 
 DECLARE_MULTICAST_DELEGATE(FOnImGuiRender);
@@ -19,7 +20,7 @@ public:
 	virtual void Initialize(FSubsystemCollectionBase& Collection) override;
 	virtual void Deinitialize() override;
 
-	void SetImGuiToolkitStyle();
+	void SetImGuiToolkitStyle(const FImGuiToolkitStyleSettings& StyleSettings);
 	void ApplyStyleToCurrentContext();
 
 	void SetShowImGuiDemoWindow(bool bNewShow);

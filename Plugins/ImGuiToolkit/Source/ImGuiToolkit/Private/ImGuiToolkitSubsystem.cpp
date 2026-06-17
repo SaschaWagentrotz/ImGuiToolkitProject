@@ -4,6 +4,7 @@
 #include "Engine/Engine.h"
 #include "Engine/World.h"
 #include "ImGuiConfig.h"
+#include "ImGuiContext.h"
 #include "ImGuiToolkitSettings.h"
 
 #include <imgui.h>
@@ -107,102 +108,95 @@ static inline ImVec4 ToImGuiColor(const FLinearColor& Color)
 	);
 }
 
-void UImGuiToolkitSubsystem::SetImGuiToolkitStyle()
+void UImGuiToolkitSubsystem::SetImGuiToolkitStyle(const FImGuiToolkitStyleSettings& StyleSettings)
 {
-	const UImGuiToolkitSettings* Settings = GetDefault<UImGuiToolkitSettings>();
-	if (!Settings)
-	{
-		return;
-	}
-
-	ImGuiStyle* dst_style = NULL;
-	ImGuiStyle& style = dst_style ? *dst_style : ImGui::GetStyle();
+	ImGuiStyle& style = ImGui::GetStyle();
 	style = ImGuiStyle();
     ImVec4* colors = style.Colors;
 
     // ---- Assignments ----
-    colors[ImGuiCol_Text]                   = ToImGuiColor(Settings->Text);
-    colors[ImGuiCol_TextDisabled]           = ToImGuiColor(Settings->TextDisabled);
+    colors[ImGuiCol_Text]                   = ToImGuiColor(StyleSettings.Text);
+    colors[ImGuiCol_TextDisabled]           = ToImGuiColor(StyleSettings.TextDisabled);
 
-    colors[ImGuiCol_WindowBg]               = ToImGuiColor(Settings->WindowBg);
-    colors[ImGuiCol_ChildBg]                = ToImGuiColor(Settings->ChildBg);
-    colors[ImGuiCol_PopupBg]                = ToImGuiColor(Settings->PopupBg);
+    colors[ImGuiCol_WindowBg]               = ToImGuiColor(StyleSettings.WindowBg);
+    colors[ImGuiCol_ChildBg]                = ToImGuiColor(StyleSettings.ChildBg);
+    colors[ImGuiCol_PopupBg]                = ToImGuiColor(StyleSettings.PopupBg);
 
-    colors[ImGuiCol_Border]                 = ToImGuiColor(Settings->Border);
-    colors[ImGuiCol_BorderShadow]           = ToImGuiColor(Settings->BorderShadow);
+    colors[ImGuiCol_Border]                 = ToImGuiColor(StyleSettings.Border);
+    colors[ImGuiCol_BorderShadow]           = ToImGuiColor(StyleSettings.BorderShadow);
 
-    colors[ImGuiCol_FrameBg]                = ToImGuiColor(Settings->FrameBg);
-    colors[ImGuiCol_FrameBgHovered]         = ToImGuiColor(Settings->FrameBgHovered);
-    colors[ImGuiCol_FrameBgActive]          = ToImGuiColor(Settings->FrameBgActive);
+    colors[ImGuiCol_FrameBg]                = ToImGuiColor(StyleSettings.FrameBg);
+    colors[ImGuiCol_FrameBgHovered]         = ToImGuiColor(StyleSettings.FrameBgHovered);
+    colors[ImGuiCol_FrameBgActive]          = ToImGuiColor(StyleSettings.FrameBgActive);
 
     // Buttons (UE behavior)
-    colors[ImGuiCol_Button]                 = ToImGuiColor(Settings->Button);
-    colors[ImGuiCol_ButtonHovered]          = ToImGuiColor(Settings->ButtonHovered);
-    colors[ImGuiCol_ButtonActive]           = ToImGuiColor(Settings->ButtonActive);
+    colors[ImGuiCol_Button]                 = ToImGuiColor(StyleSettings.Button);
+    colors[ImGuiCol_ButtonHovered]          = ToImGuiColor(StyleSettings.ButtonHovered);
+    colors[ImGuiCol_ButtonActive]           = ToImGuiColor(StyleSettings.ButtonActive);
 
     // Sliders / checks use accent to signal interaction
-    colors[ImGuiCol_CheckMark]              = ToImGuiColor(Settings->CheckMark);
-    colors[ImGuiCol_SliderGrab]             = ToImGuiColor(Settings->SliderGrab);
-    colors[ImGuiCol_SliderGrabActive]       = ToImGuiColor(Settings->SliderGrabActive);
+    colors[ImGuiCol_CheckMark]              = ToImGuiColor(StyleSettings.CheckMark);
+    colors[ImGuiCol_SliderGrab]             = ToImGuiColor(StyleSettings.SliderGrab);
+    colors[ImGuiCol_SliderGrabActive]       = ToImGuiColor(StyleSettings.SliderGrabActive);
 
     // Headers stay neutral (not blue)
-    colors[ImGuiCol_Header]                 = ToImGuiColor(Settings->Header);
-    colors[ImGuiCol_HeaderHovered]          = ToImGuiColor(Settings->HeaderHovered);
-    colors[ImGuiCol_HeaderActive]           = ToImGuiColor(Settings->HeaderActive);
+    colors[ImGuiCol_Header]                 = ToImGuiColor(StyleSettings.Header);
+    colors[ImGuiCol_HeaderHovered]          = ToImGuiColor(StyleSettings.HeaderHovered);
+    colors[ImGuiCol_HeaderActive]           = ToImGuiColor(StyleSettings.HeaderActive);
 
     // Separators / grips
-    colors[ImGuiCol_Separator]              = ToImGuiColor(Settings->Separator);
-    colors[ImGuiCol_SeparatorHovered]       = ToImGuiColor(Settings->SeparatorHovered);
-    colors[ImGuiCol_SeparatorActive]        = ToImGuiColor(Settings->SeparatorActive);
+    colors[ImGuiCol_Separator]              = ToImGuiColor(StyleSettings.Separator);
+    colors[ImGuiCol_SeparatorHovered]       = ToImGuiColor(StyleSettings.SeparatorHovered);
+    colors[ImGuiCol_SeparatorActive]        = ToImGuiColor(StyleSettings.SeparatorActive);
 
-    colors[ImGuiCol_ResizeGrip]             = ToImGuiColor(Settings->ResizeGrip);
-    colors[ImGuiCol_ResizeGripHovered]      = ToImGuiColor(Settings->ResizeGripHovered);
-    colors[ImGuiCol_ResizeGripActive]       = ToImGuiColor(Settings->ResizeGripActive);
+    colors[ImGuiCol_ResizeGrip]             = ToImGuiColor(StyleSettings.ResizeGrip);
+    colors[ImGuiCol_ResizeGripHovered]      = ToImGuiColor(StyleSettings.ResizeGripHovered);
+    colors[ImGuiCol_ResizeGripActive]       = ToImGuiColor(StyleSettings.ResizeGripActive);
 
     // Tabs
-    colors[ImGuiCol_Tab]                    = ToImGuiColor(Settings->Tab);
-    colors[ImGuiCol_TabHovered]             = ToImGuiColor(Settings->TabHovered);
-    colors[ImGuiCol_TabSelected]            = ToImGuiColor(Settings->TabSelected);
-    colors[ImGuiCol_TabSelectedOverline]    = ToImGuiColor(Settings->TabSelectedOverline);
-    colors[ImGuiCol_TabDimmed]              = ToImGuiColor(Settings->TabDimmed);
-    colors[ImGuiCol_TabDimmedSelected]      = ToImGuiColor(Settings->TabDimmedSelected);
-    colors[ImGuiCol_TabDimmedSelectedOverline] = ToImGuiColor(Settings->TabDimmedSelectedOverline);
+    colors[ImGuiCol_Tab]                    = ToImGuiColor(StyleSettings.Tab);
+    colors[ImGuiCol_TabHovered]             = ToImGuiColor(StyleSettings.TabHovered);
+    colors[ImGuiCol_TabSelected]            = ToImGuiColor(StyleSettings.TabSelected);
+    colors[ImGuiCol_TabSelectedOverline]    = ToImGuiColor(StyleSettings.TabSelectedOverline);
+    colors[ImGuiCol_TabDimmed]              = ToImGuiColor(StyleSettings.TabDimmed);
+    colors[ImGuiCol_TabDimmedSelected]      = ToImGuiColor(StyleSettings.TabDimmedSelected);
+    colors[ImGuiCol_TabDimmedSelectedOverline] = ToImGuiColor(StyleSettings.TabDimmedSelectedOverline);
 
     // Docking
-    colors[ImGuiCol_DockingPreview]         = ToImGuiColor(Settings->DockingPreview);
-    colors[ImGuiCol_DockingEmptyBg]         = ToImGuiColor(Settings->DockingEmptyBg);
+    colors[ImGuiCol_DockingPreview]         = ToImGuiColor(StyleSettings.DockingPreview);
+    colors[ImGuiCol_DockingEmptyBg]         = ToImGuiColor(StyleSettings.DockingEmptyBg);
 
     // Scrollbars
-    colors[ImGuiCol_ScrollbarBg]            = ToImGuiColor(Settings->ScrollbarBg);
-    colors[ImGuiCol_ScrollbarGrab]          = ToImGuiColor(Settings->ScrollbarGrab);
-    colors[ImGuiCol_ScrollbarGrabHovered]   = ToImGuiColor(Settings->ScrollbarGrabHovered);
-    colors[ImGuiCol_ScrollbarGrabActive]    = ToImGuiColor(Settings->ScrollbarGrabActive);
+    colors[ImGuiCol_ScrollbarBg]            = ToImGuiColor(StyleSettings.ScrollbarBg);
+    colors[ImGuiCol_ScrollbarGrab]          = ToImGuiColor(StyleSettings.ScrollbarGrab);
+    colors[ImGuiCol_ScrollbarGrabHovered]   = ToImGuiColor(StyleSettings.ScrollbarGrabHovered);
+    colors[ImGuiCol_ScrollbarGrabActive]    = ToImGuiColor(StyleSettings.ScrollbarGrabActive);
 
     // Tables / plots
-    colors[ImGuiCol_TableHeaderBg]          = ToImGuiColor(Settings->TableHeaderBg);
-    colors[ImGuiCol_TableBorderStrong]      = ToImGuiColor(Settings->TableBorderStrong);
-    colors[ImGuiCol_TableBorderLight]       = ToImGuiColor(Settings->TableBorderLight);
-    colors[ImGuiCol_TableRowBg]             = ToImGuiColor(Settings->TableRowBg);
-    colors[ImGuiCol_TableRowBgAlt]          = ToImGuiColor(Settings->TableRowBgAlt);
+    colors[ImGuiCol_TableHeaderBg]          = ToImGuiColor(StyleSettings.TableHeaderBg);
+    colors[ImGuiCol_TableBorderStrong]      = ToImGuiColor(StyleSettings.TableBorderStrong);
+    colors[ImGuiCol_TableBorderLight]       = ToImGuiColor(StyleSettings.TableBorderLight);
+    colors[ImGuiCol_TableRowBg]             = ToImGuiColor(StyleSettings.TableRowBg);
+    colors[ImGuiCol_TableRowBgAlt]          = ToImGuiColor(StyleSettings.TableRowBgAlt);
 
-    colors[ImGuiCol_PlotLines]              = ToImGuiColor(Settings->PlotLines);
-    colors[ImGuiCol_PlotLinesHovered]       = ToImGuiColor(Settings->PlotLinesHovered);
-    colors[ImGuiCol_PlotHistogram]          = ToImGuiColor(Settings->PlotHistogram);
-    colors[ImGuiCol_PlotHistogramHovered]   = ToImGuiColor(Settings->PlotHistogramHovered);
+    colors[ImGuiCol_PlotLines]              = ToImGuiColor(StyleSettings.PlotLines);
+    colors[ImGuiCol_PlotLinesHovered]       = ToImGuiColor(StyleSettings.PlotLinesHovered);
+    colors[ImGuiCol_PlotHistogram]          = ToImGuiColor(StyleSettings.PlotHistogram);
+    colors[ImGuiCol_PlotHistogramHovered]   = ToImGuiColor(StyleSettings.PlotHistogramHovered);
 
     // Links / selection / nav / modals
-    colors[ImGuiCol_TextLink]               = ToImGuiColor(Settings->TextLink);
-    colors[ImGuiCol_TextSelectedBg]         = ToImGuiColor(Settings->TextSelectedBg);
-    colors[ImGuiCol_DragDropTarget]         = ToImGuiColor(Settings->DragDropTarget);
-    colors[ImGuiCol_NavCursor]              = ToImGuiColor(Settings->NavCursor);
-    colors[ImGuiCol_NavWindowingHighlight]  = ToImGuiColor(Settings->NavWindowingHighlight);
-    colors[ImGuiCol_NavWindowingDimBg]      = ToImGuiColor(Settings->NavWindowingDimBg);
-    colors[ImGuiCol_ModalWindowDimBg]       = ToImGuiColor(Settings->ModalWindowDimBg);
+    colors[ImGuiCol_TextLink]               = ToImGuiColor(StyleSettings.TextLink);
+    colors[ImGuiCol_TextSelectedBg]         = ToImGuiColor(StyleSettings.TextSelectedBg);
+    colors[ImGuiCol_DragDropTarget]         = ToImGuiColor(StyleSettings.DragDropTarget);
+    colors[ImGuiCol_NavCursor]              = ToImGuiColor(StyleSettings.NavCursor);
+    colors[ImGuiCol_NavWindowingHighlight]  = ToImGuiColor(StyleSettings.NavWindowingHighlight);
+    colors[ImGuiCol_NavWindowingDimBg]      = ToImGuiColor(StyleSettings.NavWindowingDimBg);
+    colors[ImGuiCol_ModalWindowDimBg]       = ToImGuiColor(StyleSettings.ModalWindowDimBg);
 
-    colors[ImGuiCol_TitleBg]                = ToImGuiColor(Settings->TitleBg);
-    colors[ImGuiCol_TitleBgActive]          = ToImGuiColor(Settings->TitleBgActive);
-    colors[ImGuiCol_TitleBgCollapsed]       = ToImGuiColor(Settings->TitleBgCollapsed);
-    colors[ImGuiCol_MenuBarBg]              = ToImGuiColor(Settings->MenuBarBg);
+    colors[ImGuiCol_TitleBg]                = ToImGuiColor(StyleSettings.TitleBg);
+    colors[ImGuiCol_TitleBgActive]          = ToImGuiColor(StyleSettings.TitleBgActive);
+    colors[ImGuiCol_TitleBgCollapsed]       = ToImGuiColor(StyleSettings.TitleBgCollapsed);
+    colors[ImGuiCol_MenuBarBg]              = ToImGuiColor(StyleSettings.MenuBarBg);
 
     // ---- Layout / metrics ----
     style.FramePadding            = ImVec2(8.0f, 5.0f);
@@ -404,12 +398,23 @@ void UImGuiToolkitSubsystem::ApplyStyleToCurrentContext()
 	}
 
 	const UImGuiToolkitSettings* Settings = GetDefault<UImGuiToolkitSettings>();
-	const float Scale = FMath::Clamp(Settings ? Settings->Scale : 1.0f, 0.25f, 4.0f);
+	const TSharedPtr<FImGuiContext> ManagedContext = FImGuiContext::Get(Context);
+	const EImGuiToolkitStyleTarget StyleTarget = ManagedContext.IsValid()
+		? ManagedContext->GetStyleTarget()
+		: EImGuiToolkitStyleTarget::Runtime;
+
+	static const FImGuiToolkitStyleSettings DefaultStyleSettings;
+	const FImGuiToolkitStyleSettings& StyleSettings = Settings
+		? Settings->GetStyleSettingsForTarget(StyleTarget)
+		: DefaultStyleSettings;
+	const float Scale = Settings
+		? Settings->GetScaleForTarget(StyleTarget)
+		: FMath::Clamp(StyleSettings.Scale, 0.25f, 4.0f);
 
 	ImGuiIO& IO = ImGui::GetIO();
 	IO.FontGlobalScale = 1.0f;
 
-	SetImGuiToolkitStyle();
+	SetImGuiToolkitStyle(StyleSettings);
 	ImGui::GetStyle().ScaleAllSizes(Scale);
 }
 

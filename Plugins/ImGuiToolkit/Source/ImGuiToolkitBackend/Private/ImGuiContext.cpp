@@ -33,10 +33,10 @@ namespace
 {
 	constexpr float DefaultImGuiFontSize = 16.0f;
 
-	float GetConfiguredImGuiScale()
+	float GetConfiguredImGuiScale(EImGuiToolkitStyleTarget StyleTarget)
 	{
 		const UImGuiToolkitSettings* Settings = GetDefault<UImGuiToolkitSettings>();
-		return FMath::Clamp(Settings ? Settings->Scale : 1.0f, 0.25f, 4.0f);
+		return Settings ? Settings->GetScaleForTarget(StyleTarget) : 1.0f;
 	}
 }
 
@@ -332,10 +332,10 @@ static bool ImGui_OpenInShell(ImGuiContext* Context, const char* Path)
 	return FPlatformProcess::LaunchFileInDefaultExternalApplication(UTF8_TO_TCHAR(Path));
 }
 
-TSharedRef<FImGuiContext> FImGuiContext::Create()
+TSharedRef<FImGuiContext> FImGuiContext::Create(EImGuiToolkitStyleTarget StyleTarget)
 {
 	TSharedRef<FImGuiContext> Context = MakeShared<FImGuiContext>();
-	Context->Initialize();
+	Context->Initialize(StyleTarget);
 
 	return Context;
 }
@@ -351,8 +351,10 @@ TSharedPtr<FImGuiContext> FImGuiContext::Get(const ImGuiContext* Context)
 	return nullptr;
 }
 
-void FImGuiContext::Initialize()
+void FImGuiContext::Initialize(EImGuiToolkitStyleTarget InStyleTarget)
 {
+	StyleTarget = InStyleTarget;
+
 	ImGui::SetAllocatorFunctions(ImGui_MemAlloc, ImGui_MemFree);
 
 	IMGUI_CHECKVERSION();
@@ -635,7 +637,7 @@ void FImGuiContext::BeginFrame()
 void FImGuiContext::UpdateConfiguredFontAtlas()
 {
 	ImGuiIO& IO = ImGui::GetIO();
-	const float Scale = GetConfiguredImGuiScale();
+	const float Scale = GetConfiguredImGuiScale(StyleTarget);
 	if (FMath::IsNearlyEqual(ConfiguredFontScale, Scale))
 	{
 		return;

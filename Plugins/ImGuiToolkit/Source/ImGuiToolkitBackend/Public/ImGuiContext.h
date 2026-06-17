@@ -1,5 +1,7 @@
 #pragma once
 
+#include "ImGuiToolkitSettings.h"
+
 #include <Templates/SharedPointer.h>
 
 #if WITH_ENGINE
@@ -28,7 +30,7 @@ class IMGUI_API FImGuiContext : public TSharedFromThis<FImGuiContext>
 {
 public:
 	/// Creates a managed ImGui context
-	static TSharedRef<FImGuiContext> Create();
+	static TSharedRef<FImGuiContext> Create(EImGuiToolkitStyleTarget StyleTarget = EImGuiToolkitStyleTarget::Runtime);
 
 	/// Returns an existing managed ImGui context
 	static TSharedPtr<FImGuiContext> Get(const ImGuiContext* Context);
@@ -40,6 +42,8 @@ public:
 
 	/// Ends the current frame
 	void EndFrame();
+
+	EImGuiToolkitStyleTarget GetStyleTarget() const { return StyleTarget; }
 
 #if WITH_NETIMGUI
 	/// Listens for remote connections
@@ -61,7 +65,7 @@ public:
 #endif
 
 private:
-	void Initialize();
+	void Initialize(EImGuiToolkitStyleTarget InStyleTarget);
 
 	void OnDisplayMetricsChanged(const FDisplayMetrics& DisplayMetrics);
 	void UpdateConfiguredFontAtlas();
@@ -75,6 +79,7 @@ private:
 	char IniFilenameUtf8[1024] = {};
 	char LogFilenameUtf8[1024] = {};
 	TArray<char> ClipboardBuffer;
+	EImGuiToolkitStyleTarget StyleTarget = EImGuiToolkitStyleTarget::Runtime;
 	float ConfiguredFontScale = -1.0f;
 
 #if WITH_NETIMGUI
