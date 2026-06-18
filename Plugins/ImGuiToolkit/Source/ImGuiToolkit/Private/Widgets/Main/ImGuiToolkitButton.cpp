@@ -3,12 +3,17 @@
 
 #include "Widgets/Main/ImGuiToolkitButton.h"
 
+#include <cfloat>
+
 void UImGuiToolkitButton::Render()
 {
 	if (!bEnabled)
 		return;
 
-	ImVec2 ButtonSize(Size.X, Size.Y);
+	const bool bUseDefaultFillSize = FMath::IsNearlyZero(Size.X) && FMath::IsNearlyZero(Size.Y);
+	const ImVec2 ButtonSize = bUseDefaultFillSize
+		? ImVec2(-FLT_MIN, 0.0f)
+		: ImVec2(Size.X, Size.Y);
     
 	if (ImGui::Button(TCHAR_TO_UTF8(*UniqueWidgetLabel), ButtonSize))
 	{
