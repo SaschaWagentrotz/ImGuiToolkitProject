@@ -764,6 +764,186 @@ UImGuiToolkitTableSetColumnIndex* UImGuiToolkitFunctionLibrary::CreateImGuiTable
 	return TableSetColumnIndex;
 }
 
+UImGuiToolkitOpenPopup* UImGuiToolkitFunctionLibrary::CreateImGuiOpenPopup(FText PopupID,
+	TArray<EImGuiPopupFlag> PopupFlags, bool bOpenOnCreate, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitOpenPopup* OpenPopup = NewObject<UImGuiToolkitOpenPopup>(OuterObject);
+	OpenPopup->PopupID = PopupID;
+	OpenPopup->PopupFlags = PopupFlags;
+	OpenPopup->bOpenRequested = bOpenOnCreate;
+
+	if (Container)
+		Container->AddWidget(OpenPopup);
+
+	return OpenPopup;
+}
+
+UImGuiToolkitOpenPopupOnItemClick* UImGuiToolkitFunctionLibrary::CreateImGuiOpenPopupOnItemClick(
+	FText PopupID, EImGuiPopupMouseButton MouseButton, TArray<EImGuiPopupFlag> PopupFlags, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitOpenPopupOnItemClick* OpenPopupOnItemClick = NewObject<UImGuiToolkitOpenPopupOnItemClick>(OuterObject);
+	OpenPopupOnItemClick->PopupID = PopupID;
+	OpenPopupOnItemClick->MouseButton = MouseButton;
+	OpenPopupOnItemClick->PopupFlags = PopupFlags;
+
+	if (Container)
+		Container->AddWidget(OpenPopupOnItemClick);
+
+	return OpenPopupOnItemClick;
+}
+
+UImGuiToolkitBeginPopup* UImGuiToolkitFunctionLibrary::CreateImGuiBeginPopup(FText PopupID,
+	TArray<EImGuiWindowFlag> WindowFlags, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitBeginPopup* BeginPopup = NewObject<UImGuiToolkitBeginPopup>(OuterObject);
+	BeginPopup->PopupID = PopupID;
+	BeginPopup->WindowFlags = WindowFlags;
+
+	if (Container)
+		Container->AddWidget(BeginPopup);
+
+	return BeginPopup;
+}
+
+UImGuiToolkitBeginPopupModal* UImGuiToolkitFunctionLibrary::CreateImGuiBeginPopupModal(FText PopupID,
+	bool bShowCloseButton, TArray<EImGuiWindowFlag> WindowFlags, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitBeginPopupModal* BeginPopupModal = NewObject<UImGuiToolkitBeginPopupModal>(OuterObject);
+	BeginPopupModal->PopupID = PopupID;
+	BeginPopupModal->bShowCloseButton = bShowCloseButton;
+	BeginPopupModal->WindowFlags = WindowFlags;
+
+	if (Container)
+		Container->AddWidget(BeginPopupModal);
+
+	return BeginPopupModal;
+}
+
+UImGuiToolkitBeginPopupContextItem* UImGuiToolkitFunctionLibrary::CreateImGuiBeginPopupContextItem(
+	FText PopupID, bool bUsePreviousItemID, EImGuiPopupMouseButton MouseButton, TArray<EImGuiPopupFlag> PopupFlags, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitBeginPopupContextItem* BeginPopupContextItem = NewObject<UImGuiToolkitBeginPopupContextItem>(OuterObject);
+	BeginPopupContextItem->PopupID = PopupID;
+	BeginPopupContextItem->bUsePreviousItemID = bUsePreviousItemID;
+	BeginPopupContextItem->MouseButton = MouseButton;
+	BeginPopupContextItem->PopupFlags = PopupFlags;
+
+	if (Container)
+		Container->AddWidget(BeginPopupContextItem);
+
+	return BeginPopupContextItem;
+}
+
+UImGuiToolkitBeginPopupContextWindow* UImGuiToolkitFunctionLibrary::CreateImGuiBeginPopupContextWindow(
+	FText PopupID, EImGuiPopupMouseButton MouseButton, TArray<EImGuiPopupFlag> PopupFlags, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitBeginPopupContextWindow* BeginPopupContextWindow = NewObject<UImGuiToolkitBeginPopupContextWindow>(OuterObject);
+	BeginPopupContextWindow->PopupID = PopupID;
+	BeginPopupContextWindow->MouseButton = MouseButton;
+	BeginPopupContextWindow->PopupFlags = PopupFlags;
+
+	if (Container)
+		Container->AddWidget(BeginPopupContextWindow);
+
+	return BeginPopupContextWindow;
+}
+
+UImGuiToolkitBeginPopupContextVoid* UImGuiToolkitFunctionLibrary::CreateImGuiBeginPopupContextVoid(
+	FText PopupID, EImGuiPopupMouseButton MouseButton, TArray<EImGuiPopupFlag> PopupFlags, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitBeginPopupContextVoid* BeginPopupContextVoid = NewObject<UImGuiToolkitBeginPopupContextVoid>(OuterObject);
+	BeginPopupContextVoid->PopupID = PopupID;
+	BeginPopupContextVoid->MouseButton = MouseButton;
+	BeginPopupContextVoid->PopupFlags = PopupFlags;
+
+	if (Container)
+		Container->AddWidget(BeginPopupContextVoid);
+
+	return BeginPopupContextVoid;
+}
+
+UImGuiToolkitCloseCurrentPopup* UImGuiToolkitFunctionLibrary::CreateImGuiCloseCurrentPopup(bool bCloseOnCreate,
+	bool bCloseWhenPreviousItemClicked, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitCloseCurrentPopup* CloseCurrentPopup = NewObject<UImGuiToolkitCloseCurrentPopup>(OuterObject);
+	CloseCurrentPopup->bCloseRequested = bCloseOnCreate;
+	CloseCurrentPopup->bCloseWhenPreviousItemClicked = bCloseWhenPreviousItemClicked;
+
+	if (Container)
+		Container->AddWidget(CloseCurrentPopup);
+
+	return CloseCurrentPopup;
+}
+
+UImGuiToolkitIsPopupOpen* UImGuiToolkitFunctionLibrary::CreateImGuiIsPopupOpen(FText PopupID,
+	TArray<EImGuiPopupFlag> PopupFlags, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitIsPopupOpen* IsPopupOpen = NewObject<UImGuiToolkitIsPopupOpen>(OuterObject);
+	IsPopupOpen->PopupID = PopupID;
+	IsPopupOpen->PopupFlags = PopupFlags;
+
+	if (Container)
+		Container->AddWidget(IsPopupOpen);
+
+	return IsPopupOpen;
+}
+
+UImGuiToolkitPopupButton* UImGuiToolkitFunctionLibrary::CreateImGuiPopupButton(FText Label, FText Tooltip,
+	FVector2D Size, TArray<EImGuiPopupFlag> PopupFlags, TArray<EImGuiWindowFlag> WindowFlags, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPopupButton* PopupButton = NewObject<UImGuiToolkitPopupButton>(OuterObject);
+	PopupButton->CreateUniqueWidgetLabel(Label);
+	PopupButton->Tooltip = Tooltip;
+	PopupButton->Size = Size;
+	PopupButton->PopupFlags = PopupFlags;
+	PopupButton->WindowFlags = WindowFlags;
+
+	if (Container)
+		Container->AddWidget(PopupButton);
+
+	return PopupButton;
+}
+
 UImGuiToolkitBeginTabBar* UImGuiToolkitFunctionLibrary::CreateImGuiBeginTabBar(FText Label,
 	UImGuiToolkitContainer* Container)
 {

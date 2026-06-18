@@ -366,6 +366,41 @@ int32 FImGuiToolkitUtils::CombineImGuiColorEditFlags(TArray<EImGuiColorEditFlag>
 	return Mask;
 }
 
+ImGuiPopupFlags FImGuiToolkitUtils::UnrealFlagToImGuiPopupFlag(EImGuiPopupFlag Flags)
+{
+	switch (Flags)
+	{
+		case EImGuiPopupFlag::NoReopen:					return ImGuiPopupFlags_NoReopen;
+		case EImGuiPopupFlag::NoOpenOverExistingPopup:	return ImGuiPopupFlags_NoOpenOverExistingPopup;
+		case EImGuiPopupFlag::NoOpenOverItems:			return ImGuiPopupFlags_NoOpenOverItems;
+		case EImGuiPopupFlag::AnyPopupID:				return ImGuiPopupFlags_AnyPopupId;
+		case EImGuiPopupFlag::AnyPopupLevel:				return ImGuiPopupFlags_AnyPopupLevel;
+		case EImGuiPopupFlag::None:						return ImGuiPopupFlags_None;
+		default:										return ImGuiPopupFlags_None;
+	}
+}
+
+int32 FImGuiToolkitUtils::CombineImGuiPopupFlags(TArray<EImGuiPopupFlag> Flags)
+{
+	ImGuiPopupFlags Mask = ImGuiPopupFlags_None;
+	for (EImGuiPopupFlag Flag : Flags)
+	{
+		Mask |= UnrealFlagToImGuiPopupFlag(Flag);
+	}
+	return Mask;
+}
+
+ImGuiPopupFlags FImGuiToolkitUtils::UnrealPopupMouseButtonToImGuiPopupFlag(EImGuiPopupMouseButton MouseButton)
+{
+	switch (MouseButton)
+	{
+		case EImGuiPopupMouseButton::Left:	return ImGuiPopupFlags_MouseButtonLeft;
+		case EImGuiPopupMouseButton::Right:	return ImGuiPopupFlags_MouseButtonRight;
+		case EImGuiPopupMouseButton::Middle:	return ImGuiPopupFlags_MouseButtonMiddle;
+		default:							return ImGuiPopupFlags_MouseButtonRight;
+	}
+}
+
 int32 FImGuiToolkitUtils::ImGuiResizeCallback(ImGuiInputTextCallbackData* Data)
 {
 	if (Data->EventFlag == ImGuiInputTextFlags_CallbackResize)

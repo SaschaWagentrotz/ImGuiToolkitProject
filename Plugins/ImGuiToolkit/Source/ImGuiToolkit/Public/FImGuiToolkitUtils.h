@@ -180,6 +180,25 @@ enum class EImGuiColorEditFlag : uint8
 	InputHSV					= 28			UMETA(DisplayName = "Input HSV"),
 };
 
+UENUM(BlueprintType)
+enum class EImGuiPopupFlag : uint8
+{
+	None						= 0				UMETA(DisplayName = "None"),
+	NoReopen					= 1				UMETA(DisplayName = "No Reopen"),
+	NoOpenOverExistingPopup		= 2				UMETA(DisplayName = "No Open Over Existing Popup"),
+	NoOpenOverItems				= 3				UMETA(DisplayName = "No Open Over Items"),
+	AnyPopupID					= 4				UMETA(DisplayName = "Any Popup ID"),
+	AnyPopupLevel				= 5				UMETA(DisplayName = "Any Popup Level"),
+};
+
+UENUM(BlueprintType)
+enum class EImGuiPopupMouseButton : uint8
+{
+	Left						= 0				UMETA(DisplayName = "Left"),
+	Right						= 1				UMETA(DisplayName = "Right"),
+	Middle						= 2				UMETA(DisplayName = "Middle"),
+};
+
 struct FImGuiToolkitUtils
 {
 	static ImVec4 LinearColorToImVec4(const FLinearColor& Color);
@@ -204,6 +223,9 @@ struct FImGuiToolkitUtils
 	static int32 CombineImGuiTableRowFlags(TArray<EImGuiTableRowFlag> Flags);
 	static ImGuiColorEditFlags UnrealFlagToImGuiColorEditFlag(EImGuiColorEditFlag Flags);
 	static int32 CombineImGuiColorEditFlags(TArray<EImGuiColorEditFlag> Flags);
+	static ImGuiPopupFlags UnrealFlagToImGuiPopupFlag(EImGuiPopupFlag Flags);
+	static int32 CombineImGuiPopupFlags(TArray<EImGuiPopupFlag> Flags);
+	static ImGuiPopupFlags UnrealPopupMouseButtonToImGuiPopupFlag(EImGuiPopupMouseButton MouseButton);
 
 	static int32 ImGuiResizeCallback(ImGuiInputTextCallbackData* Data);
 };

@@ -41,6 +41,16 @@
 #include "Widgets/Colors/ImGuiToolkitColorPicker3.h"
 #include "Widgets/Colors/ImGuiToolkitColorPicker4.h"
 #include "Widgets/Colors/ImGuiToolkitSetColorEditOptions.h"
+#include "Widgets/Popups/ImGuiToolkitBeginPopup.h"
+#include "Widgets/Popups/ImGuiToolkitBeginPopupContextItem.h"
+#include "Widgets/Popups/ImGuiToolkitBeginPopupContextVoid.h"
+#include "Widgets/Popups/ImGuiToolkitBeginPopupContextWindow.h"
+#include "Widgets/Popups/ImGuiToolkitBeginPopupModal.h"
+#include "Widgets/Popups/ImGuiToolkitCloseCurrentPopup.h"
+#include "Widgets/Popups/ImGuiToolkitIsPopupOpen.h"
+#include "Widgets/Popups/ImGuiToolkitOpenPopup.h"
+#include "Widgets/Popups/ImGuiToolkitOpenPopupOnItemClick.h"
+#include "Widgets/Popups/ImGuiToolkitPopupButton.h"
 #include "Widgets/Sliders/ImGuiToolkitDragInt.h"
 #include "Widgets/TabBar/ImGuiToolkitEndTabBar.h"
 #include "Widgets/TabBar/ImGuiToolkitEndTabItem.h"
@@ -248,6 +258,36 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Tables", meta = (ClampMin = "0", UIMin = "0", ReturnDisplayName = "Container"))
 	static UImGuiToolkitTableSetColumnIndex* CreateImGuiTableSetColumnIndex(int32 ColumnIndex, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Popups", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitOpenPopup* CreateImGuiOpenPopup(FText PopupID, TArray<EImGuiPopupFlag> PopupFlags, bool bOpenOnCreate, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Popups", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitOpenPopupOnItemClick* CreateImGuiOpenPopupOnItemClick(FText PopupID, EImGuiPopupMouseButton MouseButton, TArray<EImGuiPopupFlag> PopupFlags, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Popups", meta = (ReturnDisplayName = "Container"))
+	static UImGuiToolkitBeginPopup* CreateImGuiBeginPopup(FText PopupID, TArray<EImGuiWindowFlag> WindowFlags, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Popups", meta = (ReturnDisplayName = "Container"))
+	static UImGuiToolkitBeginPopupModal* CreateImGuiBeginPopupModal(FText PopupID, bool bShowCloseButton, TArray<EImGuiWindowFlag> WindowFlags, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Popups", meta = (ReturnDisplayName = "Container"))
+	static UImGuiToolkitBeginPopupContextItem* CreateImGuiBeginPopupContextItem(FText PopupID, bool bUsePreviousItemID, EImGuiPopupMouseButton MouseButton, TArray<EImGuiPopupFlag> PopupFlags, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Popups", meta = (ReturnDisplayName = "Container"))
+	static UImGuiToolkitBeginPopupContextWindow* CreateImGuiBeginPopupContextWindow(FText PopupID, EImGuiPopupMouseButton MouseButton, TArray<EImGuiPopupFlag> PopupFlags, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Popups", meta = (ReturnDisplayName = "Container"))
+	static UImGuiToolkitBeginPopupContextVoid* CreateImGuiBeginPopupContextVoid(FText PopupID, EImGuiPopupMouseButton MouseButton, TArray<EImGuiPopupFlag> PopupFlags, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Popups", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitCloseCurrentPopup* CreateImGuiCloseCurrentPopup(bool bCloseOnCreate = false, bool bCloseWhenPreviousItemClicked = true, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Popups", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitIsPopupOpen* CreateImGuiIsPopupOpen(FText PopupID, TArray<EImGuiPopupFlag> PopupFlags, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Popups", meta = (ReturnDisplayName = "Container", AdvancedDisplay = "Tooltip,Size,PopupFlags,WindowFlags"))
+	static UImGuiToolkitPopupButton* CreateImGuiPopupButton(FText Label, FText Tooltip, FVector2D Size, TArray<EImGuiPopupFlag> PopupFlags, TArray<EImGuiWindowFlag> WindowFlags, UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a TabBar
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Container"))
