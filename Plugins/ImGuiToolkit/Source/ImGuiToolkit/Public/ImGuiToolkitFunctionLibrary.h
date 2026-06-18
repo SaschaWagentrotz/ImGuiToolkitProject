@@ -87,262 +87,262 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Container"))
 	static UImGuiToolkitWindow* CreateImGuiWindow(UObject* WorldContextObject, FText WindowTitle, TArray<EImGuiWindowFlag> WindowFlags);
 
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Container"))
-	static UImGuiToolkitBeginChild* CreateImGuiBeginChild(UObject* WorldContextObject, FText Label, FVector2D Size, TArray<EImGuiChildFlag> ChildFlags, TArray<EImGuiWindowFlag> WindowFlags, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Container"))
+	static UImGuiToolkitBeginChild* CreateImGuiBeginChild(FText Label, FVector2D Size, TArray<EImGuiChildFlag> ChildFlags, TArray<EImGuiWindowFlag> WindowFlags, UImGuiToolkitContainer* Container = nullptr);
 
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Container"))
-	static UImGuiToolkitBeginGroup* CreateImGuiBeginGroup(UObject* WorldContextObject, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Container"))
+	static UImGuiToolkitBeginGroup* CreateImGuiBeginGroup(UImGuiToolkitContainer* Container = nullptr);
 
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Container"))
-	static UImGuiToolkitBeginListBox* CreateImGuiBeginListBox(UObject* WorldContextObject, FText Label, FVector2D Size = FVector2D(0, 0), UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Container"))
+	static UImGuiToolkitBeginListBox* CreateImGuiBeginListBox(FText Label, FVector2D Size = FVector2D(0, 0), UImGuiToolkitContainer* Container = nullptr);
 
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", DeprecatedFunction, DeprecationMessage = "End widgets are no longer required. ImGuiToolkit container widgets close themselves during Render.", ReturnDisplayName = "Element"))
-	static UImGuiToolkitEndListBox* EndImGuiListBox(UObject* WorldContextObject, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (DeprecatedFunction, DeprecationMessage = "End widgets are no longer required. ImGuiToolkit container widgets close themselves during Render.", ReturnDisplayName = "Element"))
+	static UImGuiToolkitEndListBox* EndImGuiListBox(UImGuiToolkitContainer* Container = nullptr);
 
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitListBox* CreateImGuiListBox(UObject* WorldContextObject, FText Label, TArray<FText> ListItems, int32 InitialIndex = 0, int32 HeightInItems = -1, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitListBox* CreateImGuiListBox(FText Label, TArray<FText> ListItems, int32 InitialIndex = 0, int32 HeightInItems = -1, UImGuiToolkitContainer* Container = nullptr);
 
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitPushItemWidth* CreateImGuiPushItemWidth(UObject* WorldContextObject, float ItemWidth, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitPushItemWidth* CreateImGuiPushItemWidth(float ItemWidth, UImGuiToolkitContainer* Container = nullptr);
 
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitPopItemWidth* CreateImGuiPopItemWidth(UObject* WorldContextObject, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitPopItemWidth* CreateImGuiPopItemWidth(UImGuiToolkitContainer* Container = nullptr);
 
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitSetNextItemWidth* CreateImGuiSetNextItemWidth(UObject* WorldContextObject, float ItemWidth, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitSetNextItemWidth* CreateImGuiSetNextItemWidth(float ItemWidth, UImGuiToolkitContainer* Container = nullptr);
 
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitPushTextWrapPos* CreateImGuiPushTextWrapPos(UObject* WorldContextObject, float WrapLocalPosX = 0.0f, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitPushTextWrapPos* CreateImGuiPushTextWrapPos(float WrapLocalPosX = 0.0f, UImGuiToolkitContainer* Container = nullptr);
 
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitPopTextWrapPos* CreateImGuiPopTextWrapPos(UObject* WorldContextObject, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitPopTextWrapPos* CreateImGuiPopTextWrapPos(UImGuiToolkitContainer* Container = nullptr);
 
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Position"))
-	static FVector2D GetWidgetPosition(UObject* WorldContextObject, UWidget* Widget);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Position"))
+	static FVector2D GetWidgetPosition(UWidget* Widget);
 
 	// Destroy an ImGui window
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject"))
-	static void DestroyImGuiWindow(UObject* WorldContextObject, UImGuiToolkitWindow* Window);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit")
+	static void DestroyImGuiWindow(UImGuiToolkitWindow* Window);
 
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Docking", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ClampMin = "0.05", ClampMax = "0.95", UIMin = "0.05", UIMax = "0.95"))
-	static void DockImGuiWindow(UObject* WorldContextObject, UImGuiToolkitWindow* WindowToDock, UImGuiToolkitWindow* TargetWindow, EImGuiToolkitDockSplitDirection Direction = EImGuiToolkitDockSplitDirection::Center, float SplitRatio = 0.5f);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Docking", meta = (ClampMin = "0.05", ClampMax = "0.95", UIMin = "0.05", UIMax = "0.95"))
+	static void DockImGuiWindow(UImGuiToolkitWindow* WindowToDock, UImGuiToolkitWindow* TargetWindow, EImGuiToolkitDockSplitDirection Direction = EImGuiToolkitDockSplitDirection::Center, float SplitRatio = 0.5f);
 
 	// Create a SameLine
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitSameLine* CreateImGuiSameLine(UObject* WorldContextObject, float OffsetFromStartX = 0.0f, float Spacing = -1.0f, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitSameLine* CreateImGuiSameLine(float OffsetFromStartX = 0.0f, float Spacing = -1.0f, UImGuiToolkitContainer* Container = nullptr);
 
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ToolTip = "", ReturnDisplayName = "Element"))
-	static UImGuiToolkitButton* CreateImGuiButton(UObject* WorldContextObject, FText Label, FText Tooltip = FText::GetEmpty(), FVector2D Size = FVector2D(0, 0), UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ToolTip = "", ReturnDisplayName = "Element"))
+	static UImGuiToolkitButton* CreateImGuiButton(FText Label, FText Tooltip = FText::GetEmpty(), FVector2D Size = FVector2D(0, 0), UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a HelpMarker with a tooltip
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitHelpMarker* CreateImGuiHelpMarker(UObject* WorldContextObject, FText Text, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitHelpMarker* CreateImGuiHelpMarker(FText Text, UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a Tooltip
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitSetItemTooltip* CreateImGuiSetItemTooltip(UObject* WorldContextObject, FText Text, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitSetItemTooltip* CreateImGuiSetItemTooltip(FText Text, UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a CollapsingHeader
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Container"))
-	static UImGuiToolkitCollapsingHeader* CreateImGuiCollapsingHeader(UObject* WorldContextObject, FText Label, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Container"))
+	static UImGuiToolkitCollapsingHeader* CreateImGuiCollapsingHeader(FText Label, UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a Text
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitText* CreateImGuiText(UObject* WorldContextObject, FText Text, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitText* CreateImGuiText(FText Text, UImGuiToolkitContainer* Container = nullptr);
 
 	// Use AlignTextToFramePadding() to align text baseline to the baseline of framed widgets elements, otherwise a Text+SameLine+Button sequence will have the text a little too high by default.
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitAlignTextToFramePadding* CreateImGuiAlignTextToFramePadding(UObject* WorldContextObject, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitAlignTextToFramePadding* CreateImGuiAlignTextToFramePadding(UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a Text Disabled
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitTextDisabled* CreateImGuiTextDisabled(UObject* WorldContextObject, FText Text, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitTextDisabled* CreateImGuiTextDisabled(FText Text, UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a Separator Text
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitSeparatorText* CreateImGuiSeparatorText(UObject* WorldContextObject, FText Text, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitSeparatorText* CreateImGuiSeparatorText(FText Text, UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a Bullet Text
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitBulletText* CreateImGuiBulletText(UObject* WorldContextObject, FText Text, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitBulletText* CreateImGuiBulletText(FText Text, UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a Label Text
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitLabelText* CreateImGuiLabelText(UObject* WorldContextObject, FText LeftText, FText RightText, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitLabelText* CreateImGuiLabelText(FText LeftText, FText RightText, UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a Spacing
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitSpacing* CreateImGuiSpacing(UObject* WorldContextObject, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitSpacing* CreateImGuiSpacing(UImGuiToolkitContainer* Container = nullptr);
 
 	// Create an Indent
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitIndent* CreateImGuiIndent(UObject* WorldContextObject, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitIndent* CreateImGuiIndent(UImGuiToolkitContainer* Container = nullptr);
 
 	// Create an Unindent
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitUnindent* CreateImGuiUnindent(UObject* WorldContextObject, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitUnindent* CreateImGuiUnindent(UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a TreeNode
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Container"))
-	static UImGuiToolkitTreeNode* CreateImGuiTreeNode(UObject* WorldContextObject, FText Label, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Container"))
+	static UImGuiToolkitTreeNode* CreateImGuiTreeNode(FText Label, UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a TreePush
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitTreePush* CreateImGuiTreePush(UObject* WorldContextObject, FText Label, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitTreePush* CreateImGuiTreePush(FText Label, UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a TreePop
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitTreePop* CreateImGuiTreePop(UObject* WorldContextObject, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitTreePop* CreateImGuiTreePop(UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a Checkbox
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitCheckbox* CreateImGuiCheckbox(UObject* WorldContextObject, FText Label, FText Tooltip, bool bIsChecked, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitCheckbox* CreateImGuiCheckbox(FText Label, FText Tooltip, bool bIsChecked, UImGuiToolkitContainer* Container = nullptr);
 
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitSelectable* CreateImGuiSelectable(UObject* WorldContextObject, FText Label, bool bIsSelected, TArray<EImGuiSelectableFlag> SelectableFlags, FVector2D Size = FVector2D(0, 0), FText Tooltip = FText::GetEmpty(), UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitSelectable* CreateImGuiSelectable(FText Label, bool bIsSelected, TArray<EImGuiSelectableFlag> SelectableFlags, FVector2D Size = FVector2D(0, 0), FText Tooltip = FText::GetEmpty(), UImGuiToolkitContainer* Container = nullptr);
 
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Tables", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ClampMin = "1", UIMin = "1", ReturnDisplayName = "Container"))
-	static UImGuiToolkitBeginTable* CreateImGuiBeginTable(UObject* WorldContextObject, FText Label, int32 ColumnCount, TArray<EImGuiTableFlag> TableFlags, FVector2D OuterSize = FVector2D(0, 0), float InnerWidth = 0.0f, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Tables", meta = (ClampMin = "1", UIMin = "1", ReturnDisplayName = "Container"))
+	static UImGuiToolkitBeginTable* CreateImGuiBeginTable(FText Label, int32 ColumnCount, TArray<EImGuiTableFlag> TableFlags, FVector2D OuterSize = FVector2D(0, 0), float InnerWidth = 0.0f, UImGuiToolkitContainer* Container = nullptr);
 
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Tables", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitTableSetupColumn* CreateImGuiTableSetupColumn(UObject* WorldContextObject, FText Label, TArray<EImGuiTableColumnFlag> ColumnFlags, float InitialWidthOrWeight = 0.0f, int32 UserID = 0, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Tables", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitTableSetupColumn* CreateImGuiTableSetupColumn(FText Label, TArray<EImGuiTableColumnFlag> ColumnFlags, float InitialWidthOrWeight = 0.0f, int32 UserID = 0, UImGuiToolkitContainer* Container = nullptr);
 
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Tables", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ClampMin = "0", UIMin = "0", ReturnDisplayName = "Element"))
-	static UImGuiToolkitTableSetupScrollFreeze* CreateImGuiTableSetupScrollFreeze(UObject* WorldContextObject, int32 FrozenColumnCount = 0, int32 FrozenRowCount = 0, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Tables", meta = (ClampMin = "0", UIMin = "0", ReturnDisplayName = "Element"))
+	static UImGuiToolkitTableSetupScrollFreeze* CreateImGuiTableSetupScrollFreeze(int32 FrozenColumnCount = 0, int32 FrozenRowCount = 0, UImGuiToolkitContainer* Container = nullptr);
 
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Tables", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitTableHeadersRow* CreateImGuiTableHeadersRow(UObject* WorldContextObject, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Tables", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitTableHeadersRow* CreateImGuiTableHeadersRow(UImGuiToolkitContainer* Container = nullptr);
 
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Tables", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitTableHeader* CreateImGuiTableHeader(UObject* WorldContextObject, FText Label, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Tables", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitTableHeader* CreateImGuiTableHeader(FText Label, UImGuiToolkitContainer* Container = nullptr);
 
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Tables", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Container"))
-	static UImGuiToolkitTableNextRow* CreateImGuiTableNextRow(UObject* WorldContextObject, TArray<EImGuiTableRowFlag> RowFlags, float MinimumRowHeight = 0.0f, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Tables", meta = (ReturnDisplayName = "Container"))
+	static UImGuiToolkitTableNextRow* CreateImGuiTableNextRow(TArray<EImGuiTableRowFlag> RowFlags, float MinimumRowHeight = 0.0f, UImGuiToolkitContainer* Container = nullptr);
 
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Tables", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Container"))
-	static UImGuiToolkitTableNextColumn* CreateImGuiTableNextColumn(UObject* WorldContextObject, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Tables", meta = (ReturnDisplayName = "Container"))
+	static UImGuiToolkitTableNextColumn* CreateImGuiTableNextColumn(UImGuiToolkitContainer* Container = nullptr);
 
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Tables", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ClampMin = "0", UIMin = "0", ReturnDisplayName = "Container"))
-	static UImGuiToolkitTableSetColumnIndex* CreateImGuiTableSetColumnIndex(UObject* WorldContextObject, int32 ColumnIndex, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Tables", meta = (ClampMin = "0", UIMin = "0", ReturnDisplayName = "Container"))
+	static UImGuiToolkitTableSetColumnIndex* CreateImGuiTableSetColumnIndex(int32 ColumnIndex, UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a TabBar
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext , HidePin = "WorldContextObject", ReturnDisplayName = "Container"))
-	static UImGuiToolkitBeginTabBar* CreateImGuiBeginTabBar(UObject* WorldContextObject, FText Label, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Container"))
+	static UImGuiToolkitBeginTabBar* CreateImGuiBeginTabBar(FText Label, UImGuiToolkitContainer* Container = nullptr);
 
 	// End a TabBar
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", DeprecatedFunction, DeprecationMessage = "End widgets are no longer required. ImGuiToolkit container widgets close themselves during Render.", ReturnDisplayName = "Element"))
-	static UImGuiToolkitEndTabBar* EndImGuiTabBar(UObject* WorldContextObject, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (DeprecatedFunction, DeprecationMessage = "End widgets are no longer required. ImGuiToolkit container widgets close themselves during Render.", ReturnDisplayName = "Element"))
+	static UImGuiToolkitEndTabBar* EndImGuiTabBar(UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a TabItem
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Container"))
-	static UImGuiToolkiBeginTabItem* CreateImGuiBeginTabItem(UObject* WorldContextObject, FText Label, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Container"))
+	static UImGuiToolkiBeginTabItem* CreateImGuiBeginTabItem(FText Label, UImGuiToolkitContainer* Container = nullptr);
 
 	// End a TabItem
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", DeprecatedFunction, DeprecationMessage = "End widgets are no longer required. ImGuiToolkit container widgets close themselves during Render.", ReturnDisplayName = "Element"))
-	static UImGuiToolkitEndTabItem* EndImGuiTabItem(UObject* WorldContextObject, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (DeprecatedFunction, DeprecationMessage = "End widgets are no longer required. ImGuiToolkit container widgets close themselves during Render.", ReturnDisplayName = "Element"))
+	static UImGuiToolkitEndTabItem* EndImGuiTabItem(UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a ComboBox
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitCombo* CreateImGuiCombo(UObject* WorldContextObject, FText Label, TArray<FText> ComboItems, UImGuiToolkitContainer* Container);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitCombo* CreateImGuiCombo(FText Label, TArray<FText> ComboItems, UImGuiToolkitContainer* Container);
 
 	// Create a DragInt
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitDragInt* CreateImGuiDragInt(UObject* WorldContextObject, FText Label, int32 InitialValue, int32 MinValue, int32 MaxValue, float Speed = 1.0f, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitDragInt* CreateImGuiDragInt(FText Label, int32 InitialValue, int32 MinValue, int32 MaxValue, float Speed = 1.0f, UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a Separator
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitSeparator* CreateImGuiSeparator(UObject* WorldContextObject, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitSeparator* CreateImGuiSeparator(UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a NewLine
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitNewLine* CreateImGuiNewLine(UObject* WorldContextObject, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitNewLine* CreateImGuiNewLine(UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a Dummy with a certain size
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitDummy* CreateImGuiDummy(UObject* WorldContextObject, FVector2D Size, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitDummy* CreateImGuiDummy(FVector2D Size, UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a TextColored
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitTextColored* CreateImGuiTextColored(UObject* WorldContextObject, FLinearColor Color, FText Text, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitTextColored* CreateImGuiTextColored(FLinearColor Color, FText Text, UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a TextWrapped
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitTextWrapped* CreateImGuiTextWrapped(UObject* WorldContextObject, FText Text, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitTextWrapped* CreateImGuiTextWrapped(FText Text, UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a SmallButton
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitSmallButton* CreateImGuiSmallButton(UObject* WorldContextObject, FText Label, FText Tooltip, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitSmallButton* CreateImGuiSmallButton(FText Label, FText Tooltip, UImGuiToolkitContainer* Container = nullptr);
 
 	// Create an ArrowButton
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitArrowButton* CreateImGuiArrowButton(UObject* WorldContextObject, EImGuiToolkitDir CardinalDirection, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitArrowButton* CreateImGuiArrowButton(EImGuiToolkitDir CardinalDirection, UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a RadioButtons
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitRadioButtonGroup* CreateImGuiRadioButtonGroup(UObject* WorldContextObject, TArray<FText> RadioButtonLabels, int32 InitialIndex, EImGuiToolkitRadioButtonDirection Direction, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitRadioButtonGroup* CreateImGuiRadioButtonGroup(TArray<FText> RadioButtonLabels, int32 InitialIndex, EImGuiToolkitRadioButtonDirection Direction, UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a ProgressBar
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitProgressBar* CreateImGuiProgressBar(UObject* WorldContextObject, float Percent, FVector2D Size, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitProgressBar* CreateImGuiProgressBar(float Percent, FVector2D Size, UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a Bullet
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitBullet* CreateImGuiBullet(UObject* WorldContextObject, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitBullet* CreateImGuiBullet(UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a Text Link Open URL.
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitTextLinkOpenURL* CreateTextLinkOpenURL(UObject* WorldContextObject, FText Text, FString URL, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitTextLinkOpenURL* CreateTextLinkOpenURL(FText Text, FString URL, UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a DragFloat
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitDragFloat* CreateImGuiDragFloat(UObject* WorldContextObject, FText Label, float InitialValue, float MinValue, float MaxValue, float Speed = 1.0f, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitDragFloat* CreateImGuiDragFloat(FText Label, float InitialValue, float MinValue, float MaxValue, float Speed = 1.0f, UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a SliderFloat. Format example: "$ %.2f" = "$ 19.99" ($ Prefix + 2 decimals) "%.1f km" = "1.5 km"
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitSliderFloat* CreateImGuiSliderFloat(UObject* WorldContextObject, FText Label, float Value, float MinValue, float MaxValue, FText Format, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitSliderFloat* CreateImGuiSliderFloat(FText Label, float Value, float MinValue, float MaxValue, FText Format, UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a SliderInt. Format example: "$ %d" = "$ 10" ($ Prefix) "%d km" = "5 km"
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitSliderInt* CreateImGuiSliderInt(UObject* WorldContextObject, FText Label, int32 Value, int32 MinValue, int32 MaxValue, FText Format, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitSliderInt* CreateImGuiSliderInt(FText Label, int32 Value, int32 MinValue, int32 MaxValue, FText Format, UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a MenuBar. Requires "MenuBar" WindowFlag for window that contains this MenuBar.
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Container"))
-	static UImGuiToolkitBeginMenuBar* CreateImGuiBeginMenuBar(UObject* WorldContextObject, FText Label, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Container"))
+	static UImGuiToolkitBeginMenuBar* CreateImGuiBeginMenuBar(FText Label, UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a Menu
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Container"))
-	static UImGuiToolkitBeginMenu* CreateImGuiBeginMenu(UObject* WorldContextObject, FText Label, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Container"))
+	static UImGuiToolkitBeginMenu* CreateImGuiBeginMenu(FText Label, UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a MenuItem
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitMenuItem* CreateImGuiMenuItem(UObject* WorldContextObject, FText Label, FText Shortcut, bool bIsSelected, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitMenuItem* CreateImGuiMenuItem(FText Label, FText Shortcut, bool bIsSelected, UImGuiToolkitContainer* Container = nullptr);
 
 	// End a MenuBar
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", DeprecatedFunction, DeprecationMessage = "End widgets are no longer required. ImGuiToolkit container widgets close themselves during Render.", ReturnDisplayName = "Element"))
-	static UImGuiToolkitEndMenuBar* EndImGuiMenuBar(UObject* WorldContextObject, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (DeprecatedFunction, DeprecationMessage = "End widgets are no longer required. ImGuiToolkit container widgets close themselves during Render.", ReturnDisplayName = "Element"))
+	static UImGuiToolkitEndMenuBar* EndImGuiMenuBar(UImGuiToolkitContainer* Container = nullptr);
 
 	// End a Menu
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", DeprecatedFunction, DeprecationMessage = "End widgets are no longer required. ImGuiToolkit container widgets close themselves during Render.", ReturnDisplayName = "Element"))
-	static UImGuiToolkitEndMenu* EndImGuiMenu(UObject* WorldContextObject, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (DeprecatedFunction, DeprecationMessage = "End widgets are no longer required. ImGuiToolkit container widgets close themselves during Render.", ReturnDisplayName = "Element"))
+	static UImGuiToolkitEndMenu* EndImGuiMenu(UImGuiToolkitContainer* Container = nullptr);
 
 	// Create an InputText
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitInputText* CreateImGuiInputText(UObject* WorldContextObject, FText Label, FText PreviewText, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitInputText* CreateImGuiInputText(FText Label, FText PreviewText, UImGuiToolkitContainer* Container = nullptr);
 
 	// Create an InputTextMultiline
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitInputTextMultiline* CreateImGuiInputTextMultiline(UObject* WorldContextObject, FText Label, FText PreviewText, FVector2D TextBoxSize, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitInputTextMultiline* CreateImGuiInputTextMultiline(FText Label, FText PreviewText, FVector2D TextBoxSize, UImGuiToolkitContainer* Container = nullptr);
 
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitInputFloat* CreateImGuiInputFloat(UObject* WorldContextObject, FText Label, float PreviewFloat, FString Format = "%.2f", UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitInputFloat* CreateImGuiInputFloat(FText Label, float PreviewFloat, FString Format = "%.2f", UImGuiToolkitContainer* Container = nullptr);
 
 	// Create an InputInt
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (WorldContext = "WorldContextObject", CallableWithoutWorldContext, HidePin = "WorldContextObject", ReturnDisplayName = "Element"))
-	static UImGuiToolkitInputInt* CreateImGuiInputInt(UObject* WorldContextObject, FText Label, int32 PreviewInt, UImGuiToolkitContainer* Container = nullptr);
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitInputInt* CreateImGuiInputInt(FText Label, int32 PreviewInt, UImGuiToolkitContainer* Container = nullptr);
 
 	
 private:
-	// Helper function to get a valid outer object for creating ImGui objects. This function allows us to have different behaviors for ImGui objects spawned at runtime or in the editor. When spawned at runtime, the ImGui objects only stay active until the WorldContext becomes invalid (EndPlay), while ImGui elements spawned during editor-time stay active as long as the editor is valid.
-	static UObject* GetValidOuterObject(UObject* WorldContextObject);
+	// Uses the supplied owner when available, otherwise falls back to the engine subsystem for editor-time objects.
+	static UObject* GetValidOuterObject(UObject* OuterCandidate);
 
 };

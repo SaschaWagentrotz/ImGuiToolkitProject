@@ -40,10 +40,10 @@ UImGuiToolkitWindow* UImGuiToolkitFunctionLibrary::CreateImGuiWindow(UObject* Wo
 	return Window;
 }
 
-UImGuiToolkitBeginChild* UImGuiToolkitFunctionLibrary::CreateImGuiBeginChild(UObject* WorldContextObject, FText Label, FVector2D Size,
+UImGuiToolkitBeginChild* UImGuiToolkitFunctionLibrary::CreateImGuiBeginChild(FText Label, FVector2D Size,
 	TArray<EImGuiChildFlag> ChildFlags, TArray<EImGuiWindowFlag> WindowFlags, UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -59,9 +59,9 @@ UImGuiToolkitBeginChild* UImGuiToolkitFunctionLibrary::CreateImGuiBeginChild(UOb
 	return BeginChild;
 }
 
-UImGuiToolkitBeginGroup* UImGuiToolkitFunctionLibrary::CreateImGuiBeginGroup(UObject* WorldContextObject, UImGuiToolkitContainer* Container)
+UImGuiToolkitBeginGroup* UImGuiToolkitFunctionLibrary::CreateImGuiBeginGroup(UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -73,10 +73,9 @@ UImGuiToolkitBeginGroup* UImGuiToolkitFunctionLibrary::CreateImGuiBeginGroup(UOb
 	return BeginGroup;
 }
 
-UImGuiToolkitBeginListBox* UImGuiToolkitFunctionLibrary::CreateImGuiBeginListBox(UObject* WorldContextObject,
-	FText Label, FVector2D Size, UImGuiToolkitContainer* Container)
+UImGuiToolkitBeginListBox* UImGuiToolkitFunctionLibrary::CreateImGuiBeginListBox(FText Label, FVector2D Size, UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -90,10 +89,9 @@ UImGuiToolkitBeginListBox* UImGuiToolkitFunctionLibrary::CreateImGuiBeginListBox
 	return BeginListBox;
 }
 
-UImGuiToolkitEndListBox* UImGuiToolkitFunctionLibrary::EndImGuiListBox(UObject* WorldContextObject,
-	UImGuiToolkitContainer* Container)
+UImGuiToolkitEndListBox* UImGuiToolkitFunctionLibrary::EndImGuiListBox(UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -105,10 +103,10 @@ UImGuiToolkitEndListBox* UImGuiToolkitFunctionLibrary::EndImGuiListBox(UObject* 
 	return EndListBox;
 }
 
-UImGuiToolkitListBox* UImGuiToolkitFunctionLibrary::CreateImGuiListBox(UObject* WorldContextObject, FText Label,
+UImGuiToolkitListBox* UImGuiToolkitFunctionLibrary::CreateImGuiListBox(FText Label,
 	TArray<FText> ListItems, int32 InitialIndex, int32 HeightInItems, UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -124,10 +122,9 @@ UImGuiToolkitListBox* UImGuiToolkitFunctionLibrary::CreateImGuiListBox(UObject* 
 	return ListBox;
 }
 
-UImGuiToolkitPushItemWidth* UImGuiToolkitFunctionLibrary::CreateImGuiPushItemWidth(UObject* WorldContextObject,
-	float ItemWidth, UImGuiToolkitContainer* Container)
+UImGuiToolkitPushItemWidth* UImGuiToolkitFunctionLibrary::CreateImGuiPushItemWidth(float ItemWidth, UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -140,10 +137,9 @@ UImGuiToolkitPushItemWidth* UImGuiToolkitFunctionLibrary::CreateImGuiPushItemWid
 	return PushItemWidth;
 }
 
-UImGuiToolkitPopItemWidth* UImGuiToolkitFunctionLibrary::CreateImGuiPopItemWidth(UObject* WorldContextObject,
-	UImGuiToolkitContainer* Container)
+UImGuiToolkitPopItemWidth* UImGuiToolkitFunctionLibrary::CreateImGuiPopItemWidth(UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -155,10 +151,9 @@ UImGuiToolkitPopItemWidth* UImGuiToolkitFunctionLibrary::CreateImGuiPopItemWidth
 	return PopItemWidth;
 }
 
-UImGuiToolkitSetNextItemWidth* UImGuiToolkitFunctionLibrary::CreateImGuiSetNextItemWidth(UObject* WorldContextObject,
-	float ItemWidth, UImGuiToolkitContainer* Container)
+UImGuiToolkitSetNextItemWidth* UImGuiToolkitFunctionLibrary::CreateImGuiSetNextItemWidth(float ItemWidth, UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -171,10 +166,9 @@ UImGuiToolkitSetNextItemWidth* UImGuiToolkitFunctionLibrary::CreateImGuiSetNextI
 	return SetNextItemWidth;
 }
 
-UImGuiToolkitPushTextWrapPos* UImGuiToolkitFunctionLibrary::CreateImGuiPushTextWrapPos(UObject* WorldContextObject,
-	float WrapLocalPosX, UImGuiToolkitContainer* Container)
+UImGuiToolkitPushTextWrapPos* UImGuiToolkitFunctionLibrary::CreateImGuiPushTextWrapPos(float WrapLocalPosX, UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -187,10 +181,9 @@ UImGuiToolkitPushTextWrapPos* UImGuiToolkitFunctionLibrary::CreateImGuiPushTextW
 	return PushTextWrapPos;
 }
 
-UImGuiToolkitPopTextWrapPos* UImGuiToolkitFunctionLibrary::CreateImGuiPopTextWrapPos(UObject* WorldContextObject,
-	UImGuiToolkitContainer* Container)
+UImGuiToolkitPopTextWrapPos* UImGuiToolkitFunctionLibrary::CreateImGuiPopTextWrapPos(UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -202,7 +195,7 @@ UImGuiToolkitPopTextWrapPos* UImGuiToolkitFunctionLibrary::CreateImGuiPopTextWra
 	return PopTextWrapPos;
 }
 
-FVector2D UImGuiToolkitFunctionLibrary::GetWidgetPosition(UObject* WorldContextObject, UWidget* Widget)
+FVector2D UImGuiToolkitFunctionLibrary::GetWidgetPosition(UWidget* Widget)
 {
 	const FGeometry& Geo = Widget->GetCachedGeometry();
 	const FVector2D AbsTopLeft = Geo.GetAbsolutePosition();
@@ -213,12 +206,8 @@ FVector2D UImGuiToolkitFunctionLibrary::GetWidgetPosition(UObject* WorldContextO
 	return ScreenPos;
 }
 
-void UImGuiToolkitFunctionLibrary::DestroyImGuiWindow(UObject* WorldContextObject, UImGuiToolkitWindow* Window)
+void UImGuiToolkitFunctionLibrary::DestroyImGuiWindow(UImGuiToolkitWindow* Window)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
-	if (!OuterObject)
-		return;
-
 	// Use GEngine directly instead of GetEngine()
 	if (!GEngine)
 		return;
@@ -229,11 +218,10 @@ void UImGuiToolkitFunctionLibrary::DestroyImGuiWindow(UObject* WorldContextObjec
 	}
 }
 
-void UImGuiToolkitFunctionLibrary::DockImGuiWindow(UObject* WorldContextObject, UImGuiToolkitWindow* WindowToDock,
+void UImGuiToolkitFunctionLibrary::DockImGuiWindow(UImGuiToolkitWindow* WindowToDock,
 	UImGuiToolkitWindow* TargetWindow, EImGuiToolkitDockSplitDirection Direction, float SplitRatio)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
-	if (!OuterObject || !GEngine)
+	if (!GEngine)
 	{
 		return;
 	}
@@ -244,9 +232,9 @@ void UImGuiToolkitFunctionLibrary::DockImGuiWindow(UObject* WorldContextObject, 
 	}
 }
 
-UImGuiToolkitSameLine* UImGuiToolkitFunctionLibrary::CreateImGuiSameLine(UObject* WorldContextObject, float OffsetFromStartX, float Spacing, UImGuiToolkitContainer* Container)
+UImGuiToolkitSameLine* UImGuiToolkitFunctionLibrary::CreateImGuiSameLine(float OffsetFromStartX, float Spacing, UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -261,9 +249,9 @@ UImGuiToolkitSameLine* UImGuiToolkitFunctionLibrary::CreateImGuiSameLine(UObject
 }
 
 
-UImGuiToolkitButton* UImGuiToolkitFunctionLibrary::CreateImGuiButton(UObject* WorldContextObject, FText Label, FText Tooltip, FVector2D Size, UImGuiToolkitContainer* Container)
+UImGuiToolkitButton* UImGuiToolkitFunctionLibrary::CreateImGuiButton(FText Label, FText Tooltip, FVector2D Size, UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -278,9 +266,9 @@ UImGuiToolkitButton* UImGuiToolkitFunctionLibrary::CreateImGuiButton(UObject* Wo
 	return Button;
 }
 
-UImGuiToolkitHelpMarker* UImGuiToolkitFunctionLibrary::CreateImGuiHelpMarker(UObject* WorldContextObject, FText Text, UImGuiToolkitContainer* Container)
+UImGuiToolkitHelpMarker* UImGuiToolkitFunctionLibrary::CreateImGuiHelpMarker(FText Text, UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -293,9 +281,9 @@ UImGuiToolkitHelpMarker* UImGuiToolkitFunctionLibrary::CreateImGuiHelpMarker(UOb
 	return HelpMarker;
 }
 
-UImGuiToolkitSetItemTooltip* UImGuiToolkitFunctionLibrary::CreateImGuiSetItemTooltip(UObject* WorldContextObject, FText Text, UImGuiToolkitContainer* Container)
+UImGuiToolkitSetItemTooltip* UImGuiToolkitFunctionLibrary::CreateImGuiSetItemTooltip(FText Text, UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -308,9 +296,9 @@ UImGuiToolkitSetItemTooltip* UImGuiToolkitFunctionLibrary::CreateImGuiSetItemToo
 	return Tooltip;
 }
 
-UImGuiToolkitCollapsingHeader* UImGuiToolkitFunctionLibrary::CreateImGuiCollapsingHeader(UObject* WorldContextObject, FText Label, UImGuiToolkitContainer* Container)
+UImGuiToolkitCollapsingHeader* UImGuiToolkitFunctionLibrary::CreateImGuiCollapsingHeader(FText Label, UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -323,9 +311,9 @@ UImGuiToolkitCollapsingHeader* UImGuiToolkitFunctionLibrary::CreateImGuiCollapsi
 	return CollapsingHeader;
 }
 
-UImGuiToolkitText* UImGuiToolkitFunctionLibrary::CreateImGuiText(UObject* WorldContextObject, FText Text, UImGuiToolkitContainer* Container)
+UImGuiToolkitText* UImGuiToolkitFunctionLibrary::CreateImGuiText(FText Text, UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -339,9 +327,9 @@ UImGuiToolkitText* UImGuiToolkitFunctionLibrary::CreateImGuiText(UObject* WorldC
 }
 
 UImGuiToolkitAlignTextToFramePadding* UImGuiToolkitFunctionLibrary::CreateImGuiAlignTextToFramePadding(
-	UObject* WorldContextObject, UImGuiToolkitContainer* Container)
+	UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -353,9 +341,9 @@ UImGuiToolkitAlignTextToFramePadding* UImGuiToolkitFunctionLibrary::CreateImGuiA
 	return AlignTextToFramePadding;
 }
 
-UImGuiToolkitTextDisabled* UImGuiToolkitFunctionLibrary::CreateImGuiTextDisabled(UObject* WorldContextObject, FText Text, UImGuiToolkitContainer* Container)
+UImGuiToolkitTextDisabled* UImGuiToolkitFunctionLibrary::CreateImGuiTextDisabled(FText Text, UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -368,9 +356,9 @@ UImGuiToolkitTextDisabled* UImGuiToolkitFunctionLibrary::CreateImGuiTextDisabled
 	return TextBlock;
 }
 
-UImGuiToolkitSeparatorText* UImGuiToolkitFunctionLibrary::CreateImGuiSeparatorText(UObject* WorldContextObject, FText Text, UImGuiToolkitContainer* Container)
+UImGuiToolkitSeparatorText* UImGuiToolkitFunctionLibrary::CreateImGuiSeparatorText(FText Text, UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -383,9 +371,9 @@ UImGuiToolkitSeparatorText* UImGuiToolkitFunctionLibrary::CreateImGuiSeparatorTe
 	return SeparatorText;
 }
 
-UImGuiToolkitBulletText* UImGuiToolkitFunctionLibrary::CreateImGuiBulletText(UObject* WorldContextObject, FText Text, UImGuiToolkitContainer* Container)
+UImGuiToolkitBulletText* UImGuiToolkitFunctionLibrary::CreateImGuiBulletText(FText Text, UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -398,9 +386,9 @@ UImGuiToolkitBulletText* UImGuiToolkitFunctionLibrary::CreateImGuiBulletText(UOb
 	return BulletText;
 }
 
-UImGuiToolkitLabelText* UImGuiToolkitFunctionLibrary::CreateImGuiLabelText(UObject* WorldContextObject, FText LeftText, FText RightText, UImGuiToolkitContainer* Container)
+UImGuiToolkitLabelText* UImGuiToolkitFunctionLibrary::CreateImGuiLabelText(FText LeftText, FText RightText, UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -414,9 +402,9 @@ UImGuiToolkitLabelText* UImGuiToolkitFunctionLibrary::CreateImGuiLabelText(UObje
 	return LabelText;
 }
 
-UImGuiToolkitSpacing* UImGuiToolkitFunctionLibrary::CreateImGuiSpacing(UObject* WorldContextObject, UImGuiToolkitContainer* Container)
+UImGuiToolkitSpacing* UImGuiToolkitFunctionLibrary::CreateImGuiSpacing(UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -428,9 +416,9 @@ UImGuiToolkitSpacing* UImGuiToolkitFunctionLibrary::CreateImGuiSpacing(UObject* 
 	return Spacing;
 }
 
-UImGuiToolkitIndent* UImGuiToolkitFunctionLibrary::CreateImGuiIndent(UObject* WorldContextObject, UImGuiToolkitContainer* Container)
+UImGuiToolkitIndent* UImGuiToolkitFunctionLibrary::CreateImGuiIndent(UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -442,9 +430,9 @@ UImGuiToolkitIndent* UImGuiToolkitFunctionLibrary::CreateImGuiIndent(UObject* Wo
 	return Indent;
 }
 
-UImGuiToolkitUnindent* UImGuiToolkitFunctionLibrary::CreateImGuiUnindent(UObject* WorldContextObject, UImGuiToolkitContainer* Container)
+UImGuiToolkitUnindent* UImGuiToolkitFunctionLibrary::CreateImGuiUnindent(UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -456,9 +444,9 @@ UImGuiToolkitUnindent* UImGuiToolkitFunctionLibrary::CreateImGuiUnindent(UObject
 	return Unindent;
 }
 
-UImGuiToolkitTreeNode* UImGuiToolkitFunctionLibrary::CreateImGuiTreeNode(UObject* WorldContextObject, FText Label, UImGuiToolkitContainer* Container)
+UImGuiToolkitTreeNode* UImGuiToolkitFunctionLibrary::CreateImGuiTreeNode(FText Label, UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -471,10 +459,10 @@ UImGuiToolkitTreeNode* UImGuiToolkitFunctionLibrary::CreateImGuiTreeNode(UObject
 	return TreeNode;
 }
 
-UImGuiToolkitTreePush* UImGuiToolkitFunctionLibrary::CreateImGuiTreePush(UObject* WorldContextObject, FText Label,
+UImGuiToolkitTreePush* UImGuiToolkitFunctionLibrary::CreateImGuiTreePush(FText Label,
 	UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -487,10 +475,9 @@ UImGuiToolkitTreePush* UImGuiToolkitFunctionLibrary::CreateImGuiTreePush(UObject
 	return TreePush;
 }
 
-UImGuiToolkitTreePop* UImGuiToolkitFunctionLibrary::CreateImGuiTreePop(UObject* WorldContextObject,
-	UImGuiToolkitContainer* Container)
+UImGuiToolkitTreePop* UImGuiToolkitFunctionLibrary::CreateImGuiTreePop(UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -502,10 +489,10 @@ UImGuiToolkitTreePop* UImGuiToolkitFunctionLibrary::CreateImGuiTreePop(UObject* 
 	return TreePop;
 }
 
-UImGuiToolkitCheckbox* UImGuiToolkitFunctionLibrary::CreateImGuiCheckbox(UObject* WorldContextObject, FText Label,
+UImGuiToolkitCheckbox* UImGuiToolkitFunctionLibrary::CreateImGuiCheckbox(FText Label,
 	FText Tooltip, bool bIsChecked, UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -520,10 +507,10 @@ UImGuiToolkitCheckbox* UImGuiToolkitFunctionLibrary::CreateImGuiCheckbox(UObject
 	return Checkbox;
 }
 
-UImGuiToolkitSelectable* UImGuiToolkitFunctionLibrary::CreateImGuiSelectable(UObject* WorldContextObject, FText Label,
+UImGuiToolkitSelectable* UImGuiToolkitFunctionLibrary::CreateImGuiSelectable(FText Label,
 	bool bIsSelected, TArray<EImGuiSelectableFlag> SelectableFlags, FVector2D Size, FText Tooltip, UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -540,10 +527,10 @@ UImGuiToolkitSelectable* UImGuiToolkitFunctionLibrary::CreateImGuiSelectable(UOb
 	return Selectable;
 }
 
-UImGuiToolkitBeginTable* UImGuiToolkitFunctionLibrary::CreateImGuiBeginTable(UObject* WorldContextObject, FText Label,
+UImGuiToolkitBeginTable* UImGuiToolkitFunctionLibrary::CreateImGuiBeginTable(FText Label,
 	int32 ColumnCount, TArray<EImGuiTableFlag> TableFlags, FVector2D OuterSize, float InnerWidth, UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -560,10 +547,9 @@ UImGuiToolkitBeginTable* UImGuiToolkitFunctionLibrary::CreateImGuiBeginTable(UOb
 	return BeginTable;
 }
 
-UImGuiToolkitTableSetupColumn* UImGuiToolkitFunctionLibrary::CreateImGuiTableSetupColumn(UObject* WorldContextObject,
-	FText Label, TArray<EImGuiTableColumnFlag> ColumnFlags, float InitialWidthOrWeight, int32 UserID, UImGuiToolkitContainer* Container)
+UImGuiToolkitTableSetupColumn* UImGuiToolkitFunctionLibrary::CreateImGuiTableSetupColumn(FText Label, TArray<EImGuiTableColumnFlag> ColumnFlags, float InitialWidthOrWeight, int32 UserID, UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -580,9 +566,9 @@ UImGuiToolkitTableSetupColumn* UImGuiToolkitFunctionLibrary::CreateImGuiTableSet
 }
 
 UImGuiToolkitTableSetupScrollFreeze* UImGuiToolkitFunctionLibrary::CreateImGuiTableSetupScrollFreeze(
-	UObject* WorldContextObject, int32 FrozenColumnCount, int32 FrozenRowCount, UImGuiToolkitContainer* Container)
+	int32 FrozenColumnCount, int32 FrozenRowCount, UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -596,10 +582,9 @@ UImGuiToolkitTableSetupScrollFreeze* UImGuiToolkitFunctionLibrary::CreateImGuiTa
 	return TableSetupScrollFreeze;
 }
 
-UImGuiToolkitTableHeadersRow* UImGuiToolkitFunctionLibrary::CreateImGuiTableHeadersRow(UObject* WorldContextObject,
-	UImGuiToolkitContainer* Container)
+UImGuiToolkitTableHeadersRow* UImGuiToolkitFunctionLibrary::CreateImGuiTableHeadersRow(UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -611,10 +596,10 @@ UImGuiToolkitTableHeadersRow* UImGuiToolkitFunctionLibrary::CreateImGuiTableHead
 	return TableHeadersRow;
 }
 
-UImGuiToolkitTableHeader* UImGuiToolkitFunctionLibrary::CreateImGuiTableHeader(UObject* WorldContextObject, FText Label,
+UImGuiToolkitTableHeader* UImGuiToolkitFunctionLibrary::CreateImGuiTableHeader(FText Label,
 	UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -627,10 +612,9 @@ UImGuiToolkitTableHeader* UImGuiToolkitFunctionLibrary::CreateImGuiTableHeader(U
 	return TableHeader;
 }
 
-UImGuiToolkitTableNextRow* UImGuiToolkitFunctionLibrary::CreateImGuiTableNextRow(UObject* WorldContextObject,
-	TArray<EImGuiTableRowFlag> RowFlags, float MinimumRowHeight, UImGuiToolkitContainer* Container)
+UImGuiToolkitTableNextRow* UImGuiToolkitFunctionLibrary::CreateImGuiTableNextRow(TArray<EImGuiTableRowFlag> RowFlags, float MinimumRowHeight, UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -644,10 +628,9 @@ UImGuiToolkitTableNextRow* UImGuiToolkitFunctionLibrary::CreateImGuiTableNextRow
 	return TableNextRow;
 }
 
-UImGuiToolkitTableNextColumn* UImGuiToolkitFunctionLibrary::CreateImGuiTableNextColumn(UObject* WorldContextObject,
-	UImGuiToolkitContainer* Container)
+UImGuiToolkitTableNextColumn* UImGuiToolkitFunctionLibrary::CreateImGuiTableNextColumn(UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -659,10 +642,9 @@ UImGuiToolkitTableNextColumn* UImGuiToolkitFunctionLibrary::CreateImGuiTableNext
 	return TableNextColumn;
 }
 
-UImGuiToolkitTableSetColumnIndex* UImGuiToolkitFunctionLibrary::CreateImGuiTableSetColumnIndex(UObject* WorldContextObject,
-	int32 ColumnIndex, UImGuiToolkitContainer* Container)
+UImGuiToolkitTableSetColumnIndex* UImGuiToolkitFunctionLibrary::CreateImGuiTableSetColumnIndex(int32 ColumnIndex, UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -675,10 +657,10 @@ UImGuiToolkitTableSetColumnIndex* UImGuiToolkitFunctionLibrary::CreateImGuiTable
 	return TableSetColumnIndex;
 }
 
-UImGuiToolkitBeginTabBar* UImGuiToolkitFunctionLibrary::CreateImGuiBeginTabBar(UObject* WorldContextObject, FText Label,
+UImGuiToolkitBeginTabBar* UImGuiToolkitFunctionLibrary::CreateImGuiBeginTabBar(FText Label,
 	UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -691,10 +673,9 @@ UImGuiToolkitBeginTabBar* UImGuiToolkitFunctionLibrary::CreateImGuiBeginTabBar(U
 	return BeginTabBar;
 }
 
-UImGuiToolkitEndTabBar* UImGuiToolkitFunctionLibrary::EndImGuiTabBar(UObject* WorldContextObject,
-	UImGuiToolkitContainer* Container)
+UImGuiToolkitEndTabBar* UImGuiToolkitFunctionLibrary::EndImGuiTabBar(UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -706,10 +687,9 @@ UImGuiToolkitEndTabBar* UImGuiToolkitFunctionLibrary::EndImGuiTabBar(UObject* Wo
 	return EndTabBar;
 }
 
-UImGuiToolkiBeginTabItem* UImGuiToolkitFunctionLibrary::CreateImGuiBeginTabItem(UObject* WorldContextObject,
-	FText Label, UImGuiToolkitContainer* Container)
+UImGuiToolkiBeginTabItem* UImGuiToolkitFunctionLibrary::CreateImGuiBeginTabItem(FText Label, UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -722,10 +702,9 @@ UImGuiToolkiBeginTabItem* UImGuiToolkitFunctionLibrary::CreateImGuiBeginTabItem(
 	return BeginTabItem;
 }
 
-UImGuiToolkitEndTabItem* UImGuiToolkitFunctionLibrary::EndImGuiTabItem(UObject* WorldContextObject,
-	UImGuiToolkitContainer* Container)
+UImGuiToolkitEndTabItem* UImGuiToolkitFunctionLibrary::EndImGuiTabItem(UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -737,9 +716,9 @@ UImGuiToolkitEndTabItem* UImGuiToolkitFunctionLibrary::EndImGuiTabItem(UObject* 
 	return EndTabItem;
 }
 
-UImGuiToolkitCombo* UImGuiToolkitFunctionLibrary::CreateImGuiCombo(UObject* WorldContextObject, FText Label, TArray<FText> ComboItems, UImGuiToolkitContainer* Container)
+UImGuiToolkitCombo* UImGuiToolkitFunctionLibrary::CreateImGuiCombo(FText Label, TArray<FText> ComboItems, UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -753,9 +732,9 @@ UImGuiToolkitCombo* UImGuiToolkitFunctionLibrary::CreateImGuiCombo(UObject* Worl
 	return Combo;
 }
 
-UImGuiToolkitDragInt* UImGuiToolkitFunctionLibrary::CreateImGuiDragInt(UObject* WorldContextObject, FText Label, int32 InitialValue, int32 MinValue, int32 MaxValue, float Speed, UImGuiToolkitContainer* Container)
+UImGuiToolkitDragInt* UImGuiToolkitFunctionLibrary::CreateImGuiDragInt(FText Label, int32 InitialValue, int32 MinValue, int32 MaxValue, float Speed, UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -772,10 +751,9 @@ UImGuiToolkitDragInt* UImGuiToolkitFunctionLibrary::CreateImGuiDragInt(UObject* 
 	return DragInt;
 }
 
-UImGuiToolkitSeparator* UImGuiToolkitFunctionLibrary::CreateImGuiSeparator(UObject* WorldContextObject,
-	UImGuiToolkitContainer* Container)
+UImGuiToolkitSeparator* UImGuiToolkitFunctionLibrary::CreateImGuiSeparator(UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -787,10 +765,9 @@ UImGuiToolkitSeparator* UImGuiToolkitFunctionLibrary::CreateImGuiSeparator(UObje
 	return Separator;
 }
 
-UImGuiToolkitNewLine* UImGuiToolkitFunctionLibrary::CreateImGuiNewLine(UObject* WorldContextObject,
-	UImGuiToolkitContainer* Container)
+UImGuiToolkitNewLine* UImGuiToolkitFunctionLibrary::CreateImGuiNewLine(UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -802,10 +779,10 @@ UImGuiToolkitNewLine* UImGuiToolkitFunctionLibrary::CreateImGuiNewLine(UObject* 
 	return NewLine;
 }
 
-UImGuiToolkitDummy* UImGuiToolkitFunctionLibrary::CreateImGuiDummy(UObject* WorldContextObject, FVector2D Size,
+UImGuiToolkitDummy* UImGuiToolkitFunctionLibrary::CreateImGuiDummy(FVector2D Size,
 	UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -818,10 +795,9 @@ UImGuiToolkitDummy* UImGuiToolkitFunctionLibrary::CreateImGuiDummy(UObject* Worl
 	return Dummy;
 }
 
-UImGuiToolkitTextColored* UImGuiToolkitFunctionLibrary::CreateImGuiTextColored(UObject* WorldContextObject,
-	FLinearColor Color, FText Text, UImGuiToolkitContainer* Container)
+UImGuiToolkitTextColored* UImGuiToolkitFunctionLibrary::CreateImGuiTextColored(FLinearColor Color, FText Text, UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -835,10 +811,10 @@ UImGuiToolkitTextColored* UImGuiToolkitFunctionLibrary::CreateImGuiTextColored(U
 	return TextColored;
 }
 
-UImGuiToolkitTextWrapped* UImGuiToolkitFunctionLibrary::CreateImGuiTextWrapped(UObject* WorldContextObject, FText Text,
+UImGuiToolkitTextWrapped* UImGuiToolkitFunctionLibrary::CreateImGuiTextWrapped(FText Text,
 	UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -851,10 +827,10 @@ UImGuiToolkitTextWrapped* UImGuiToolkitFunctionLibrary::CreateImGuiTextWrapped(U
 	return TextWrapped;
 }
 
-UImGuiToolkitSmallButton* UImGuiToolkitFunctionLibrary::CreateImGuiSmallButton(UObject* WorldContextObject, FText Label,
+UImGuiToolkitSmallButton* UImGuiToolkitFunctionLibrary::CreateImGuiSmallButton(FText Label,
 	FText Tooltip, UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -868,10 +844,9 @@ UImGuiToolkitSmallButton* UImGuiToolkitFunctionLibrary::CreateImGuiSmallButton(U
 	return SmallButton;
 }
 
-UImGuiToolkitArrowButton* UImGuiToolkitFunctionLibrary::CreateImGuiArrowButton(UObject* WorldContextObject,
-	EImGuiToolkitDir CardinalDirection, UImGuiToolkitContainer* Container)
+UImGuiToolkitArrowButton* UImGuiToolkitFunctionLibrary::CreateImGuiArrowButton(EImGuiToolkitDir CardinalDirection, UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -884,10 +859,9 @@ UImGuiToolkitArrowButton* UImGuiToolkitFunctionLibrary::CreateImGuiArrowButton(U
 	return ArrowButton;
 }
 
-UImGuiToolkitRadioButtonGroup* UImGuiToolkitFunctionLibrary::CreateImGuiRadioButtonGroup(UObject* WorldContextObject,
-	TArray<FText> RadioButtonLabels, int32 InitialIndex, EImGuiToolkitRadioButtonDirection Direction, UImGuiToolkitContainer* Container)
+UImGuiToolkitRadioButtonGroup* UImGuiToolkitFunctionLibrary::CreateImGuiRadioButtonGroup(TArray<FText> RadioButtonLabels, int32 InitialIndex, EImGuiToolkitRadioButtonDirection Direction, UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -903,10 +877,9 @@ UImGuiToolkitRadioButtonGroup* UImGuiToolkitFunctionLibrary::CreateImGuiRadioBut
 	return RadioButtonGroup;
 }
 
-UImGuiToolkitProgressBar* UImGuiToolkitFunctionLibrary::CreateImGuiProgressBar(UObject* WorldContextObject,
-	float Percent, FVector2D Size, UImGuiToolkitContainer* Container)
+UImGuiToolkitProgressBar* UImGuiToolkitFunctionLibrary::CreateImGuiProgressBar(float Percent, FVector2D Size, UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -920,10 +893,9 @@ UImGuiToolkitProgressBar* UImGuiToolkitFunctionLibrary::CreateImGuiProgressBar(U
 	return ProgressBar;
 }
 
-UImGuiToolkitBullet* UImGuiToolkitFunctionLibrary::CreateImGuiBullet(UObject* WorldContextObject,
-	UImGuiToolkitContainer* Container)
+UImGuiToolkitBullet* UImGuiToolkitFunctionLibrary::CreateImGuiBullet(UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -935,10 +907,9 @@ UImGuiToolkitBullet* UImGuiToolkitFunctionLibrary::CreateImGuiBullet(UObject* Wo
 	return Bullet;
 }
 
-UImGuiToolkitTextLinkOpenURL* UImGuiToolkitFunctionLibrary::CreateTextLinkOpenURL(UObject* WorldContextObject,
-	FText Text, FString URL, UImGuiToolkitContainer* Container)
+UImGuiToolkitTextLinkOpenURL* UImGuiToolkitFunctionLibrary::CreateTextLinkOpenURL(FText Text, FString URL, UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -952,10 +923,10 @@ UImGuiToolkitTextLinkOpenURL* UImGuiToolkitFunctionLibrary::CreateTextLinkOpenUR
 	return TextLinkOpenURL;
 }
 
-UImGuiToolkitDragFloat* UImGuiToolkitFunctionLibrary::CreateImGuiDragFloat(UObject* WorldContextObject, FText Label,
+UImGuiToolkitDragFloat* UImGuiToolkitFunctionLibrary::CreateImGuiDragFloat(FText Label,
 	float InitialValue, float MinValue, float MaxValue, float Speed, UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -972,10 +943,10 @@ UImGuiToolkitDragFloat* UImGuiToolkitFunctionLibrary::CreateImGuiDragFloat(UObje
 	return DragFloat;
 }
 
-UImGuiToolkitSliderFloat* UImGuiToolkitFunctionLibrary::CreateImGuiSliderFloat(UObject* WorldContextObject, FText Label,
+UImGuiToolkitSliderFloat* UImGuiToolkitFunctionLibrary::CreateImGuiSliderFloat(FText Label,
 	float Value, float MinValue, float MaxValue, FText Format, UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -992,10 +963,10 @@ UImGuiToolkitSliderFloat* UImGuiToolkitFunctionLibrary::CreateImGuiSliderFloat(U
 	return SliderFloat;
 }
 
-UImGuiToolkitSliderInt* UImGuiToolkitFunctionLibrary::CreateImGuiSliderInt(UObject* WorldContextObject, FText Label,
+UImGuiToolkitSliderInt* UImGuiToolkitFunctionLibrary::CreateImGuiSliderInt(FText Label,
 	int32 Value, int32 MinValue, int32 MaxValue, FText Format, UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -1012,10 +983,9 @@ UImGuiToolkitSliderInt* UImGuiToolkitFunctionLibrary::CreateImGuiSliderInt(UObje
 	return SliderInt;
 }
 
-UImGuiToolkitBeginMenuBar* UImGuiToolkitFunctionLibrary::CreateImGuiBeginMenuBar(UObject* WorldContextObject,
-	FText Label, UImGuiToolkitContainer* Container)
+UImGuiToolkitBeginMenuBar* UImGuiToolkitFunctionLibrary::CreateImGuiBeginMenuBar(FText Label, UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -1028,10 +998,10 @@ UImGuiToolkitBeginMenuBar* UImGuiToolkitFunctionLibrary::CreateImGuiBeginMenuBar
 	return BeginMenuBar;
 }
 
-UImGuiToolkitBeginMenu* UImGuiToolkitFunctionLibrary::CreateImGuiBeginMenu(UObject* WorldContextObject, FText Label,
+UImGuiToolkitBeginMenu* UImGuiToolkitFunctionLibrary::CreateImGuiBeginMenu(FText Label,
 	UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -1044,10 +1014,10 @@ UImGuiToolkitBeginMenu* UImGuiToolkitFunctionLibrary::CreateImGuiBeginMenu(UObje
 	return BeginMenu;
 }
 
-UImGuiToolkitMenuItem* UImGuiToolkitFunctionLibrary::CreateImGuiMenuItem(UObject* WorldContextObject, FText Label, FText Shortcut, bool bIsSelected,
+UImGuiToolkitMenuItem* UImGuiToolkitFunctionLibrary::CreateImGuiMenuItem(FText Label, FText Shortcut, bool bIsSelected,
 	UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -1062,10 +1032,9 @@ UImGuiToolkitMenuItem* UImGuiToolkitFunctionLibrary::CreateImGuiMenuItem(UObject
 	return MenuItem;
 }
 
-UImGuiToolkitEndMenuBar* UImGuiToolkitFunctionLibrary::EndImGuiMenuBar(UObject* WorldContextObject,
-	UImGuiToolkitContainer* Container)
+UImGuiToolkitEndMenuBar* UImGuiToolkitFunctionLibrary::EndImGuiMenuBar(UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -1077,10 +1046,9 @@ UImGuiToolkitEndMenuBar* UImGuiToolkitFunctionLibrary::EndImGuiMenuBar(UObject* 
 	return EndMenuBar;
 }
 
-UImGuiToolkitEndMenu* UImGuiToolkitFunctionLibrary::EndImGuiMenu(UObject* WorldContextObject,
-	UImGuiToolkitContainer* Container)
+UImGuiToolkitEndMenu* UImGuiToolkitFunctionLibrary::EndImGuiMenu(UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -1092,10 +1060,10 @@ UImGuiToolkitEndMenu* UImGuiToolkitFunctionLibrary::EndImGuiMenu(UObject* WorldC
 	return EndMenu;
 }
 
-UImGuiToolkitInputText* UImGuiToolkitFunctionLibrary::CreateImGuiInputText(UObject* WorldContextObject, FText Label, FText PreviewText,
+UImGuiToolkitInputText* UImGuiToolkitFunctionLibrary::CreateImGuiInputText(FText Label, FText PreviewText,
 	UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -1110,9 +1078,9 @@ UImGuiToolkitInputText* UImGuiToolkitFunctionLibrary::CreateImGuiInputText(UObje
 }
 
 UImGuiToolkitInputTextMultiline* UImGuiToolkitFunctionLibrary::CreateImGuiInputTextMultiline(
-	UObject* WorldContextObject, FText Label, FText PreviewText, FVector2D TextBoxSize, UImGuiToolkitContainer* Container)
+	FText Label, FText PreviewText, FVector2D TextBoxSize, UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -1127,9 +1095,9 @@ UImGuiToolkitInputTextMultiline* UImGuiToolkitFunctionLibrary::CreateImGuiInputT
 	return InputTextMultiline;
 }
 
-UImGuiToolkitInputFloat* UImGuiToolkitFunctionLibrary::CreateImGuiInputFloat(UObject* WorldContextObject, FText Label, float PreviewFloat, FString Format, UImGuiToolkitContainer* Container)
+UImGuiToolkitInputFloat* UImGuiToolkitFunctionLibrary::CreateImGuiInputFloat(FText Label, float PreviewFloat, FString Format, UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -1144,10 +1112,10 @@ UImGuiToolkitInputFloat* UImGuiToolkitFunctionLibrary::CreateImGuiInputFloat(UOb
 	return InputFloat;
 }
 
-UImGuiToolkitInputInt* UImGuiToolkitFunctionLibrary::CreateImGuiInputInt(UObject* WorldContextObject, FText Label,
+UImGuiToolkitInputInt* UImGuiToolkitFunctionLibrary::CreateImGuiInputInt(FText Label,
 	int32 PreviewInt, UImGuiToolkitContainer* Container)
 {
-	UObject* OuterObject = GetValidOuterObject(WorldContextObject);
+	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
 		return nullptr;
 
@@ -1161,11 +1129,10 @@ UImGuiToolkitInputInt* UImGuiToolkitFunctionLibrary::CreateImGuiInputInt(UObject
 	return InputInt;
 }
 
-UObject* UImGuiToolkitFunctionLibrary::GetValidOuterObject(UObject* WorldContextObject)
+UObject* UImGuiToolkitFunctionLibrary::GetValidOuterObject(UObject* OuterCandidate)
 {
-	// If we have a valid WorldContextObject, use it
-	if (WorldContextObject)
-		return WorldContextObject;
+	if (OuterCandidate)
+		return OuterCandidate;
 
 	// Fall back to the ImGuiToolkitSubsystem, renders while the editor is running
 	if (GEngine)
