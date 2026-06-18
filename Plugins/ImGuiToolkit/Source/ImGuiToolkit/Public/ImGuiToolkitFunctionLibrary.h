@@ -35,6 +35,12 @@
 #include "Widgets/Main/ImGuiToolkitCheckbox.h"
 #include "Widgets/Main/ImGuiToolkitCombo.h"
 #include "Widgets/Main/ImGuiToolkitEndListBox.h"
+#include "Widgets/Colors/ImGuiToolkitColorButton.h"
+#include "Widgets/Colors/ImGuiToolkitColorEdit3.h"
+#include "Widgets/Colors/ImGuiToolkitColorEdit4.h"
+#include "Widgets/Colors/ImGuiToolkitColorPicker3.h"
+#include "Widgets/Colors/ImGuiToolkitColorPicker4.h"
+#include "Widgets/Colors/ImGuiToolkitSetColorEditOptions.h"
 #include "Widgets/Sliders/ImGuiToolkitDragInt.h"
 #include "Widgets/TabBar/ImGuiToolkitEndTabBar.h"
 #include "Widgets/TabBar/ImGuiToolkitEndTabItem.h"
@@ -200,6 +206,24 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
 	static UImGuiToolkitSelectable* CreateImGuiSelectable(FText Label, bool bIsSelected, TArray<EImGuiSelectableFlag> SelectableFlags, FVector2D Size = FVector2D(0, 0), FText Tooltip = FText::GetEmpty(), UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Colors", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitColorEdit3* CreateImGuiColorEdit3(FText Label, FLinearColor Color, TArray<EImGuiColorEditFlag> ColorEditFlags, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Colors", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitColorEdit4* CreateImGuiColorEdit4(FText Label, FLinearColor Color, TArray<EImGuiColorEditFlag> ColorEditFlags, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Colors", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitColorPicker3* CreateImGuiColorPicker3(FText Label, FLinearColor Color, TArray<EImGuiColorEditFlag> ColorEditFlags, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Colors", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitColorPicker4* CreateImGuiColorPicker4(FText Label, FLinearColor Color, TArray<EImGuiColorEditFlag> ColorEditFlags, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Colors", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitColorButton* CreateImGuiColorButton(FText Label, FLinearColor Color, TArray<EImGuiColorEditFlag> ColorEditFlags, FVector2D Size = FVector2D(0, 0), UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Colors", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitSetColorEditOptions* CreateImGuiSetColorEditOptions(TArray<EImGuiColorEditFlag> ColorEditFlags, UImGuiToolkitContainer* Container = nullptr);
 
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Tables", meta = (ClampMin = "1", UIMin = "1", ReturnDisplayName = "Container"))
 	static UImGuiToolkitBeginTable* CreateImGuiBeginTable(FText Label, int32 ColumnCount, TArray<EImGuiTableFlag> TableFlags, FVector2D OuterSize = FVector2D(0, 0), float InnerWidth = 0.0f, UImGuiToolkitContainer* Container = nullptr);

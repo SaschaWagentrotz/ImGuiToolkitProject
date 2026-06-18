@@ -1,28 +1,48 @@
 #include "FImGuiToolkitUtils.h"
 
+namespace
+{
+	float LinearToSRGBFloat(float Value)
+	{
+		if (Value <= 0.0f)
+			return Value;
+
+		if (Value <= 0.0031308f)
+			return 12.92f * Value;
+
+		return 1.055f * FMath::Pow(Value, 1.0f / 2.4f) - 0.055f;
+	}
+
+	float SRGBToLinearFloat(float Value)
+	{
+		if (Value <= 0.0f)
+			return Value;
+
+		if (Value <= 0.04045f)
+			return Value / 12.92f;
+
+		return FMath::Pow((Value + 0.055f) / 1.055f, 2.4f);
+	}
+}
+
 ImVec4 FImGuiToolkitUtils::LinearColorToImVec4(const FLinearColor& Color)
 {
-	const FColor ColorSRGB = Color.ToFColorSRGB(); 
-	const ImVec4 ImGuiColor(
-		ColorSRGB.R / 255.0f,
-		ColorSRGB.G / 255.0f,
-		ColorSRGB.B / 255.0f,
-		ColorSRGB.A / 255.0f
+	return ImVec4(
+		LinearToSRGBFloat(Color.R),
+		LinearToSRGBFloat(Color.G),
+		LinearToSRGBFloat(Color.B),
+		Color.A
 	);
-
-	return ImGuiColor;
 }
 
 FLinearColor FImGuiToolkitUtils::ImVec4ToLinearColor(const ImVec4& Color)
 {
-	const FColor SRGBColor(
-		FMath::Clamp(FMath::RoundToInt(Color.x * 255.0f), 0, 255),
-		FMath::Clamp(FMath::RoundToInt(Color.y * 255.0f), 0, 255),
-		FMath::Clamp(FMath::RoundToInt(Color.z * 255.0f), 0, 255),
-		FMath::Clamp(FMath::RoundToInt(Color.w * 255.0f), 0, 255)
+	return FLinearColor(
+		SRGBToLinearFloat(Color.x),
+		SRGBToLinearFloat(Color.y),
+		SRGBToLinearFloat(Color.z),
+		Color.w
 	);
-
-	return FLinearColor::FromSRGBColor(SRGBColor);
 }
 
 EImGuiToolkitDir FImGuiToolkitUtils::ImGuiDirToUnrealDir(ImGuiDir Dir)
@@ -299,6 +319,49 @@ int32 FImGuiToolkitUtils::CombineImGuiTableRowFlags(TArray<EImGuiTableRowFlag> F
 	for (EImGuiTableRowFlag Flag : Flags)
 	{
 		Mask |= UnrealFlagToImGuiTableRowFlag(Flag);
+	}
+	return Mask;
+}
+
+ImGuiColorEditFlags FImGuiToolkitUtils::UnrealFlagToImGuiColorEditFlag(EImGuiColorEditFlag Flags)
+{
+	switch (Flags)
+	{
+		case EImGuiColorEditFlag::NoAlpha:			return ImGuiColorEditFlags_NoAlpha;
+		case EImGuiColorEditFlag::NoPicker:			return ImGuiColorEditFlags_NoPicker;
+		case EImGuiColorEditFlag::NoOptions:			return ImGuiColorEditFlags_NoOptions;
+		case EImGuiColorEditFlag::NoSmallPreview:	return ImGuiColorEditFlags_NoSmallPreview;
+		case EImGuiColorEditFlag::NoInputs:			return ImGuiColorEditFlags_NoInputs;
+		case EImGuiColorEditFlag::NoTooltip:			return ImGuiColorEditFlags_NoTooltip;
+		case EImGuiColorEditFlag::NoLabel:			return ImGuiColorEditFlags_NoLabel;
+		case EImGuiColorEditFlag::NoSidePreview:		return ImGuiColorEditFlags_NoSidePreview;
+		case EImGuiColorEditFlag::NoDragDrop:		return ImGuiColorEditFlags_NoDragDrop;
+		case EImGuiColorEditFlag::NoBorder:			return ImGuiColorEditFlags_NoBorder;
+		case EImGuiColorEditFlag::AlphaOpaque:		return ImGuiColorEditFlags_AlphaOpaque;
+		case EImGuiColorEditFlag::AlphaNoBg:			return ImGuiColorEditFlags_AlphaNoBg;
+		case EImGuiColorEditFlag::AlphaPreviewHalf:	return ImGuiColorEditFlags_AlphaPreviewHalf;
+		case EImGuiColorEditFlag::AlphaBar:			return ImGuiColorEditFlags_AlphaBar;
+		case EImGuiColorEditFlag::HDR:				return ImGuiColorEditFlags_HDR;
+		case EImGuiColorEditFlag::DisplayRGB:		return ImGuiColorEditFlags_DisplayRGB;
+		case EImGuiColorEditFlag::DisplayHSV:		return ImGuiColorEditFlags_DisplayHSV;
+		case EImGuiColorEditFlag::DisplayHex:		return ImGuiColorEditFlags_DisplayHex;
+		case EImGuiColorEditFlag::Uint8:				return ImGuiColorEditFlags_Uint8;
+		case EImGuiColorEditFlag::Float:				return ImGuiColorEditFlags_Float;
+		case EImGuiColorEditFlag::PickerHueBar:		return ImGuiColorEditFlags_PickerHueBar;
+		case EImGuiColorEditFlag::PickerHueWheel:	return ImGuiColorEditFlags_PickerHueWheel;
+		case EImGuiColorEditFlag::InputRGB:			return ImGuiColorEditFlags_InputRGB;
+		case EImGuiColorEditFlag::InputHSV:			return ImGuiColorEditFlags_InputHSV;
+		case EImGuiColorEditFlag::None:				return ImGuiColorEditFlags_None;
+		default:									return ImGuiColorEditFlags_None;
+	}
+}
+
+int32 FImGuiToolkitUtils::CombineImGuiColorEditFlags(TArray<EImGuiColorEditFlag> Flags)
+{
+	ImGuiColorEditFlags Mask = ImGuiColorEditFlags_None;
+	for (EImGuiColorEditFlag Flag : Flags)
+	{
+		Mask |= UnrealFlagToImGuiColorEditFlag(Flag);
 	}
 	return Mask;
 }

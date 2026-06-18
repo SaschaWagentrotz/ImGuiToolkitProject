@@ -24,6 +24,10 @@ struct ImPlotContext;
 #define IMGUI_DISABLE_DEFAULT_FILE_FUNCTIONS
 #define IMGUI_DISABLE_DEFAULT_SHELL_FUNCTIONS
 
+#ifndef ImDrawIdx
+#define ImDrawIdx unsigned int
+#endif
+
 #ifdef IMGUI_DISABLE_DEFAULT_FILE_FUNCTIONS
 typedef IFileHandle* ImFileHandle;
 ImFileHandle ImFileOpen(const char* FileName, const char* Mode);

@@ -150,6 +150,36 @@ enum class EImGuiTableRowFlag : uint8
 	Headers						= 0				UMETA(DisplayName = "Headers"),
 };
 
+UENUM(BlueprintType)
+enum class EImGuiColorEditFlag : uint8
+{
+	None						= 0				UMETA(DisplayName = "None"),
+	NoAlpha						= 1				UMETA(DisplayName = "No Alpha"),
+	NoPicker					= 2				UMETA(DisplayName = "No Picker"),
+	NoOptions					= 3				UMETA(DisplayName = "No Options"),
+	NoSmallPreview				= 4				UMETA(DisplayName = "No Small Preview"),
+	NoInputs					= 5				UMETA(DisplayName = "No Inputs"),
+	NoTooltip					= 6				UMETA(DisplayName = "No Tooltip"),
+	NoLabel						= 7				UMETA(DisplayName = "No Label"),
+	NoSidePreview				= 8				UMETA(DisplayName = "No Side Preview"),
+	NoDragDrop					= 9				UMETA(DisplayName = "No Drag Drop"),
+	NoBorder					= 10			UMETA(DisplayName = "No Border"),
+	AlphaOpaque					= 11			UMETA(DisplayName = "Alpha Opaque"),
+	AlphaNoBg					= 12			UMETA(DisplayName = "Alpha No Background"),
+	AlphaPreviewHalf			= 13			UMETA(DisplayName = "Alpha Preview Half"),
+	AlphaBar					= 16			UMETA(DisplayName = "Alpha Bar"),
+	HDR							= 19			UMETA(DisplayName = "HDR"),
+	DisplayRGB					= 20			UMETA(DisplayName = "Display RGB"),
+	DisplayHSV					= 21			UMETA(DisplayName = "Display HSV"),
+	DisplayHex					= 22			UMETA(DisplayName = "Display Hex"),
+	Uint8						= 23			UMETA(DisplayName = "Uint8"),
+	Float						= 24			UMETA(DisplayName = "Float"),
+	PickerHueBar				= 25			UMETA(DisplayName = "Picker Hue Bar"),
+	PickerHueWheel				= 26			UMETA(DisplayName = "Picker Hue Wheel"),
+	InputRGB					= 27			UMETA(DisplayName = "Input RGB"),
+	InputHSV					= 28			UMETA(DisplayName = "Input HSV"),
+};
+
 struct FImGuiToolkitUtils
 {
 	static ImVec4 LinearColorToImVec4(const FLinearColor& Color);
@@ -172,6 +202,8 @@ struct FImGuiToolkitUtils
 	static int32 CombineImGuiTableColumnFlags(TArray<EImGuiTableColumnFlag> Flags);
 	static ImGuiTableRowFlags UnrealFlagToImGuiTableRowFlag(EImGuiTableRowFlag Flags);
 	static int32 CombineImGuiTableRowFlags(TArray<EImGuiTableRowFlag> Flags);
+	static ImGuiColorEditFlags UnrealFlagToImGuiColorEditFlag(EImGuiColorEditFlag Flags);
+	static int32 CombineImGuiColorEditFlags(TArray<EImGuiColorEditFlag> Flags);
 
 	static int32 ImGuiResizeCallback(ImGuiInputTextCallbackData* Data);
 };

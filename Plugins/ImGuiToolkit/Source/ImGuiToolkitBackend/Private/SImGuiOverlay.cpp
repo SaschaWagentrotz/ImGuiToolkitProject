@@ -4,6 +4,7 @@
 #include <CoreGlobals.h>
 #include <Framework/Application/SlateApplication.h>
 #include <HAL/PlatformApplicationMisc.h>
+#include <limits>
 
 #include "ImGuiContext.h"
 
@@ -549,7 +550,8 @@ int32 SImGuiOverlay::OnPaint(const FPaintArgs& Args, const FGeometry& AllottedGe
 	const FSlateRenderTransform Transform(AllottedGeometry.GetAccumulatedRenderTransform().GetTranslation() - FVector2d(DrawData.DisplayPos));
 
 	TArray<FSlateVertex> Vertices;
-	TArray<SlateIndex> Indices;
+	TArray<FSlateVertex> CommandVertices;
+	TArray<SlateIndex> CommandIndices;
 	FSlateBrush TextureBrush;
 
 	for (const FImGuiDrawList& DrawList : DrawData.DrawLists)
@@ -569,10 +571,63 @@ int32 SImGuiOverlay::OnPaint(const FPaintArgs& Args, const FGeometry& AllottedGe
 			DstVertex->Color.Bits = SrcVertex->col;
 		}
 
-		ImGui::CopyArray(DrawList.IdxBuffer, Indices);
-
 		for (const ImDrawCmd& DrawCmd : DrawList.CmdBuffer)
 		{
+			if (DrawCmd.UserCallback != nullptr || DrawCmd.ElemCount == 0)
+			{
+				continue;
+			}
+
+			if (DrawCmd.VtxOffset > static_cast<unsigned int>(Vertices.Num()) ||
+				DrawCmd.IdxOffset > static_cast<unsigned int>(DrawList.IdxBuffer.Size) ||
+				DrawCmd.ElemCount > static_cast<unsigned int>(DrawList.IdxBuffer.Size) - DrawCmd.IdxOffset)
+			{
+				continue;
+			}
+
+			constexpr uint64 MaxSlateIndex = static_cast<uint64>(std::numeric_limits<SlateIndex>::max());
+			uint64 MinIndex = std::numeric_limits<uint64>::max();
+			uint64 MaxIndex = 0;
+			bool bIndicesValid = true;
+			for (unsigned int ElementIdx = 0; ElementIdx < DrawCmd.ElemCount; ++ElementIdx)
+			{
+				const uint64 LocalIndex = static_cast<uint64>(DrawList.IdxBuffer.Data[DrawCmd.IdxOffset + ElementIdx]);
+				MinIndex = FMath::Min(MinIndex, LocalIndex);
+				MaxIndex = FMath::Max(MaxIndex, LocalIndex);
+			}
+
+			const uint64 RequiredVertexCount = MaxIndex - MinIndex + 1;
+			const uint64 VertexOffset = static_cast<uint64>(DrawCmd.VtxOffset) + MinIndex;
+			if (RequiredVertexCount > MaxSlateIndex + 1 ||
+				VertexOffset > static_cast<uint64>(Vertices.Num()) ||
+				RequiredVertexCount > static_cast<uint64>(Vertices.Num()) - VertexOffset)
+			{
+				continue;
+			}
+
+			CommandIndices.Reset(static_cast<int32>(DrawCmd.ElemCount));
+			for (unsigned int ElementIdx = 0; ElementIdx < DrawCmd.ElemCount; ++ElementIdx)
+			{
+				const uint64 RebasedIndex = static_cast<uint64>(DrawList.IdxBuffer.Data[DrawCmd.IdxOffset + ElementIdx]) - MinIndex;
+				if (RebasedIndex > MaxSlateIndex)
+				{
+					bIndicesValid = false;
+					break;
+				}
+
+				CommandIndices.Add(static_cast<SlateIndex>(RebasedIndex));
+			}
+
+			if (!bIndicesValid)
+			{
+				continue;
+			}
+
+			const int32 VertexStart = static_cast<int32>(VertexOffset);
+			const int32 VertexCount = static_cast<int32>(RequiredVertexCount);
+			CommandVertices.SetNumUninitialized(VertexCount);
+			FMemory::Memcpy(CommandVertices.GetData(), Vertices.GetData() + VertexStart, static_cast<SIZE_T>(VertexCount) * sizeof(FSlateVertex));
+
 #if WITH_ENGINE
 			UTexture* Texture = DrawCmd.GetTexID();
 			if (TextureBrush.GetResourceObject() != Texture)
@@ -615,8 +670,8 @@ int32 SImGuiOverlay::OnPaint(const FPaintArgs& Args, const FGeometry& AllottedGe
 
 			FSlateDrawElement::MakeCustomVerts(
 				OutDrawElements, LayerId, TextureBrush.GetRenderingResource(),
-				TArray(Vertices.GetData() + DrawCmd.VtxOffset, Vertices.Num() - DrawCmd.VtxOffset),
-				TArray(Indices.GetData() + DrawCmd.IdxOffset, DrawCmd.ElemCount),
+				CommandVertices,
+				CommandIndices,
 				nullptr, 0, 0
 			);
 

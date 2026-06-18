@@ -91,9 +91,9 @@ It provides seamless integration between Unreal and Dear ImGui through easily bi
 
 ### Color Editor/Pickers
 
-- [ ] Color Edit
-- [ ] Color Picker
-- [ ] Color Button
+- [x] Color Edit
+- [x] Color Picker
+- [x] Color Button
 
 ### Selectables
 
@@ -117,4 +117,4 @@ It provides seamless integration between Unreal and Dear ImGui through easily bi
 - [ ] Create useful real-world examples (one runtime and one editor tool)
 - [ ] Add Blueprint-friendly ImPlot wrappers and an example
 - [x] Add Blueprint-friendly table wrappers
-- [ ] Add Blueprint-friendly color editor/picker wrappers
+- [x] Add Blueprint-friendly color editor/picker wrappers

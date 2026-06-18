@@ -527,6 +527,113 @@ UImGuiToolkitSelectable* UImGuiToolkitFunctionLibrary::CreateImGuiSelectable(FTe
 	return Selectable;
 }
 
+UImGuiToolkitColorEdit3* UImGuiToolkitFunctionLibrary::CreateImGuiColorEdit3(FText Label, FLinearColor Color,
+	TArray<EImGuiColorEditFlag> ColorEditFlags, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitColorEdit3* ColorEdit = NewObject<UImGuiToolkitColorEdit3>(OuterObject);
+	ColorEdit->CreateUniqueWidgetLabel(Label);
+	ColorEdit->Color = Color;
+	ColorEdit->ColorEditFlags = ColorEditFlags;
+
+	if (Container)
+		Container->AddWidget(ColorEdit);
+
+	return ColorEdit;
+}
+
+UImGuiToolkitColorEdit4* UImGuiToolkitFunctionLibrary::CreateImGuiColorEdit4(FText Label, FLinearColor Color,
+	TArray<EImGuiColorEditFlag> ColorEditFlags, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitColorEdit4* ColorEdit = NewObject<UImGuiToolkitColorEdit4>(OuterObject);
+	ColorEdit->CreateUniqueWidgetLabel(Label);
+	ColorEdit->Color = Color;
+	ColorEdit->ColorEditFlags = ColorEditFlags;
+
+	if (Container)
+		Container->AddWidget(ColorEdit);
+
+	return ColorEdit;
+}
+
+UImGuiToolkitColorPicker3* UImGuiToolkitFunctionLibrary::CreateImGuiColorPicker3(FText Label, FLinearColor Color,
+	TArray<EImGuiColorEditFlag> ColorEditFlags, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitColorPicker3* ColorPicker = NewObject<UImGuiToolkitColorPicker3>(OuterObject);
+	ColorPicker->CreateUniqueWidgetLabel(Label);
+	ColorPicker->Color = Color;
+	ColorPicker->ColorEditFlags = ColorEditFlags;
+
+	if (Container)
+		Container->AddWidget(ColorPicker);
+
+	return ColorPicker;
+}
+
+UImGuiToolkitColorPicker4* UImGuiToolkitFunctionLibrary::CreateImGuiColorPicker4(FText Label, FLinearColor Color,
+	TArray<EImGuiColorEditFlag> ColorEditFlags, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitColorPicker4* ColorPicker = NewObject<UImGuiToolkitColorPicker4>(OuterObject);
+	ColorPicker->CreateUniqueWidgetLabel(Label);
+	ColorPicker->Color = Color;
+	ColorPicker->ColorEditFlags = ColorEditFlags;
+
+	if (Container)
+		Container->AddWidget(ColorPicker);
+
+	return ColorPicker;
+}
+
+UImGuiToolkitColorButton* UImGuiToolkitFunctionLibrary::CreateImGuiColorButton(FText Label, FLinearColor Color,
+	TArray<EImGuiColorEditFlag> ColorEditFlags, FVector2D Size, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitColorButton* ColorButton = NewObject<UImGuiToolkitColorButton>(OuterObject);
+	ColorButton->CreateUniqueWidgetLabel(Label);
+	ColorButton->Color = Color;
+	ColorButton->ColorEditFlags = ColorEditFlags;
+	ColorButton->Size = Size;
+
+	if (Container)
+		Container->AddWidget(ColorButton);
+
+	return ColorButton;
+}
+
+UImGuiToolkitSetColorEditOptions* UImGuiToolkitFunctionLibrary::CreateImGuiSetColorEditOptions(
+	TArray<EImGuiColorEditFlag> ColorEditFlags, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitSetColorEditOptions* SetColorEditOptions = NewObject<UImGuiToolkitSetColorEditOptions>(OuterObject);
+	SetColorEditOptions->ColorEditFlags = ColorEditFlags;
+
+	if (Container)
+		Container->AddWidget(SetColorEditOptions);
+
+	return SetColorEditOptions;
+}
+
 UImGuiToolkitBeginTable* UImGuiToolkitFunctionLibrary::CreateImGuiBeginTable(FText Label,
 	int32 ColumnCount, TArray<EImGuiTableFlag> TableFlags, FVector2D OuterSize, float InnerWidth, UImGuiToolkitContainer* Container)
 {
