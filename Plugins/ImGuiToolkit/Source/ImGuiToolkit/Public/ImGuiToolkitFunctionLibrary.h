@@ -81,6 +81,7 @@
 #include "Widgets/MenuBar/ImGuiToolkitEndMenu.h"
 #include "Widgets/MenuBar/ImGuiToolkitEndMenuBar.h"
 #include "Widgets/MenuBar/ImGuiToolkitMenuItem.h"
+#include "Widgets/MultiSelect/ImGuiToolkitMultiSelectListBox.h"
 #include "Widgets/Text/ImGuiToolkitTextColored.h"
 #include "Widgets/Text/ImGuiToolkitTextLinkOpenURL.h"
 #include "Widgets/Text/ImGuiToolkitTextWrapped.h"
@@ -216,6 +217,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
 	static UImGuiToolkitSelectable* CreateImGuiSelectable(FText Label, bool bIsSelected, TArray<EImGuiSelectableFlag> SelectableFlags, FVector2D Size = FVector2D(0, 0), FText Tooltip = FText::GetEmpty(), UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Multi Select", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "Size,MultiSelectFlags,SelectableFlags"))
+	static UImGuiToolkitMultiSelectListBox* CreateImGuiMultiSelectListBox(FText Label, TArray<FText> Items, TArray<int32> InitialSelectedIndices, FVector2D Size, TArray<EImGuiMultiSelectFlag> MultiSelectFlags, TArray<EImGuiSelectableFlag> SelectableFlags, UImGuiToolkitContainer* Container = nullptr);
 
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Colors", meta = (ReturnDisplayName = "Element"))
 	static UImGuiToolkitColorEdit3* CreateImGuiColorEdit3(FText Label, FLinearColor Color, TArray<EImGuiColorEditFlag> ColorEditFlags, UImGuiToolkitContainer* Container = nullptr);

@@ -401,6 +401,41 @@ ImGuiPopupFlags FImGuiToolkitUtils::UnrealPopupMouseButtonToImGuiPopupFlag(EImGu
 	}
 }
 
+ImGuiMultiSelectFlags FImGuiToolkitUtils::UnrealFlagToImGuiMultiSelectFlag(EImGuiMultiSelectFlag Flags)
+{
+	switch (Flags)
+	{
+		case EImGuiMultiSelectFlag::SingleSelect:			return ImGuiMultiSelectFlags_SingleSelect;
+		case EImGuiMultiSelectFlag::NoSelectAll:				return ImGuiMultiSelectFlags_NoSelectAll;
+		case EImGuiMultiSelectFlag::NoRangeSelect:			return ImGuiMultiSelectFlags_NoRangeSelect;
+		case EImGuiMultiSelectFlag::NoAutoSelect:			return ImGuiMultiSelectFlags_NoAutoSelect;
+		case EImGuiMultiSelectFlag::NoAutoClear:				return ImGuiMultiSelectFlags_NoAutoClear;
+		case EImGuiMultiSelectFlag::NoAutoClearOnReselect:	return ImGuiMultiSelectFlags_NoAutoClearOnReselect;
+		case EImGuiMultiSelectFlag::BoxSelect1D:				return ImGuiMultiSelectFlags_BoxSelect1d;
+		case EImGuiMultiSelectFlag::BoxSelect2D:				return ImGuiMultiSelectFlags_BoxSelect2d;
+		case EImGuiMultiSelectFlag::BoxSelectNoScroll:		return ImGuiMultiSelectFlags_BoxSelectNoScroll;
+		case EImGuiMultiSelectFlag::ClearOnEscape:			return ImGuiMultiSelectFlags_ClearOnEscape;
+		case EImGuiMultiSelectFlag::ClearOnClickVoid:		return ImGuiMultiSelectFlags_ClearOnClickVoid;
+		case EImGuiMultiSelectFlag::ScopeWindow:				return ImGuiMultiSelectFlags_ScopeWindow;
+		case EImGuiMultiSelectFlag::ScopeRect:				return ImGuiMultiSelectFlags_ScopeRect;
+		case EImGuiMultiSelectFlag::SelectOnClick:			return ImGuiMultiSelectFlags_SelectOnClick;
+		case EImGuiMultiSelectFlag::SelectOnClickRelease:	return ImGuiMultiSelectFlags_SelectOnClickRelease;
+		case EImGuiMultiSelectFlag::NavWrapX:				return ImGuiMultiSelectFlags_NavWrapX;
+		case EImGuiMultiSelectFlag::None:					return ImGuiMultiSelectFlags_None;
+		default:											return ImGuiMultiSelectFlags_None;
+	}
+}
+
+int32 FImGuiToolkitUtils::CombineImGuiMultiSelectFlags(TArray<EImGuiMultiSelectFlag> Flags)
+{
+	ImGuiMultiSelectFlags Mask = ImGuiMultiSelectFlags_None;
+	for (EImGuiMultiSelectFlag Flag : Flags)
+	{
+		Mask |= UnrealFlagToImGuiMultiSelectFlag(Flag);
+	}
+	return Mask;
+}
+
 int32 FImGuiToolkitUtils::ImGuiResizeCallback(ImGuiInputTextCallbackData* Data)
 {
 	if (Data->EventFlag == ImGuiInputTextFlags_CallbackResize)

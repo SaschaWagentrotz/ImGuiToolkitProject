@@ -527,6 +527,27 @@ UImGuiToolkitSelectable* UImGuiToolkitFunctionLibrary::CreateImGuiSelectable(FTe
 	return Selectable;
 }
 
+UImGuiToolkitMultiSelectListBox* UImGuiToolkitFunctionLibrary::CreateImGuiMultiSelectListBox(FText Label,
+	TArray<FText> Items, TArray<int32> InitialSelectedIndices, FVector2D Size, TArray<EImGuiMultiSelectFlag> MultiSelectFlags, TArray<EImGuiSelectableFlag> SelectableFlags, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitMultiSelectListBox* MultiSelectListBox = NewObject<UImGuiToolkitMultiSelectListBox>(OuterObject);
+	MultiSelectListBox->CreateUniqueWidgetLabel(Label);
+	MultiSelectListBox->Items = Items;
+	MultiSelectListBox->SelectedIndices = InitialSelectedIndices;
+	MultiSelectListBox->Size = Size;
+	MultiSelectListBox->MultiSelectFlags = MultiSelectFlags;
+	MultiSelectListBox->SelectableFlags = SelectableFlags;
+
+	if (Container)
+		Container->AddWidget(MultiSelectListBox);
+
+	return MultiSelectListBox;
+}
+
 UImGuiToolkitColorEdit3* UImGuiToolkitFunctionLibrary::CreateImGuiColorEdit3(FText Label, FLinearColor Color,
 	TArray<EImGuiColorEditFlag> ColorEditFlags, UImGuiToolkitContainer* Container)
 {

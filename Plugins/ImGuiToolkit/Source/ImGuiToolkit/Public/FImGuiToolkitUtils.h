@@ -199,6 +199,28 @@ enum class EImGuiPopupMouseButton : uint8
 	Middle						= 2				UMETA(DisplayName = "Middle"),
 };
 
+UENUM(BlueprintType)
+enum class EImGuiMultiSelectFlag : uint8
+{
+	None						= 0				UMETA(DisplayName = "None"),
+	SingleSelect				= 1				UMETA(DisplayName = "Single Select"),
+	NoSelectAll					= 2				UMETA(DisplayName = "No Select All"),
+	NoRangeSelect				= 3				UMETA(DisplayName = "No Range Select"),
+	NoAutoSelect				= 4				UMETA(DisplayName = "No Auto Select"),
+	NoAutoClear					= 5				UMETA(DisplayName = "No Auto Clear"),
+	NoAutoClearOnReselect		= 6				UMETA(DisplayName = "No Auto Clear On Reselect"),
+	BoxSelect1D					= 7				UMETA(DisplayName = "Box Select 1D"),
+	BoxSelect2D					= 8				UMETA(DisplayName = "Box Select 2D"),
+	BoxSelectNoScroll			= 9				UMETA(DisplayName = "Box Select No Scroll"),
+	ClearOnEscape				= 10			UMETA(DisplayName = "Clear On Escape"),
+	ClearOnClickVoid			= 11			UMETA(DisplayName = "Clear On Click Void"),
+	ScopeWindow					= 12			UMETA(DisplayName = "Scope Window"),
+	ScopeRect					= 13			UMETA(DisplayName = "Scope Rect"),
+	SelectOnClick				= 14			UMETA(DisplayName = "Select On Click"),
+	SelectOnClickRelease		= 15			UMETA(DisplayName = "Select On Click Release"),
+	NavWrapX					= 16			UMETA(DisplayName = "Navigation Wrap X"),
+};
+
 struct FImGuiToolkitUtils
 {
 	static ImVec4 LinearColorToImVec4(const FLinearColor& Color);
@@ -226,6 +248,8 @@ struct FImGuiToolkitUtils
 	static ImGuiPopupFlags UnrealFlagToImGuiPopupFlag(EImGuiPopupFlag Flags);
 	static int32 CombineImGuiPopupFlags(TArray<EImGuiPopupFlag> Flags);
 	static ImGuiPopupFlags UnrealPopupMouseButtonToImGuiPopupFlag(EImGuiPopupMouseButton MouseButton);
+	static ImGuiMultiSelectFlags UnrealFlagToImGuiMultiSelectFlag(EImGuiMultiSelectFlag Flags);
+	static int32 CombineImGuiMultiSelectFlags(TArray<EImGuiMultiSelectFlag> Flags);
 
 	static int32 ImGuiResizeCallback(ImGuiInputTextCallbackData* Data);
 };

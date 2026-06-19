@@ -98,7 +98,7 @@ It provides seamless integration between Unreal and Dear ImGui through easily bi
 ### Selectables
 
 - [x] Selectable
-- [ ] Multi Selectable
+- [x] Multi Selectable
 
 ### Settings / Backend
 
