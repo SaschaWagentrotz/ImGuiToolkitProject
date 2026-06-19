@@ -8,7 +8,7 @@ void UImGuiToolkitSliderFloat::Render()
 	if (!bEnabled)
 		return;
 
-	if (ImGui::SliderFloat(TCHAR_TO_UTF8(*UniqueWidgetLabel), &Value, MinValue, MaxValue, TCHAR_TO_UTF8(*Format.ToString())))
+	if (ImGui::SliderFloat(TCHAR_TO_UTF8(*UniqueWidgetLabel), &Value, MinValue, MaxValue, TCHAR_TO_UTF8(*Format)))
 	{
 		OnChanged.Broadcast(Value);
 	}

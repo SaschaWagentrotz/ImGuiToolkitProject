@@ -11,7 +11,11 @@
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ImGuiToolkitProject.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ImGuiToolkitProject.dir/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/ImguiDemo/EUW_ImGui_Host.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ImguiDemo/EUW_ImGui_Host.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/ImGuiToolkitFunctionLibrary.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/ImGuiToolkitFunctionLibrary.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/Sliders/ImGuiToolkitSliderFloat.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/Sliders/ImGuiToolkitSliderFloat.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/Sliders/ImGuiToolkitSliderInt.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/Sliders/ImGuiToolkitSliderInt.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/ImGuiToolkitFunctionLibrary.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/ImGuiToolkitFunctionLibrary.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/Sliders/ImGuiToolkitSliderFloat.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/Sliders/ImGuiToolkitSliderFloat.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/Sliders/ImGuiToolkitSliderInt.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/Sliders/ImGuiToolkitSliderInt.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

@@ -1102,6 +1102,69 @@ UImGuiToolkitDragInt* UImGuiToolkitFunctionLibrary::CreateImGuiDragInt(FText Lab
 	return DragInt;
 }
 
+UImGuiToolkitDragIntPoint* UImGuiToolkitFunctionLibrary::CreateImGuiDragIntPoint(FText Label,
+	FIntPoint InitialValue, int32 MinValue, int32 MaxValue, float Speed, FString Format, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitDragIntPoint* DragIntPoint = NewObject<UImGuiToolkitDragIntPoint>(OuterObject);
+	DragIntPoint->CreateUniqueWidgetLabel(Label);
+	DragIntPoint->Value = InitialValue;
+	DragIntPoint->MinValue = MinValue;
+	DragIntPoint->MaxValue = MaxValue;
+	DragIntPoint->Speed = Speed;
+	DragIntPoint->Format = Format;
+
+	if (Container)
+		Container->AddWidget(DragIntPoint);
+
+	return DragIntPoint;
+}
+
+UImGuiToolkitDragIntVector* UImGuiToolkitFunctionLibrary::CreateImGuiDragIntVector(FText Label,
+	FIntVector InitialValue, int32 MinValue, int32 MaxValue, float Speed, FString Format, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitDragIntVector* DragIntVector = NewObject<UImGuiToolkitDragIntVector>(OuterObject);
+	DragIntVector->CreateUniqueWidgetLabel(Label);
+	DragIntVector->Value = InitialValue;
+	DragIntVector->MinValue = MinValue;
+	DragIntVector->MaxValue = MaxValue;
+	DragIntVector->Speed = Speed;
+	DragIntVector->Format = Format;
+
+	if (Container)
+		Container->AddWidget(DragIntVector);
+
+	return DragIntVector;
+}
+
+UImGuiToolkitDragIntVector4* UImGuiToolkitFunctionLibrary::CreateImGuiDragIntVector4(FText Label,
+	FIntVector4 InitialValue, int32 MinValue, int32 MaxValue, float Speed, FString Format, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitDragIntVector4* DragIntVector4 = NewObject<UImGuiToolkitDragIntVector4>(OuterObject);
+	DragIntVector4->CreateUniqueWidgetLabel(Label);
+	DragIntVector4->Value = InitialValue;
+	DragIntVector4->MinValue = MinValue;
+	DragIntVector4->MaxValue = MaxValue;
+	DragIntVector4->Speed = Speed;
+	DragIntVector4->Format = Format;
+
+	if (Container)
+		Container->AddWidget(DragIntVector4);
+
+	return DragIntVector4;
+}
+
 UImGuiToolkitSeparator* UImGuiToolkitFunctionLibrary::CreateImGuiSeparator(UImGuiToolkitContainer* Container)
 {
 	UObject* OuterObject = GetValidOuterObject(Container);
@@ -1294,8 +1357,71 @@ UImGuiToolkitDragFloat* UImGuiToolkitFunctionLibrary::CreateImGuiDragFloat(FText
 	return DragFloat;
 }
 
+UImGuiToolkitDragVector2D* UImGuiToolkitFunctionLibrary::CreateImGuiDragVector2D(FText Label,
+	FVector2D InitialValue, float MinValue, float MaxValue, float Speed, FString Format, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitDragVector2D* DragVector2D = NewObject<UImGuiToolkitDragVector2D>(OuterObject);
+	DragVector2D->CreateUniqueWidgetLabel(Label);
+	DragVector2D->Value = InitialValue;
+	DragVector2D->MinValue = MinValue;
+	DragVector2D->MaxValue = MaxValue;
+	DragVector2D->Speed = Speed;
+	DragVector2D->Format = Format;
+
+	if (Container)
+		Container->AddWidget(DragVector2D);
+
+	return DragVector2D;
+}
+
+UImGuiToolkitDragVector* UImGuiToolkitFunctionLibrary::CreateImGuiDragVector(FText Label,
+	FVector InitialValue, float MinValue, float MaxValue, float Speed, FString Format, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitDragVector* DragVector = NewObject<UImGuiToolkitDragVector>(OuterObject);
+	DragVector->CreateUniqueWidgetLabel(Label);
+	DragVector->Value = InitialValue;
+	DragVector->MinValue = MinValue;
+	DragVector->MaxValue = MaxValue;
+	DragVector->Speed = Speed;
+	DragVector->Format = Format;
+
+	if (Container)
+		Container->AddWidget(DragVector);
+
+	return DragVector;
+}
+
+UImGuiToolkitDragVector4* UImGuiToolkitFunctionLibrary::CreateImGuiDragVector4(FText Label,
+	FVector4 InitialValue, float MinValue, float MaxValue, float Speed, FString Format, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitDragVector4* DragVector4 = NewObject<UImGuiToolkitDragVector4>(OuterObject);
+	DragVector4->CreateUniqueWidgetLabel(Label);
+	DragVector4->Value = InitialValue;
+	DragVector4->MinValue = MinValue;
+	DragVector4->MaxValue = MaxValue;
+	DragVector4->Speed = Speed;
+	DragVector4->Format = Format;
+
+	if (Container)
+		Container->AddWidget(DragVector4);
+
+	return DragVector4;
+}
+
 UImGuiToolkitSliderFloat* UImGuiToolkitFunctionLibrary::CreateImGuiSliderFloat(FText Label,
-	float Value, float MinValue, float MaxValue, FText Format, UImGuiToolkitContainer* Container)
+	float Value, float MinValue, float MaxValue, FString Format, UImGuiToolkitContainer* Container)
 {
 	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
@@ -1314,8 +1440,88 @@ UImGuiToolkitSliderFloat* UImGuiToolkitFunctionLibrary::CreateImGuiSliderFloat(F
 	return SliderFloat;
 }
 
+UImGuiToolkitSliderVector2D* UImGuiToolkitFunctionLibrary::CreateImGuiSliderVector2D(FText Label,
+	FVector2D Value, float MinValue, float MaxValue, FString Format, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitSliderVector2D* SliderVector2D = NewObject<UImGuiToolkitSliderVector2D>(OuterObject);
+	SliderVector2D->CreateUniqueWidgetLabel(Label);
+	SliderVector2D->Value = Value;
+	SliderVector2D->MinValue = MinValue;
+	SliderVector2D->MaxValue = MaxValue;
+	SliderVector2D->Format = Format;
+
+	if (Container)
+		Container->AddWidget(SliderVector2D);
+
+	return SliderVector2D;
+}
+
+UImGuiToolkitSliderVector* UImGuiToolkitFunctionLibrary::CreateImGuiSliderVector(FText Label,
+	FVector Value, float MinValue, float MaxValue, FString Format, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitSliderVector* SliderVector = NewObject<UImGuiToolkitSliderVector>(OuterObject);
+	SliderVector->CreateUniqueWidgetLabel(Label);
+	SliderVector->Value = Value;
+	SliderVector->MinValue = MinValue;
+	SliderVector->MaxValue = MaxValue;
+	SliderVector->Format = Format;
+
+	if (Container)
+		Container->AddWidget(SliderVector);
+
+	return SliderVector;
+}
+
+UImGuiToolkitSliderVector4* UImGuiToolkitFunctionLibrary::CreateImGuiSliderVector4(FText Label,
+	FVector4 Value, float MinValue, float MaxValue, FString Format, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitSliderVector4* SliderVector4 = NewObject<UImGuiToolkitSliderVector4>(OuterObject);
+	SliderVector4->CreateUniqueWidgetLabel(Label);
+	SliderVector4->Value = Value;
+	SliderVector4->MinValue = MinValue;
+	SliderVector4->MaxValue = MaxValue;
+	SliderVector4->Format = Format;
+
+	if (Container)
+		Container->AddWidget(SliderVector4);
+
+	return SliderVector4;
+}
+
+UImGuiToolkitSliderAngle* UImGuiToolkitFunctionLibrary::CreateImGuiSliderAngle(FText Label,
+	float AngleDegrees, float MinDegrees, float MaxDegrees, FString Format, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitSliderAngle* SliderAngle = NewObject<UImGuiToolkitSliderAngle>(OuterObject);
+	SliderAngle->CreateUniqueWidgetLabel(Label);
+	SliderAngle->AngleDegrees = AngleDegrees;
+	SliderAngle->MinDegrees = MinDegrees;
+	SliderAngle->MaxDegrees = MaxDegrees;
+	SliderAngle->Format = Format;
+
+	if (Container)
+		Container->AddWidget(SliderAngle);
+
+	return SliderAngle;
+}
+
 UImGuiToolkitSliderInt* UImGuiToolkitFunctionLibrary::CreateImGuiSliderInt(FText Label,
-	int32 Value, int32 MinValue, int32 MaxValue, FText Format, UImGuiToolkitContainer* Container)
+	int32 Value, int32 MinValue, int32 MaxValue, FString Format, UImGuiToolkitContainer* Container)
 {
 	UObject* OuterObject = GetValidOuterObject(Container);
 	if (!OuterObject)
@@ -1332,6 +1538,48 @@ UImGuiToolkitSliderInt* UImGuiToolkitFunctionLibrary::CreateImGuiSliderInt(FText
 		Container->AddWidget(SliderInt);
 
 	return SliderInt;
+}
+
+UImGuiToolkitVerticalSliderFloat* UImGuiToolkitFunctionLibrary::CreateImGuiVerticalSliderFloat(FText Label,
+	float Value, float MinValue, float MaxValue, FVector2D Size, FString Format, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitVerticalSliderFloat* VerticalSliderFloat = NewObject<UImGuiToolkitVerticalSliderFloat>(OuterObject);
+	VerticalSliderFloat->CreateUniqueWidgetLabel(Label);
+	VerticalSliderFloat->Value = Value;
+	VerticalSliderFloat->MinValue = MinValue;
+	VerticalSliderFloat->MaxValue = MaxValue;
+	VerticalSliderFloat->Size = Size;
+	VerticalSliderFloat->Format = Format;
+
+	if (Container)
+		Container->AddWidget(VerticalSliderFloat);
+
+	return VerticalSliderFloat;
+}
+
+UImGuiToolkitVerticalSliderInt* UImGuiToolkitFunctionLibrary::CreateImGuiVerticalSliderInt(FText Label,
+	int32 Value, int32 MinValue, int32 MaxValue, FVector2D Size, FString Format, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitVerticalSliderInt* VerticalSliderInt = NewObject<UImGuiToolkitVerticalSliderInt>(OuterObject);
+	VerticalSliderInt->CreateUniqueWidgetLabel(Label);
+	VerticalSliderInt->Value = Value;
+	VerticalSliderInt->MinValue = MinValue;
+	VerticalSliderInt->MaxValue = MaxValue;
+	VerticalSliderInt->Size = Size;
+	VerticalSliderInt->Format = Format;
+
+	if (Container)
+		Container->AddWidget(VerticalSliderInt);
+
+	return VerticalSliderInt;
 }
 
 UImGuiToolkitBeginMenuBar* UImGuiToolkitFunctionLibrary::CreateImGuiBeginMenuBar(FText Label, UImGuiToolkitContainer* Container)

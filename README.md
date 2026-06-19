@@ -78,9 +78,21 @@ It provides seamless integration between Unreal and Dear ImGui through easily bi
 ### Sliders
 
 - [x] Drag Float
+- [x] Drag Vector2D
+- [x] Drag Vector
+- [x] Drag Vector4
 - [x] Drag Int
+- [x] Drag Int Point
+- [x] Drag Int Vector
+- [x] Drag Int Vector4
 - [x] Slider Float
+- [x] Slider Vector2D
+- [x] Slider Vector
+- [x] Slider Vector4
+- [x] Slider Angle
 - [x] Slider Int
+- [x] Vertical Slider Float
+- [x] Vertical Slider Int
 
 ### Input with Keyboard
 

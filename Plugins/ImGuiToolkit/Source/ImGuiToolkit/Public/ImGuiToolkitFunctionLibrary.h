@@ -59,7 +59,22 @@
 #include "Widgets/Popups/ImGuiToolkitOpenPopup.h"
 #include "Widgets/Popups/ImGuiToolkitOpenPopupOnItemClick.h"
 #include "Widgets/Popups/ImGuiToolkitPopupButton.h"
+#include "Widgets/Sliders/ImGuiToolkitDragFloat.h"
+#include "Widgets/Sliders/ImGuiToolkitDragIntPoint.h"
+#include "Widgets/Sliders/ImGuiToolkitDragIntVector.h"
+#include "Widgets/Sliders/ImGuiToolkitDragIntVector4.h"
 #include "Widgets/Sliders/ImGuiToolkitDragInt.h"
+#include "Widgets/Sliders/ImGuiToolkitDragVector2D.h"
+#include "Widgets/Sliders/ImGuiToolkitDragVector.h"
+#include "Widgets/Sliders/ImGuiToolkitDragVector4.h"
+#include "Widgets/Sliders/ImGuiToolkitSliderAngle.h"
+#include "Widgets/Sliders/ImGuiToolkitSliderFloat.h"
+#include "Widgets/Sliders/ImGuiToolkitSliderInt.h"
+#include "Widgets/Sliders/ImGuiToolkitSliderVector2D.h"
+#include "Widgets/Sliders/ImGuiToolkitSliderVector.h"
+#include "Widgets/Sliders/ImGuiToolkitSliderVector4.h"
+#include "Widgets/Sliders/ImGuiToolkitVerticalSliderFloat.h"
+#include "Widgets/Sliders/ImGuiToolkitVerticalSliderInt.h"
 #include "Widgets/TabBar/ImGuiToolkitEndTabBar.h"
 #include "Widgets/TabBar/ImGuiToolkitEndTabItem.h"
 #include "Widgets/Tables/ImGuiToolkitTableHeader.h"
@@ -96,9 +111,6 @@
 #include "Widgets/Tooltips/ImGuiToolkitBeginItemTooltip.h"
 #include "Widgets/Tooltips/ImGuiToolkitBeginTooltip.h"
 #include "Widgets/Tooltips/ImGuiToolkitSetTooltip.h"
-#include "Widgets/Sliders/ImGuiToolkitDragFloat.h"
-#include "Widgets/Sliders/ImGuiToolkitSliderFloat.h"
-#include "Widgets/Sliders/ImGuiToolkitSliderInt.h"
 #include "ImGuiToolkitFunctionLibrary.generated.h"
 
 UCLASS()
@@ -337,6 +349,15 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
 	static UImGuiToolkitDragInt* CreateImGuiDragInt(FText Label, int32 InitialValue, int32 MinValue, int32 MaxValue, float Speed = 1.0f, UImGuiToolkitContainer* Container = nullptr);
 
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitDragIntPoint* CreateImGuiDragIntPoint(FText Label, FIntPoint InitialValue, int32 MinValue, int32 MaxValue, float Speed = 1.0f, FString Format = "%d", UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitDragIntVector* CreateImGuiDragIntVector(FText Label, FIntVector InitialValue, int32 MinValue, int32 MaxValue, float Speed = 1.0f, FString Format = "%d", UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitDragIntVector4* CreateImGuiDragIntVector4(FText Label, FIntVector4 InitialValue, int32 MinValue, int32 MaxValue, float Speed = 1.0f, FString Format = "%d", UImGuiToolkitContainer* Container = nullptr);
+
 	// Create a Separator
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
 	static UImGuiToolkitSeparator* CreateImGuiSeparator(UImGuiToolkitContainer* Container = nullptr);
@@ -385,13 +406,40 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
 	static UImGuiToolkitDragFloat* CreateImGuiDragFloat(FText Label, float InitialValue, float MinValue, float MaxValue, float Speed = 1.0f, UImGuiToolkitContainer* Container = nullptr);
 
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitDragVector2D* CreateImGuiDragVector2D(FText Label, FVector2D InitialValue, float MinValue, float MaxValue, float Speed = 1.0f, FString Format = "%.3f", UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitDragVector* CreateImGuiDragVector(FText Label, FVector InitialValue, float MinValue, float MaxValue, float Speed = 1.0f, FString Format = "%.3f", UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitDragVector4* CreateImGuiDragVector4(FText Label, FVector4 InitialValue, float MinValue, float MaxValue, float Speed = 1.0f, FString Format = "%.3f", UImGuiToolkitContainer* Container = nullptr);
+
 	// Create a SliderFloat. Format example: "$ %.2f" = "$ 19.99" ($ Prefix + 2 decimals) "%.1f km" = "1.5 km"
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
-	static UImGuiToolkitSliderFloat* CreateImGuiSliderFloat(FText Label, float Value, float MinValue, float MaxValue, FText Format, UImGuiToolkitContainer* Container = nullptr);
+	static UImGuiToolkitSliderFloat* CreateImGuiSliderFloat(FText Label, float Value, float MinValue, float MaxValue, FString Format = "%.3f", UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitSliderVector2D* CreateImGuiSliderVector2D(FText Label, FVector2D Value, float MinValue, float MaxValue, FString Format = "%.3f", UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitSliderVector* CreateImGuiSliderVector(FText Label, FVector Value, float MinValue, float MaxValue, FString Format = "%.3f", UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitSliderVector4* CreateImGuiSliderVector4(FText Label, FVector4 Value, float MinValue, float MaxValue, FString Format = "%.3f", UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitSliderAngle* CreateImGuiSliderAngle(FText Label, float AngleDegrees, float MinDegrees, float MaxDegrees, FString Format = "%.0f deg", UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a SliderInt. Format example: "$ %d" = "$ 10" ($ Prefix) "%d km" = "5 km"
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
-	static UImGuiToolkitSliderInt* CreateImGuiSliderInt(FText Label, int32 Value, int32 MinValue, int32 MaxValue, FText Format, UImGuiToolkitContainer* Container = nullptr);
+	static UImGuiToolkitSliderInt* CreateImGuiSliderInt(FText Label, int32 Value, int32 MinValue, int32 MaxValue, FString Format = "%d", UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitVerticalSliderFloat* CreateImGuiVerticalSliderFloat(FText Label, float Value, float MinValue, float MaxValue, FVector2D Size = FVector2D(18.0f, 160.0f), FString Format = "%.3f", UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitVerticalSliderInt* CreateImGuiVerticalSliderInt(FText Label, int32 Value, int32 MinValue, int32 MaxValue, FVector2D Size = FVector2D(18.0f, 160.0f), FString Format = "%d", UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a MenuBar. Requires "MenuBar" WindowFlag for window that contains this MenuBar.
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Container"))

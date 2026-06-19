@@ -30,7 +30,7 @@ public:
 	int32 MaxValue = 0;
 
 	UPROPERTY(BlueprintReadWrite, Category = "ImGui Toolkit Widget")
-	FText Format = FText::FromString("%d");
+	FString Format = "%d";
 
 	UPROPERTY(BlueprintAssignable, Category = "ImGui Toolkit Widget")
 	FOnImGuiSliderIntChanged OnChanged;
