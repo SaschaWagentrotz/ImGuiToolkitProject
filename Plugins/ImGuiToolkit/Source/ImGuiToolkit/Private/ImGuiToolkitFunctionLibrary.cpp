@@ -1428,6 +1428,24 @@ UImGuiToolkitInputText* UImGuiToolkitFunctionLibrary::CreateImGuiInputText(FText
 	return InputText;
 }
 
+UImGuiToolkitInputTextWithHint* UImGuiToolkitFunctionLibrary::CreateImGuiInputTextWithHint(
+	FText Label, FText Hint, FText PreviewText, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitInputTextWithHint* InputTextWithHint = NewObject<UImGuiToolkitInputTextWithHint>(OuterObject);
+	InputTextWithHint->CreateUniqueWidgetLabel(Label);
+	InputTextWithHint->SetHint(Hint);
+	InputTextWithHint->SetPreviewText(PreviewText);
+
+	if (Container)
+		Container->AddWidget(InputTextWithHint);
+
+	return InputTextWithHint;
+}
+
 UImGuiToolkitInputTextMultiline* UImGuiToolkitFunctionLibrary::CreateImGuiInputTextMultiline(
 	FText Label, FText PreviewText, FVector2D TextBoxSize, UImGuiToolkitContainer* Container)
 {
@@ -1463,6 +1481,74 @@ UImGuiToolkitInputFloat* UImGuiToolkitFunctionLibrary::CreateImGuiInputFloat(FTe
 	return InputFloat;
 }
 
+UImGuiToolkitInputDouble* UImGuiToolkitFunctionLibrary::CreateImGuiInputDouble(FText Label, double PreviewDouble, FString Format, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitInputDouble* InputDouble = NewObject<UImGuiToolkitInputDouble>(OuterObject);
+	InputDouble->CreateUniqueWidgetLabel(Label);
+	InputDouble->SetPreviewDouble(PreviewDouble);
+	InputDouble->SetFormat(Format);
+
+	if (Container)
+		Container->AddWidget(InputDouble);
+
+	return InputDouble;
+}
+
+UImGuiToolkitInputVector2D* UImGuiToolkitFunctionLibrary::CreateImGuiInputVector2D(FText Label, FVector2D PreviewVector2D, FString Format, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitInputVector2D* InputVector2D = NewObject<UImGuiToolkitInputVector2D>(OuterObject);
+	InputVector2D->CreateUniqueWidgetLabel(Label);
+	InputVector2D->SetPreviewVector2D(PreviewVector2D);
+	InputVector2D->SetFormat(Format);
+
+	if (Container)
+		Container->AddWidget(InputVector2D);
+
+	return InputVector2D;
+}
+
+UImGuiToolkitInputVector* UImGuiToolkitFunctionLibrary::CreateImGuiInputVector(FText Label, FVector PreviewVector, FString Format, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitInputVector* InputVector = NewObject<UImGuiToolkitInputVector>(OuterObject);
+	InputVector->CreateUniqueWidgetLabel(Label);
+	InputVector->SetPreviewVector(PreviewVector);
+	InputVector->SetFormat(Format);
+
+	if (Container)
+		Container->AddWidget(InputVector);
+
+	return InputVector;
+}
+
+UImGuiToolkitInputVector4* UImGuiToolkitFunctionLibrary::CreateImGuiInputVector4(FText Label, FVector4 PreviewVector4, FString Format, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitInputVector4* InputVector4 = NewObject<UImGuiToolkitInputVector4>(OuterObject);
+	InputVector4->CreateUniqueWidgetLabel(Label);
+	InputVector4->SetPreviewVector4(PreviewVector4);
+	InputVector4->SetFormat(Format);
+
+	if (Container)
+		Container->AddWidget(InputVector4);
+
+	return InputVector4;
+}
+
 UImGuiToolkitInputInt* UImGuiToolkitFunctionLibrary::CreateImGuiInputInt(FText Label,
 	int32 PreviewInt, UImGuiToolkitContainer* Container)
 {
@@ -1478,6 +1564,57 @@ UImGuiToolkitInputInt* UImGuiToolkitFunctionLibrary::CreateImGuiInputInt(FText L
 		Container->AddWidget(InputInt);
 
 	return InputInt;
+}
+
+UImGuiToolkitInputInt2* UImGuiToolkitFunctionLibrary::CreateImGuiInputInt2(FText Label,
+	FIntPoint PreviewInt2, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitInputInt2* InputInt2 = NewObject<UImGuiToolkitInputInt2>(OuterObject);
+	InputInt2->CreateUniqueWidgetLabel(Label);
+	InputInt2->SetPreviewInt2(PreviewInt2);
+
+	if (Container)
+		Container->AddWidget(InputInt2);
+
+	return InputInt2;
+}
+
+UImGuiToolkitInputInt3* UImGuiToolkitFunctionLibrary::CreateImGuiInputInt3(FText Label,
+	FIntVector PreviewInt3, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitInputInt3* InputInt3 = NewObject<UImGuiToolkitInputInt3>(OuterObject);
+	InputInt3->CreateUniqueWidgetLabel(Label);
+	InputInt3->SetPreviewInt3(PreviewInt3);
+
+	if (Container)
+		Container->AddWidget(InputInt3);
+
+	return InputInt3;
+}
+
+UImGuiToolkitInputInt4* UImGuiToolkitFunctionLibrary::CreateImGuiInputInt4(FText Label,
+	FIntVector4 PreviewInt4, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitInputInt4* InputInt4 = NewObject<UImGuiToolkitInputInt4>(OuterObject);
+	InputInt4->CreateUniqueWidgetLabel(Label);
+	InputInt4->SetPreviewInt4(PreviewInt4);
+
+	if (Container)
+		Container->AddWidget(InputInt4);
+
+	return InputInt4;
 }
 
 UObject* UImGuiToolkitFunctionLibrary::GetValidOuterObject(UObject* OuterCandidate)

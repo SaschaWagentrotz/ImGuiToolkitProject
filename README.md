@@ -85,9 +85,17 @@ It provides seamless integration between Unreal and Dear ImGui through easily bi
 ### Input with Keyboard
 
 - [x] Input Text
+- [x] Input Text With Hint
 - [x] Input Text Multiline
 - [x] Input Float
+- [x] Input Double
+- [x] Input Vector2D
+- [x] Input Vector
+- [x] Input Vector4
 - [x] Input Int
+- [x] Input Int2
+- [x] Input Int3
+- [x] Input Int4
 
 ### Color Editor/Pickers
 

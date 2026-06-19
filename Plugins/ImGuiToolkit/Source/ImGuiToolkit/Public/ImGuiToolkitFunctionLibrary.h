@@ -27,9 +27,17 @@
 #include "Widgets/Text/ImGuiToolkitTextDisabled.h"
 #include "Containers/ImGuiToolkitWindow.h"
 #include "Widgets/Input/ImGuiToolkitInputFloat.h"
+#include "Widgets/Input/ImGuiToolkitInputVector2D.h"
+#include "Widgets/Input/ImGuiToolkitInputVector.h"
+#include "Widgets/Input/ImGuiToolkitInputVector4.h"
 #include "Widgets/Input/ImGuiToolkitInputInt.h"
+#include "Widgets/Input/ImGuiToolkitInputInt2.h"
+#include "Widgets/Input/ImGuiToolkitInputInt3.h"
+#include "Widgets/Input/ImGuiToolkitInputInt4.h"
+#include "Widgets/Input/ImGuiToolkitInputDouble.h"
 #include "Widgets/Input/ImGuiToolkitInputText.h"
 #include "Widgets/Input/ImGuiToolkitInputTextMultiline.h"
+#include "Widgets/Input/ImGuiToolkitInputTextWithHint.h"
 #include "Widgets/Layout/ImGuiToolkitAlignTextToFramePadding.h"
 #include "Widgets/Main/ImGuiToolkitButton.h"
 #include "Widgets/Main/ImGuiToolkitCheckbox.h"
@@ -409,6 +417,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
 	static UImGuiToolkitInputText* CreateImGuiInputText(FText Label, FText PreviewText, UImGuiToolkitContainer* Container = nullptr);
 
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitInputTextWithHint* CreateImGuiInputTextWithHint(FText Label, FText Hint, FText PreviewText, UImGuiToolkitContainer* Container = nullptr);
+
 	// Create an InputTextMultiline
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
 	static UImGuiToolkitInputTextMultiline* CreateImGuiInputTextMultiline(FText Label, FText PreviewText, FVector2D TextBoxSize, UImGuiToolkitContainer* Container = nullptr);
@@ -416,9 +427,30 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
 	static UImGuiToolkitInputFloat* CreateImGuiInputFloat(FText Label, float PreviewFloat, FString Format = "%.2f", UImGuiToolkitContainer* Container = nullptr);
 
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitInputDouble* CreateImGuiInputDouble(FText Label, double PreviewDouble, FString Format = "%.6f", UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitInputVector2D* CreateImGuiInputVector2D(FText Label, FVector2D PreviewVector2D, FString Format = "%.3f", UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitInputVector* CreateImGuiInputVector(FText Label, FVector PreviewVector, FString Format = "%.3f", UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitInputVector4* CreateImGuiInputVector4(FText Label, FVector4 PreviewVector4, FString Format = "%.3f", UImGuiToolkitContainer* Container = nullptr);
+
 	// Create an InputInt
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
 	static UImGuiToolkitInputInt* CreateImGuiInputInt(FText Label, int32 PreviewInt, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitInputInt2* CreateImGuiInputInt2(FText Label, FIntPoint PreviewInt2, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitInputInt3* CreateImGuiInputInt3(FText Label, FIntVector PreviewInt3, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitInputInt4* CreateImGuiInputInt4(FText Label, FIntVector4 PreviewInt4, UImGuiToolkitContainer* Container = nullptr);
 
 	
 private:
