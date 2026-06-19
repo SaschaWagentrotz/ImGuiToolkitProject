@@ -65,7 +65,7 @@ It provides seamless integration between Unreal and Dear ImGui through easily bi
 - [x] Progress Bar
 - [x] Bullet
 - [x] Set Item Tooltip
-- [ ] Begin/End Tooltip
+- [x] Begin/End Tooltip
 - [x] Popup
 - [x] Table
 - [x] Help Marker

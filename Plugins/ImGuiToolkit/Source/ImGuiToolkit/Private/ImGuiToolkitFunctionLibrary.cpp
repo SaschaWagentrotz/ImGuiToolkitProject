@@ -296,6 +296,49 @@ UImGuiToolkitSetItemTooltip* UImGuiToolkitFunctionLibrary::CreateImGuiSetItemToo
 	return Tooltip;
 }
 
+UImGuiToolkitSetTooltip* UImGuiToolkitFunctionLibrary::CreateImGuiSetTooltip(FText Text, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitSetTooltip* Tooltip = NewObject<UImGuiToolkitSetTooltip>(OuterObject);
+	Tooltip->Text = Text;
+
+	if (Container)
+		Container->AddWidget(Tooltip);
+
+	return Tooltip;
+}
+
+UImGuiToolkitBeginTooltip* UImGuiToolkitFunctionLibrary::CreateImGuiBeginTooltip(UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitBeginTooltip* Tooltip = NewObject<UImGuiToolkitBeginTooltip>(OuterObject);
+
+	if (Container)
+		Container->AddWidget(Tooltip);
+
+	return Tooltip;
+}
+
+UImGuiToolkitBeginItemTooltip* UImGuiToolkitFunctionLibrary::CreateImGuiBeginItemTooltip(UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitBeginItemTooltip* Tooltip = NewObject<UImGuiToolkitBeginItemTooltip>(OuterObject);
+
+	if (Container)
+		Container->AddWidget(Tooltip);
+
+	return Tooltip;
+}
+
 UImGuiToolkitCollapsingHeader* UImGuiToolkitFunctionLibrary::CreateImGuiCollapsingHeader(FText Label, UImGuiToolkitContainer* Container)
 {
 	UObject* OuterObject = GetValidOuterObject(Container);

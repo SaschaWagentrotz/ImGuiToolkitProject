@@ -85,6 +85,9 @@
 #include "Widgets/Text/ImGuiToolkitTextColored.h"
 #include "Widgets/Text/ImGuiToolkitTextLinkOpenURL.h"
 #include "Widgets/Text/ImGuiToolkitTextWrapped.h"
+#include "Widgets/Tooltips/ImGuiToolkitBeginItemTooltip.h"
+#include "Widgets/Tooltips/ImGuiToolkitBeginTooltip.h"
+#include "Widgets/Tooltips/ImGuiToolkitSetTooltip.h"
 #include "Widgets/Sliders/ImGuiToolkitDragFloat.h"
 #include "Widgets/Sliders/ImGuiToolkitSliderFloat.h"
 #include "Widgets/Sliders/ImGuiToolkitSliderInt.h"
@@ -156,8 +159,17 @@ public:
 	static UImGuiToolkitHelpMarker* CreateImGuiHelpMarker(FText Text, UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a Tooltip
-	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Tooltips", meta = (ReturnDisplayName = "Element"))
 	static UImGuiToolkitSetItemTooltip* CreateImGuiSetItemTooltip(FText Text, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Tooltips", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitSetTooltip* CreateImGuiSetTooltip(FText Text, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Tooltips", meta = (ReturnDisplayName = "Container"))
+	static UImGuiToolkitBeginTooltip* CreateImGuiBeginTooltip(UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Tooltips", meta = (ReturnDisplayName = "Container"))
+	static UImGuiToolkitBeginItemTooltip* CreateImGuiBeginItemTooltip(UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a CollapsingHeader
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Container"))
