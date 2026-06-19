@@ -4,7 +4,7 @@
 #include "ImGuiToolkitWidget.h"
 #include "ImGuiToolkitDragIntVector.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnImGuiDragIntVectorChanged, FIntVector, Value);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnImGuiDragIntVectorChanged, const FIntVector&, Value);
 
 UCLASS()
 class IMGUITOOLKIT_API UImGuiToolkitDragIntVector : public UImGuiToolkitWidget

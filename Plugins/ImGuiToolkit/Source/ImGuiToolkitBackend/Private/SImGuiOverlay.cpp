@@ -4,6 +4,7 @@
 #include <CoreGlobals.h>
 #include <Framework/Application/SlateApplication.h>
 #include <HAL/PlatformApplicationMisc.h>
+#include <Layout/WidgetPath.h>
 #include <limits>
 
 #include "ImGuiContext.h"
@@ -780,12 +781,13 @@ bool SImGuiOverlay::CanProcessPointerEvent(FSlateApplication& SlateApp, const FP
 	if (WidgetsUnderCursor.IsValid())
 	{
 		const bool bIsOwnedWindow = IsSlateWindowOwnedByContext(WidgetsUnderCursor.GetWindow().ToSharedPtr());
-		if (!bIsOwnedWindow)
+		const bool bCanReceivePointer = bIsOwnedWindow && IsWidgetPathWithinOverlayBranch(SlateApp, WidgetsUnderCursor);
+		if (!bCanReceivePointer)
 		{
 			ClearPointerInput();
 		}
 
-		return bIsOwnedWindow;
+		return bCanReceivePointer;
 	}
 
 	return IsSlateWindowOwnedByContext(SlateApp.GetActiveTopLevelWindow());
@@ -842,4 +844,22 @@ bool SImGuiOverlay::IsSlateWindowOwnedByContext(const TSharedPtr<SWindow>& Windo
 	}
 
 	return false;
+}
+
+bool SImGuiOverlay::IsWidgetPathWithinOverlayBranch(FSlateApplication& SlateApp, const FWidgetPath& WidgetsUnderCursor) const
+{
+	FWidgetPath OverlayPath;
+	if (!SlateApp.FindPathToWidget(AsShared(), OverlayPath, EVisibility::All) || !OverlayPath.IsValid())
+	{
+		return true;
+	}
+
+	if (OverlayPath.Widgets.Num() < 2)
+	{
+		return true;
+	}
+
+	// The overlay is hit-test invisible, so the cursor path will usually stop at its parent.
+	const TSharedRef<SWidget> OverlayParent = OverlayPath.Widgets[OverlayPath.Widgets.Num() - 2].Widget;
+	return WidgetsUnderCursor.ContainsWidget(&OverlayParent.Get());
 }

@@ -7,6 +7,8 @@
 
 #include <imgui.h>
 
+class FWidgetPath;
+
 struct FImGuiDrawList
 {
 	FImGuiDrawList() = default;
@@ -66,6 +68,7 @@ public:
 private:
 	TSharedPtr<SWindow> GetOwnerWindow() const;
 	bool IsSlateWindowOwnedByContext(const TSharedPtr<SWindow>& Window) const;
+	bool IsWidgetPathWithinOverlayBranch(FSlateApplication& SlateApp, const FWidgetPath& WidgetsUnderCursor) const;
 	void ClearPointerInput() const;
 
 	TSharedPtr<FImGuiContext> Context = nullptr;

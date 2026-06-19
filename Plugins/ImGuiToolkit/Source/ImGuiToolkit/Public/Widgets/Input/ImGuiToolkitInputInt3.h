@@ -4,7 +4,7 @@
 #include "ImGuiToolkitWidget.h"
 #include "ImGuiToolkitInputInt3.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnImGuiInputInt3Changed, FIntVector, InputInt3);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnImGuiInputInt3Changed, const FIntVector&, InputInt3);
 
 UCLASS()
 class IMGUITOOLKIT_API UImGuiToolkitInputInt3 : public UImGuiToolkitWidget
