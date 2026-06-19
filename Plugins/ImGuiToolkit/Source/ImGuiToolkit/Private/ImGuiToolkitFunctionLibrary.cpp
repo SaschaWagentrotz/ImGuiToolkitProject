@@ -1083,6 +1083,24 @@ UImGuiToolkitCombo* UImGuiToolkitFunctionLibrary::CreateImGuiCombo(FText Label, 
 	return Combo;
 }
 
+UImGuiToolkitBeginCombo* UImGuiToolkitFunctionLibrary::CreateImGuiBeginCombo(FText Label, FText PreviewValue,
+	TArray<EImGuiComboFlag> ComboFlags, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitBeginCombo* BeginCombo = NewObject<UImGuiToolkitBeginCombo>(OuterObject);
+	BeginCombo->CreateUniqueWidgetLabel(Label);
+	BeginCombo->PreviewValue = PreviewValue;
+	BeginCombo->ComboFlags = ComboFlags;
+
+	if (Container)
+		Container->AddWidget(BeginCombo);
+
+	return BeginCombo;
+}
+
 UImGuiToolkitDragInt* UImGuiToolkitFunctionLibrary::CreateImGuiDragInt(FText Label, int32 InitialValue, int32 MinValue, int32 MaxValue, float Speed, UImGuiToolkitContainer* Container)
 {
 	UObject* OuterObject = GetValidOuterObject(Container);

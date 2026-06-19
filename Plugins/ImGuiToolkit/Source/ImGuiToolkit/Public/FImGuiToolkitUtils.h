@@ -78,6 +78,20 @@ enum class EImGuiSelectableFlag : uint8
 };
 
 UENUM(BlueprintType)
+enum class EImGuiComboFlag : uint8
+{
+	None						= 0				UMETA(DisplayName = "None"),
+	PopupAlignLeft				= 1				UMETA(DisplayName = "Popup Align Left"),
+	HeightSmall					= 2				UMETA(DisplayName = "Height Small"),
+	HeightRegular				= 3				UMETA(DisplayName = "Height Regular"),
+	HeightLarge					= 4				UMETA(DisplayName = "Height Large"),
+	HeightLargest				= 5				UMETA(DisplayName = "Height Largest"),
+	NoArrowButton				= 6				UMETA(DisplayName = "No Arrow Button"),
+	NoPreview					= 7				UMETA(DisplayName = "No Preview"),
+	WidthFitPreview				= 8				UMETA(DisplayName = "Width Fit Preview"),
+};
+
+UENUM(BlueprintType)
 enum class EImGuiTableFlag : uint8
 {
 	None						= 255			UMETA(DisplayName = "None"),
@@ -237,6 +251,8 @@ struct FImGuiToolkitUtils
 	static int32 CombineImGuiChildFlags(TArray<EImGuiChildFlag> Flags);
 	static ImGuiSelectableFlags UnrealFlagToImGuiSelectableFlag(EImGuiSelectableFlag Flags);
 	static int32 CombineImGuiSelectableFlags(TArray<EImGuiSelectableFlag> Flags);
+	static ImGuiComboFlags UnrealFlagToImGuiComboFlag(EImGuiComboFlag Flags);
+	static int32 CombineImGuiComboFlags(TArray<EImGuiComboFlag> Flags);
 	static ImGuiTableFlags UnrealFlagToImGuiTableFlag(EImGuiTableFlag Flags);
 	static int32 CombineImGuiTableFlags(TArray<EImGuiTableFlag> Flags);
 	static ImGuiTableColumnFlags UnrealFlagToImGuiTableColumnFlag(EImGuiTableColumnFlag Flags);

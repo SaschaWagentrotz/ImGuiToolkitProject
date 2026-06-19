@@ -211,6 +211,33 @@ int32 FImGuiToolkitUtils::CombineImGuiSelectableFlags(TArray<EImGuiSelectableFla
 	return Mask;
 }
 
+ImGuiComboFlags FImGuiToolkitUtils::UnrealFlagToImGuiComboFlag(EImGuiComboFlag Flags)
+{
+	switch (Flags)
+	{
+		case EImGuiComboFlag::PopupAlignLeft:	return ImGuiComboFlags_PopupAlignLeft;
+		case EImGuiComboFlag::HeightSmall:		return ImGuiComboFlags_HeightSmall;
+		case EImGuiComboFlag::HeightRegular:		return ImGuiComboFlags_HeightRegular;
+		case EImGuiComboFlag::HeightLarge:		return ImGuiComboFlags_HeightLarge;
+		case EImGuiComboFlag::HeightLargest:		return ImGuiComboFlags_HeightLargest;
+		case EImGuiComboFlag::NoArrowButton:		return ImGuiComboFlags_NoArrowButton;
+		case EImGuiComboFlag::NoPreview:			return ImGuiComboFlags_NoPreview;
+		case EImGuiComboFlag::WidthFitPreview:	return ImGuiComboFlags_WidthFitPreview;
+		case EImGuiComboFlag::None:				return ImGuiComboFlags_None;
+		default:								return ImGuiComboFlags_None;
+	}
+}
+
+int32 FImGuiToolkitUtils::CombineImGuiComboFlags(TArray<EImGuiComboFlag> Flags)
+{
+	ImGuiComboFlags Mask = ImGuiComboFlags_None;
+	for (EImGuiComboFlag Flag : Flags)
+	{
+		Mask |= UnrealFlagToImGuiComboFlag(Flag);
+	}
+	return Mask;
+}
+
 ImGuiTableFlags FImGuiToolkitUtils::UnrealFlagToImGuiTableFlag(EImGuiTableFlag Flags)
 {
 	switch (Flags)

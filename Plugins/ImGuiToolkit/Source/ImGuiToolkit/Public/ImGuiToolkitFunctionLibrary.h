@@ -5,6 +5,7 @@
 #include "FImGuiToolkitUtils.h"
 #include "Widgets/TabBar/ImGuiToolkiBeginTabItem.h"
 #include "Containers/ImGuiToolkitBeginChild.h"
+#include "Containers/ImGuiToolkitBeginCombo.h"
 #include "Containers/ImGuiToolkitBeginGroup.h"
 #include "Containers/ImGuiToolkitBeginListBox.h"
 #include "Containers/ImGuiToolkitBeginTabBar.h"
@@ -344,6 +345,9 @@ public:
 	// Create a ComboBox
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
 	static UImGuiToolkitCombo* CreateImGuiCombo(FText Label, TArray<FText> ComboItems, UImGuiToolkitContainer* Container);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Container"))
+	static UImGuiToolkitBeginCombo* CreateImGuiBeginCombo(FText Label, FText PreviewValue, TArray<EImGuiComboFlag> ComboFlags, UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a DragInt
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))

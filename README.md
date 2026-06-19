@@ -62,6 +62,7 @@ It provides seamless integration between Unreal and Dear ImGui through easily bi
 - [x] Radio Button Group
 - [x] Small Button
 - [x] Combo Box
+- [x] Begin Combo
 - [x] Progress Bar
 - [x] Bullet
 - [x] Set Item Tooltip
