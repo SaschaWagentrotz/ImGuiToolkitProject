@@ -14,6 +14,7 @@ public class ImGuiToolkit : ModuleRules
 				"Core",
 				"Engine",
 				"ImGuiToolkitBackend",
+				"ImPlotLibrary",
 				"UMG"
 			}
 		);

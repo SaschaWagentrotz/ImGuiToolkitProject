@@ -1089,6 +1089,1417 @@ UImGuiToolkitImageButton* UImGuiToolkitFunctionLibrary::CreateImGuiMaterialImage
 	return ImageButton;
 }
 
+UImGuiToolkitBeginPlot* UImGuiToolkitFunctionLibrary::CreateImPlotBeginPlot(FText Title,
+	TArray<EImPlotFlag> PlotFlags, FVector2D Size, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitBeginPlot* BeginPlot = NewObject<UImGuiToolkitBeginPlot>(OuterObject);
+	BeginPlot->CreateUniqueWidgetLabel(Title);
+	BeginPlot->Size = Size;
+	BeginPlot->PlotFlags = PlotFlags;
+
+	if (Container)
+		Container->AddWidget(BeginPlot);
+
+	return BeginPlot;
+}
+
+UImGuiToolkitSetupPlotAxis* UImGuiToolkitFunctionLibrary::CreateImPlotSetupAxis(EImPlotAxis Axis, FText Label,
+	TArray<EImPlotAxisFlag> AxisFlags, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitSetupPlotAxis* SetupAxis = NewObject<UImGuiToolkitSetupPlotAxis>(OuterObject);
+	SetupAxis->Axis = Axis;
+	SetupAxis->Label = Label;
+	SetupAxis->AxisFlags = AxisFlags;
+
+	if (Container)
+		Container->AddWidget(SetupAxis);
+
+	return SetupAxis;
+}
+
+UImGuiToolkitSetupPlotAxisLimits* UImGuiToolkitFunctionLibrary::CreateImPlotSetupAxisLimits(EImPlotAxis Axis,
+	double MinValue, double MaxValue, EImPlotCondition Condition, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitSetupPlotAxisLimits* SetupAxisLimits = NewObject<UImGuiToolkitSetupPlotAxisLimits>(OuterObject);
+	SetupAxisLimits->Axis = Axis;
+	SetupAxisLimits->MinValue = MinValue;
+	SetupAxisLimits->MaxValue = MaxValue;
+	SetupAxisLimits->Condition = Condition;
+
+	if (Container)
+		Container->AddWidget(SetupAxisLimits);
+
+	return SetupAxisLimits;
+}
+
+UImGuiToolkitPlotLine* UImGuiToolkitFunctionLibrary::CreateImPlotLine(FText Label, TArray<float> Values,
+	TArray<EImPlotLineFlag> LineFlags, TArray<EImPlotItemFlag> ItemFlags, double XScale, double XStart,
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPlotLine* PlotLine = NewObject<UImGuiToolkitPlotLine>(OuterObject);
+	PlotLine->CreateUniqueWidgetLabel(Label);
+	PlotLine->Values = Values;
+	PlotLine->LineFlags = LineFlags;
+	PlotLine->ItemFlags = ItemFlags;
+	PlotLine->XScale = XScale;
+	PlotLine->XStart = XStart;
+
+	if (Container)
+		Container->AddWidget(PlotLine);
+
+	return PlotLine;
+}
+
+UImGuiToolkitPlotLineXY* UImGuiToolkitFunctionLibrary::CreateImPlotLineXY(FText Label, TArray<float> XValues,
+	TArray<float> YValues, TArray<EImPlotLineFlag> LineFlags, TArray<EImPlotItemFlag> ItemFlags,
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPlotLineXY* PlotLine = NewObject<UImGuiToolkitPlotLineXY>(OuterObject);
+	PlotLine->CreateUniqueWidgetLabel(Label);
+	PlotLine->XValues = XValues;
+	PlotLine->YValues = YValues;
+	PlotLine->LineFlags = LineFlags;
+	PlotLine->ItemFlags = ItemFlags;
+
+	if (Container)
+		Container->AddWidget(PlotLine);
+
+	return PlotLine;
+}
+
+UImGuiToolkitPlotScatter* UImGuiToolkitFunctionLibrary::CreateImPlotScatter(FText Label, TArray<float> Values,
+	TArray<EImPlotScatterFlag> ScatterFlags, TArray<EImPlotItemFlag> ItemFlags, double XScale, double XStart,
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPlotScatter* PlotScatter = NewObject<UImGuiToolkitPlotScatter>(OuterObject);
+	PlotScatter->CreateUniqueWidgetLabel(Label);
+	PlotScatter->Values = Values;
+	PlotScatter->ScatterFlags = ScatterFlags;
+	PlotScatter->ItemFlags = ItemFlags;
+	PlotScatter->XScale = XScale;
+	PlotScatter->XStart = XStart;
+
+	if (Container)
+		Container->AddWidget(PlotScatter);
+
+	return PlotScatter;
+}
+
+UImGuiToolkitPlotScatterXY* UImGuiToolkitFunctionLibrary::CreateImPlotScatterXY(FText Label, TArray<float> XValues,
+	TArray<float> YValues, TArray<EImPlotScatterFlag> ScatterFlags, TArray<EImPlotItemFlag> ItemFlags,
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPlotScatterXY* PlotScatter = NewObject<UImGuiToolkitPlotScatterXY>(OuterObject);
+	PlotScatter->CreateUniqueWidgetLabel(Label);
+	PlotScatter->XValues = XValues;
+	PlotScatter->YValues = YValues;
+	PlotScatter->ScatterFlags = ScatterFlags;
+	PlotScatter->ItemFlags = ItemFlags;
+
+	if (Container)
+		Container->AddWidget(PlotScatter);
+
+	return PlotScatter;
+}
+
+UImGuiToolkitPlotBars* UImGuiToolkitFunctionLibrary::CreateImPlotBars(FText Label, TArray<float> Values,
+	TArray<EImPlotBarsFlag> BarsFlags, TArray<EImPlotItemFlag> ItemFlags, double BarSize, double Shift,
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPlotBars* PlotBars = NewObject<UImGuiToolkitPlotBars>(OuterObject);
+	PlotBars->CreateUniqueWidgetLabel(Label);
+	PlotBars->Values = Values;
+	PlotBars->BarsFlags = BarsFlags;
+	PlotBars->ItemFlags = ItemFlags;
+	PlotBars->BarSize = BarSize;
+	PlotBars->Shift = Shift;
+
+	if (Container)
+		Container->AddWidget(PlotBars);
+
+	return PlotBars;
+}
+
+UImGuiToolkitPlotBarsXY* UImGuiToolkitFunctionLibrary::CreateImPlotBarsXY(FText Label, TArray<float> XValues,
+	TArray<float> YValues, TArray<EImPlotBarsFlag> BarsFlags, TArray<EImPlotItemFlag> ItemFlags,
+	double BarSize, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPlotBarsXY* PlotBars = NewObject<UImGuiToolkitPlotBarsXY>(OuterObject);
+	PlotBars->CreateUniqueWidgetLabel(Label);
+	PlotBars->XValues = XValues;
+	PlotBars->YValues = YValues;
+	PlotBars->BarsFlags = BarsFlags;
+	PlotBars->ItemFlags = ItemFlags;
+	PlotBars->BarSize = BarSize;
+
+	if (Container)
+		Container->AddWidget(PlotBars);
+
+	return PlotBars;
+}
+
+UImGuiToolkitPlotBarGroups* UImGuiToolkitFunctionLibrary::CreateImPlotBarGroups(TArray<FText> Labels,
+	TArray<float> Values, int32 ItemCount, int32 GroupCount, TArray<EImPlotBarGroupsFlag> BarGroupsFlags,
+	TArray<EImPlotItemFlag> ItemFlags, double GroupSize, double Shift, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPlotBarGroups* PlotBarGroups = NewObject<UImGuiToolkitPlotBarGroups>(OuterObject);
+	PlotBarGroups->Labels = Labels;
+	PlotBarGroups->Values = Values;
+	PlotBarGroups->ItemCount = ItemCount;
+	PlotBarGroups->GroupCount = GroupCount;
+	PlotBarGroups->BarGroupsFlags = BarGroupsFlags;
+	PlotBarGroups->ItemFlags = ItemFlags;
+	PlotBarGroups->GroupSize = GroupSize;
+	PlotBarGroups->Shift = Shift;
+
+	if (Container)
+		Container->AddWidget(PlotBarGroups);
+
+	return PlotBarGroups;
+}
+
+UImGuiToolkitBeginSubplots* UImGuiToolkitFunctionLibrary::CreateImPlotBeginSubplots(FText Title, int32 Rows,
+	int32 Columns, TArray<EImPlotSubplotFlag> SubplotFlags, FVector2D Size, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitBeginSubplots* BeginSubplots = NewObject<UImGuiToolkitBeginSubplots>(OuterObject);
+	BeginSubplots->CreateUniqueWidgetLabel(Title);
+	BeginSubplots->Rows = Rows;
+	BeginSubplots->Columns = Columns;
+	BeginSubplots->SubplotFlags = SubplotFlags;
+	BeginSubplots->Size = Size;
+
+	if (Container)
+		Container->AddWidget(BeginSubplots);
+
+	return BeginSubplots;
+}
+
+UImGuiToolkitSetupPlotLegend* UImGuiToolkitFunctionLibrary::CreateImPlotSetupLegend(EImPlotLocation Location,
+	TArray<EImPlotLegendFlag> LegendFlags, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitSetupPlotLegend* SetupLegend = NewObject<UImGuiToolkitSetupPlotLegend>(OuterObject);
+	SetupLegend->Location = Location;
+	SetupLegend->LegendFlags = LegendFlags;
+
+	if (Container)
+		Container->AddWidget(SetupLegend);
+
+	return SetupLegend;
+}
+
+UImGuiToolkitSetupPlotMouseText* UImGuiToolkitFunctionLibrary::CreateImPlotSetupMouseText(EImPlotLocation Location,
+	TArray<EImPlotMouseTextFlag> MouseTextFlags, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitSetupPlotMouseText* SetupMouseText = NewObject<UImGuiToolkitSetupPlotMouseText>(OuterObject);
+	SetupMouseText->Location = Location;
+	SetupMouseText->MouseTextFlags = MouseTextFlags;
+
+	if (Container)
+		Container->AddWidget(SetupMouseText);
+
+	return SetupMouseText;
+}
+
+UImGuiToolkitSetupPlotAxisFormat* UImGuiToolkitFunctionLibrary::CreateImPlotSetupAxisFormat(EImPlotAxis Axis,
+	FString Format, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitSetupPlotAxisFormat* SetupAxisFormat = NewObject<UImGuiToolkitSetupPlotAxisFormat>(OuterObject);
+	SetupAxisFormat->Axis = Axis;
+	SetupAxisFormat->Format = Format;
+
+	if (Container)
+		Container->AddWidget(SetupAxisFormat);
+
+	return SetupAxisFormat;
+}
+
+UImGuiToolkitSetupPlotAxisScale* UImGuiToolkitFunctionLibrary::CreateImPlotSetupAxisScale(EImPlotAxis Axis,
+	EImPlotScale Scale, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitSetupPlotAxisScale* SetupAxisScale = NewObject<UImGuiToolkitSetupPlotAxisScale>(OuterObject);
+	SetupAxisScale->Axis = Axis;
+	SetupAxisScale->Scale = Scale;
+
+	if (Container)
+		Container->AddWidget(SetupAxisScale);
+
+	return SetupAxisScale;
+}
+
+UImGuiToolkitSetupPlotAxes* UImGuiToolkitFunctionLibrary::CreateImPlotSetupAxes(FText XLabel, FText YLabel,
+	TArray<EImPlotAxisFlag> XAxisFlags, TArray<EImPlotAxisFlag> YAxisFlags, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitSetupPlotAxes* SetupAxes = NewObject<UImGuiToolkitSetupPlotAxes>(OuterObject);
+	SetupAxes->XLabel = XLabel;
+	SetupAxes->YLabel = YLabel;
+	SetupAxes->XAxisFlags = XAxisFlags;
+	SetupAxes->YAxisFlags = YAxisFlags;
+
+	if (Container)
+		Container->AddWidget(SetupAxes);
+
+	return SetupAxes;
+}
+
+UImGuiToolkitSetupPlotAxesLimits* UImGuiToolkitFunctionLibrary::CreateImPlotSetupAxesLimits(FVector2D XLimits,
+	FVector2D YLimits, EImPlotCondition Condition, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitSetupPlotAxesLimits* SetupAxesLimits = NewObject<UImGuiToolkitSetupPlotAxesLimits>(OuterObject);
+	SetupAxesLimits->XLimits = XLimits;
+	SetupAxesLimits->YLimits = YLimits;
+	SetupAxesLimits->Condition = Condition;
+
+	if (Container)
+		Container->AddWidget(SetupAxesLimits);
+
+	return SetupAxesLimits;
+}
+
+UImGuiToolkitSetupPlotAxisLimitsConstraints* UImGuiToolkitFunctionLibrary::CreateImPlotSetupAxisLimitsConstraints(
+	EImPlotAxis Axis, double MinValue, double MaxValue, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitSetupPlotAxisLimitsConstraints* Constraints = NewObject<UImGuiToolkitSetupPlotAxisLimitsConstraints>(OuterObject);
+	Constraints->Axis = Axis;
+	Constraints->MinValue = MinValue;
+	Constraints->MaxValue = MaxValue;
+
+	if (Container)
+		Container->AddWidget(Constraints);
+
+	return Constraints;
+}
+
+UImGuiToolkitSetupPlotAxisZoomConstraints* UImGuiToolkitFunctionLibrary::CreateImPlotSetupAxisZoomConstraints(
+	EImPlotAxis Axis, double MinZoom, double MaxZoom, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitSetupPlotAxisZoomConstraints* Constraints = NewObject<UImGuiToolkitSetupPlotAxisZoomConstraints>(OuterObject);
+	Constraints->Axis = Axis;
+	Constraints->MinZoom = MinZoom;
+	Constraints->MaxZoom = MaxZoom;
+
+	if (Container)
+		Container->AddWidget(Constraints);
+
+	return Constraints;
+}
+
+UImGuiToolkitSetupPlotAxisTicks* UImGuiToolkitFunctionLibrary::CreateImPlotSetupAxisTicks(EImPlotAxis Axis,
+	TArray<float> Values, TArray<FText> Labels, bool bKeepDefault, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitSetupPlotAxisTicks* SetupTicks = NewObject<UImGuiToolkitSetupPlotAxisTicks>(OuterObject);
+	SetupTicks->Axis = Axis;
+	SetupTicks->Values = Values;
+	SetupTicks->Labels = Labels;
+	SetupTicks->bKeepDefault = bKeepDefault;
+
+	if (Container)
+		Container->AddWidget(SetupTicks);
+
+	return SetupTicks;
+}
+
+UImGuiToolkitSetupPlotAxisTicksRange* UImGuiToolkitFunctionLibrary::CreateImPlotSetupAxisTicksRange(
+	EImPlotAxis Axis, double MinValue, double MaxValue, int32 TickCount, TArray<FText> Labels, bool bKeepDefault,
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitSetupPlotAxisTicksRange* SetupTicks = NewObject<UImGuiToolkitSetupPlotAxisTicksRange>(OuterObject);
+	SetupTicks->Axis = Axis;
+	SetupTicks->MinValue = MinValue;
+	SetupTicks->MaxValue = MaxValue;
+	SetupTicks->TickCount = TickCount;
+	SetupTicks->Labels = Labels;
+	SetupTicks->bKeepDefault = bKeepDefault;
+
+	if (Container)
+		Container->AddWidget(SetupTicks);
+
+	return SetupTicks;
+}
+
+UImGuiToolkitSetupPlotFinish* UImGuiToolkitFunctionLibrary::CreateImPlotSetupFinish(UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitSetupPlotFinish* SetupFinish = NewObject<UImGuiToolkitSetupPlotFinish>(OuterObject);
+
+	if (Container)
+		Container->AddWidget(SetupFinish);
+
+	return SetupFinish;
+}
+
+UImGuiToolkitSetNextPlotAxisLimits* UImGuiToolkitFunctionLibrary::CreateImPlotSetNextAxisLimits(EImPlotAxis Axis,
+	double MinValue, double MaxValue, EImPlotCondition Condition, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitSetNextPlotAxisLimits* SetNextAxisLimits = NewObject<UImGuiToolkitSetNextPlotAxisLimits>(OuterObject);
+	SetNextAxisLimits->Axis = Axis;
+	SetNextAxisLimits->MinValue = MinValue;
+	SetNextAxisLimits->MaxValue = MaxValue;
+	SetNextAxisLimits->Condition = Condition;
+
+	if (Container)
+		Container->AddWidget(SetNextAxisLimits);
+
+	return SetNextAxisLimits;
+}
+
+UImGuiToolkitSetNextPlotAxesLimits* UImGuiToolkitFunctionLibrary::CreateImPlotSetNextAxesLimits(FVector2D XLimits,
+	FVector2D YLimits, EImPlotCondition Condition, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitSetNextPlotAxesLimits* SetNextAxesLimits = NewObject<UImGuiToolkitSetNextPlotAxesLimits>(OuterObject);
+	SetNextAxesLimits->XLimits = XLimits;
+	SetNextAxesLimits->YLimits = YLimits;
+	SetNextAxesLimits->Condition = Condition;
+
+	if (Container)
+		Container->AddWidget(SetNextAxesLimits);
+
+	return SetNextAxesLimits;
+}
+
+UImGuiToolkitSetNextPlotAxisToFit* UImGuiToolkitFunctionLibrary::CreateImPlotSetNextAxisToFit(EImPlotAxis Axis,
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitSetNextPlotAxisToFit* SetNextAxisToFit = NewObject<UImGuiToolkitSetNextPlotAxisToFit>(OuterObject);
+	SetNextAxisToFit->Axis = Axis;
+
+	if (Container)
+		Container->AddWidget(SetNextAxisToFit);
+
+	return SetNextAxisToFit;
+}
+
+UImGuiToolkitSetNextPlotAxesToFit* UImGuiToolkitFunctionLibrary::CreateImPlotSetNextAxesToFit(
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitSetNextPlotAxesToFit* SetNextAxesToFit = NewObject<UImGuiToolkitSetNextPlotAxesToFit>(OuterObject);
+
+	if (Container)
+		Container->AddWidget(SetNextAxesToFit);
+
+	return SetNextAxesToFit;
+}
+
+UImGuiToolkitSetPlotAxis* UImGuiToolkitFunctionLibrary::CreateImPlotSetAxis(EImPlotAxis Axis,
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitSetPlotAxis* SetAxis = NewObject<UImGuiToolkitSetPlotAxis>(OuterObject);
+	SetAxis->Axis = Axis;
+
+	if (Container)
+		Container->AddWidget(SetAxis);
+
+	return SetAxis;
+}
+
+UImGuiToolkitSetPlotAxes* UImGuiToolkitFunctionLibrary::CreateImPlotSetAxes(EImPlotAxis XAxis, EImPlotAxis YAxis,
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitSetPlotAxes* SetAxes = NewObject<UImGuiToolkitSetPlotAxes>(OuterObject);
+	SetAxes->XAxis = XAxis;
+	SetAxes->YAxis = YAxis;
+
+	if (Container)
+		Container->AddWidget(SetAxes);
+
+	return SetAxes;
+}
+
+UImGuiToolkitHideNextPlotItem* UImGuiToolkitFunctionLibrary::CreateImPlotHideNextItem(bool bHidden,
+	EImPlotCondition Condition, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitHideNextPlotItem* HideNextItem = NewObject<UImGuiToolkitHideNextPlotItem>(OuterObject);
+	HideNextItem->bHidden = bHidden;
+	HideNextItem->Condition = Condition;
+
+	if (Container)
+		Container->AddWidget(HideNextItem);
+
+	return HideNextItem;
+}
+
+UImGuiToolkitPlotQuery* UImGuiToolkitFunctionLibrary::CreateImPlotQuery(EImPlotAxis XAxis, EImPlotAxis YAxis,
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPlotQuery* Query = NewObject<UImGuiToolkitPlotQuery>(OuterObject);
+	Query->XAxis = XAxis;
+	Query->YAxis = YAxis;
+
+	if (Container)
+		Container->AddWidget(Query);
+
+	return Query;
+}
+
+UImGuiToolkitPlotAxisQuery* UImGuiToolkitFunctionLibrary::CreateImPlotAxisQuery(EImPlotAxis Axis,
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPlotAxisQuery* Query = NewObject<UImGuiToolkitPlotAxisQuery>(OuterObject);
+	Query->Axis = Axis;
+
+	if (Container)
+		Container->AddWidget(Query);
+
+	return Query;
+}
+
+UImGuiToolkitCancelPlotSelection* UImGuiToolkitFunctionLibrary::CreateImPlotCancelSelection(
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitCancelPlotSelection* CancelSelection = NewObject<UImGuiToolkitCancelPlotSelection>(OuterObject);
+
+	if (Container)
+		Container->AddWidget(CancelSelection);
+
+	return CancelSelection;
+}
+
+UImGuiToolkitPlotStairs* UImGuiToolkitFunctionLibrary::CreateImPlotStairs(FText Label, TArray<float> Values,
+	TArray<EImPlotStairsFlag> StairsFlags, TArray<EImPlotItemFlag> ItemFlags, double XScale, double XStart,
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPlotStairs* PlotStairs = NewObject<UImGuiToolkitPlotStairs>(OuterObject);
+	PlotStairs->CreateUniqueWidgetLabel(Label);
+	PlotStairs->Values = Values;
+	PlotStairs->StairsFlags = StairsFlags;
+	PlotStairs->ItemFlags = ItemFlags;
+	PlotStairs->XScale = XScale;
+	PlotStairs->XStart = XStart;
+
+	if (Container)
+		Container->AddWidget(PlotStairs);
+
+	return PlotStairs;
+}
+
+UImGuiToolkitPlotStairsXY* UImGuiToolkitFunctionLibrary::CreateImPlotStairsXY(FText Label,
+	TArray<float> XValues, TArray<float> YValues, TArray<EImPlotStairsFlag> StairsFlags,
+	TArray<EImPlotItemFlag> ItemFlags, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPlotStairsXY* PlotStairs = NewObject<UImGuiToolkitPlotStairsXY>(OuterObject);
+	PlotStairs->CreateUniqueWidgetLabel(Label);
+	PlotStairs->XValues = XValues;
+	PlotStairs->YValues = YValues;
+	PlotStairs->StairsFlags = StairsFlags;
+	PlotStairs->ItemFlags = ItemFlags;
+
+	if (Container)
+		Container->AddWidget(PlotStairs);
+
+	return PlotStairs;
+}
+
+UImGuiToolkitPlotShaded* UImGuiToolkitFunctionLibrary::CreateImPlotShaded(FText Label, TArray<float> Values,
+	TArray<EImPlotItemFlag> ItemFlags, double YReference, double XScale, double XStart,
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPlotShaded* PlotShaded = NewObject<UImGuiToolkitPlotShaded>(OuterObject);
+	PlotShaded->CreateUniqueWidgetLabel(Label);
+	PlotShaded->Values = Values;
+	PlotShaded->ItemFlags = ItemFlags;
+	PlotShaded->YReference = YReference;
+	PlotShaded->XScale = XScale;
+	PlotShaded->XStart = XStart;
+
+	if (Container)
+		Container->AddWidget(PlotShaded);
+
+	return PlotShaded;
+}
+
+UImGuiToolkitPlotShadedXY* UImGuiToolkitFunctionLibrary::CreateImPlotShadedXY(FText Label,
+	TArray<float> XValues, TArray<float> YValues, TArray<EImPlotItemFlag> ItemFlags, double YReference,
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPlotShadedXY* PlotShaded = NewObject<UImGuiToolkitPlotShadedXY>(OuterObject);
+	PlotShaded->CreateUniqueWidgetLabel(Label);
+	PlotShaded->XValues = XValues;
+	PlotShaded->YValues = YValues;
+	PlotShaded->ItemFlags = ItemFlags;
+	PlotShaded->YReference = YReference;
+
+	if (Container)
+		Container->AddWidget(PlotShaded);
+
+	return PlotShaded;
+}
+
+UImGuiToolkitPlotShadedBetweenXY* UImGuiToolkitFunctionLibrary::CreateImPlotShadedBetweenXY(FText Label,
+	TArray<float> XValues, TArray<float> Y1Values, TArray<float> Y2Values, TArray<EImPlotItemFlag> ItemFlags,
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPlotShadedBetweenXY* PlotShaded = NewObject<UImGuiToolkitPlotShadedBetweenXY>(OuterObject);
+	PlotShaded->CreateUniqueWidgetLabel(Label);
+	PlotShaded->XValues = XValues;
+	PlotShaded->Y1Values = Y1Values;
+	PlotShaded->Y2Values = Y2Values;
+	PlotShaded->ItemFlags = ItemFlags;
+
+	if (Container)
+		Container->AddWidget(PlotShaded);
+
+	return PlotShaded;
+}
+
+UImGuiToolkitPlotErrorBars* UImGuiToolkitFunctionLibrary::CreateImPlotErrorBars(FText Label,
+	TArray<float> XValues, TArray<float> YValues, TArray<float> ErrorValues,
+	TArray<EImPlotErrorBarsFlag> ErrorBarsFlags, TArray<EImPlotItemFlag> ItemFlags, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPlotErrorBars* PlotErrorBars = NewObject<UImGuiToolkitPlotErrorBars>(OuterObject);
+	PlotErrorBars->CreateUniqueWidgetLabel(Label);
+	PlotErrorBars->XValues = XValues;
+	PlotErrorBars->YValues = YValues;
+	PlotErrorBars->ErrorValues = ErrorValues;
+	PlotErrorBars->ErrorBarsFlags = ErrorBarsFlags;
+	PlotErrorBars->ItemFlags = ItemFlags;
+
+	if (Container)
+		Container->AddWidget(PlotErrorBars);
+
+	return PlotErrorBars;
+}
+
+UImGuiToolkitPlotErrorBarsNegPos* UImGuiToolkitFunctionLibrary::CreateImPlotErrorBarsNegPos(FText Label,
+	TArray<float> XValues, TArray<float> YValues, TArray<float> NegativeErrorValues,
+	TArray<float> PositiveErrorValues, TArray<EImPlotErrorBarsFlag> ErrorBarsFlags, TArray<EImPlotItemFlag> ItemFlags,
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPlotErrorBarsNegPos* PlotErrorBars = NewObject<UImGuiToolkitPlotErrorBarsNegPos>(OuterObject);
+	PlotErrorBars->CreateUniqueWidgetLabel(Label);
+	PlotErrorBars->XValues = XValues;
+	PlotErrorBars->YValues = YValues;
+	PlotErrorBars->NegativeErrorValues = NegativeErrorValues;
+	PlotErrorBars->PositiveErrorValues = PositiveErrorValues;
+	PlotErrorBars->ErrorBarsFlags = ErrorBarsFlags;
+	PlotErrorBars->ItemFlags = ItemFlags;
+
+	if (Container)
+		Container->AddWidget(PlotErrorBars);
+
+	return PlotErrorBars;
+}
+
+UImGuiToolkitPlotStems* UImGuiToolkitFunctionLibrary::CreateImPlotStems(FText Label, TArray<float> Values,
+	TArray<EImPlotStemsFlag> StemsFlags, TArray<EImPlotItemFlag> ItemFlags, double Reference, double XScale, double XStart,
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPlotStems* PlotStems = NewObject<UImGuiToolkitPlotStems>(OuterObject);
+	PlotStems->CreateUniqueWidgetLabel(Label);
+	PlotStems->Values = Values;
+	PlotStems->StemsFlags = StemsFlags;
+	PlotStems->ItemFlags = ItemFlags;
+	PlotStems->Reference = Reference;
+	PlotStems->XScale = XScale;
+	PlotStems->XStart = XStart;
+
+	if (Container)
+		Container->AddWidget(PlotStems);
+
+	return PlotStems;
+}
+
+UImGuiToolkitPlotStemsXY* UImGuiToolkitFunctionLibrary::CreateImPlotStemsXY(FText Label,
+	TArray<float> XValues, TArray<float> YValues, TArray<EImPlotStemsFlag> StemsFlags,
+	TArray<EImPlotItemFlag> ItemFlags, double Reference, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPlotStemsXY* PlotStems = NewObject<UImGuiToolkitPlotStemsXY>(OuterObject);
+	PlotStems->CreateUniqueWidgetLabel(Label);
+	PlotStems->XValues = XValues;
+	PlotStems->YValues = YValues;
+	PlotStems->StemsFlags = StemsFlags;
+	PlotStems->ItemFlags = ItemFlags;
+	PlotStems->Reference = Reference;
+
+	if (Container)
+		Container->AddWidget(PlotStems);
+
+	return PlotStems;
+}
+
+UImGuiToolkitPlotInfLines* UImGuiToolkitFunctionLibrary::CreateImPlotInfLines(FText Label,
+	TArray<float> Values, TArray<EImPlotInfLinesFlag> InfLinesFlags, TArray<EImPlotItemFlag> ItemFlags,
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPlotInfLines* PlotInfLines = NewObject<UImGuiToolkitPlotInfLines>(OuterObject);
+	PlotInfLines->CreateUniqueWidgetLabel(Label);
+	PlotInfLines->Values = Values;
+	PlotInfLines->InfLinesFlags = InfLinesFlags;
+	PlotInfLines->ItemFlags = ItemFlags;
+
+	if (Container)
+		Container->AddWidget(PlotInfLines);
+
+	return PlotInfLines;
+}
+
+UImGuiToolkitPlotPieChart* UImGuiToolkitFunctionLibrary::CreateImPlotPieChart(TArray<FText> Labels,
+	TArray<float> Values, TArray<EImPlotPieChartFlag> PieChartFlags, TArray<EImPlotItemFlag> ItemFlags,
+	FVector2D Center, double Radius, FString LabelFormat, double Angle0, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPlotPieChart* PlotPieChart = NewObject<UImGuiToolkitPlotPieChart>(OuterObject);
+	PlotPieChart->Labels = Labels;
+	PlotPieChart->Values = Values;
+	PlotPieChart->PieChartFlags = PieChartFlags;
+	PlotPieChart->ItemFlags = ItemFlags;
+	PlotPieChart->Center = Center;
+	PlotPieChart->Radius = Radius;
+	PlotPieChart->LabelFormat = LabelFormat;
+	PlotPieChart->Angle0 = Angle0;
+
+	if (Container)
+		Container->AddWidget(PlotPieChart);
+
+	return PlotPieChart;
+}
+
+UImGuiToolkitPlotHeatmap* UImGuiToolkitFunctionLibrary::CreateImPlotHeatmap(FText Label, TArray<float> Values,
+	int32 Rows, int32 Columns, TArray<EImPlotHeatmapFlag> HeatmapFlags, TArray<EImPlotItemFlag> ItemFlags,
+	double ScaleMin, double ScaleMax, FString LabelFormat, FVector2D BoundsMin, FVector2D BoundsMax,
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPlotHeatmap* PlotHeatmap = NewObject<UImGuiToolkitPlotHeatmap>(OuterObject);
+	PlotHeatmap->CreateUniqueWidgetLabel(Label);
+	PlotHeatmap->Values = Values;
+	PlotHeatmap->Rows = Rows;
+	PlotHeatmap->Columns = Columns;
+	PlotHeatmap->HeatmapFlags = HeatmapFlags;
+	PlotHeatmap->ItemFlags = ItemFlags;
+	PlotHeatmap->ScaleMin = ScaleMin;
+	PlotHeatmap->ScaleMax = ScaleMax;
+	PlotHeatmap->LabelFormat = LabelFormat;
+	PlotHeatmap->BoundsMin = BoundsMin;
+	PlotHeatmap->BoundsMax = BoundsMax;
+
+	if (Container)
+		Container->AddWidget(PlotHeatmap);
+
+	return PlotHeatmap;
+}
+
+UImGuiToolkitPlotHistogram* UImGuiToolkitFunctionLibrary::CreateImPlotHistogram(FText Label,
+	TArray<float> Values, TArray<EImPlotHistogramFlag> HistogramFlags, TArray<EImPlotItemFlag> ItemFlags,
+	int32 Bins, double BarScale, bool bUseRange, FVector2D Range, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPlotHistogram* PlotHistogram = NewObject<UImGuiToolkitPlotHistogram>(OuterObject);
+	PlotHistogram->CreateUniqueWidgetLabel(Label);
+	PlotHistogram->Values = Values;
+	PlotHistogram->HistogramFlags = HistogramFlags;
+	PlotHistogram->ItemFlags = ItemFlags;
+	PlotHistogram->Bins = Bins;
+	PlotHistogram->BarScale = BarScale;
+	PlotHistogram->bUseRange = bUseRange;
+	PlotHistogram->Range = Range;
+
+	if (Container)
+		Container->AddWidget(PlotHistogram);
+
+	return PlotHistogram;
+}
+
+UImGuiToolkitPlotHistogram2D* UImGuiToolkitFunctionLibrary::CreateImPlotHistogram2D(FText Label,
+	TArray<float> XValues, TArray<float> YValues, TArray<EImPlotHistogramFlag> HistogramFlags,
+	TArray<EImPlotItemFlag> ItemFlags, int32 XBins, int32 YBins, bool bUseRange, FVector2D XRange,
+	FVector2D YRange, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPlotHistogram2D* PlotHistogram = NewObject<UImGuiToolkitPlotHistogram2D>(OuterObject);
+	PlotHistogram->CreateUniqueWidgetLabel(Label);
+	PlotHistogram->XValues = XValues;
+	PlotHistogram->YValues = YValues;
+	PlotHistogram->HistogramFlags = HistogramFlags;
+	PlotHistogram->ItemFlags = ItemFlags;
+	PlotHistogram->XBins = XBins;
+	PlotHistogram->YBins = YBins;
+	PlotHistogram->bUseRange = bUseRange;
+	PlotHistogram->XRange = XRange;
+	PlotHistogram->YRange = YRange;
+
+	if (Container)
+		Container->AddWidget(PlotHistogram);
+
+	return PlotHistogram;
+}
+
+UImGuiToolkitPlotDigital* UImGuiToolkitFunctionLibrary::CreateImPlotDigital(FText Label, TArray<float> XValues,
+	TArray<float> YValues, TArray<EImPlotItemFlag> ItemFlags, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPlotDigital* PlotDigital = NewObject<UImGuiToolkitPlotDigital>(OuterObject);
+	PlotDigital->CreateUniqueWidgetLabel(Label);
+	PlotDigital->XValues = XValues;
+	PlotDigital->YValues = YValues;
+	PlotDigital->ItemFlags = ItemFlags;
+
+	if (Container)
+		Container->AddWidget(PlotDigital);
+
+	return PlotDigital;
+}
+
+UImGuiToolkitPlotImage* UImGuiToolkitFunctionLibrary::CreateImPlotImage(FText Label, UTexture2D* Texture,
+	FVector2D BoundsMin, FVector2D BoundsMax, TArray<EImPlotItemFlag> ItemFlags, FVector2D UV0, FVector2D UV1,
+	FLinearColor TintColor, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPlotImage* PlotImage = NewObject<UImGuiToolkitPlotImage>(OuterObject);
+	PlotImage->CreateUniqueWidgetLabel(Label);
+	PlotImage->ResourceObject = Texture;
+	PlotImage->BoundsMin = BoundsMin;
+	PlotImage->BoundsMax = BoundsMax;
+	PlotImage->ItemFlags = ItemFlags;
+	PlotImage->UV0 = UV0;
+	PlotImage->UV1 = UV1;
+	PlotImage->TintColor = TintColor;
+
+	if (Container)
+		Container->AddWidget(PlotImage);
+
+	return PlotImage;
+}
+
+UImGuiToolkitPlotImage* UImGuiToolkitFunctionLibrary::CreateImPlotMaterialImage(FText Label,
+	UMaterialInterface* Material, FVector2D BoundsMin, FVector2D BoundsMax, TArray<EImPlotItemFlag> ItemFlags,
+	FVector2D UV0, FVector2D UV1, FLinearColor TintColor, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPlotImage* PlotImage = NewObject<UImGuiToolkitPlotImage>(OuterObject);
+	PlotImage->CreateUniqueWidgetLabel(Label);
+	PlotImage->ResourceObject = Material;
+	PlotImage->BoundsMin = BoundsMin;
+	PlotImage->BoundsMax = BoundsMax;
+	PlotImage->ItemFlags = ItemFlags;
+	PlotImage->UV0 = UV0;
+	PlotImage->UV1 = UV1;
+	PlotImage->TintColor = TintColor;
+
+	if (Container)
+		Container->AddWidget(PlotImage);
+
+	return PlotImage;
+}
+
+UImGuiToolkitPlotText* UImGuiToolkitFunctionLibrary::CreateImPlotText(FText Text, FVector2D Position,
+	TArray<EImPlotTextFlag> TextFlags, TArray<EImPlotItemFlag> ItemFlags, FVector2D PixelOffset,
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPlotText* PlotText = NewObject<UImGuiToolkitPlotText>(OuterObject);
+	PlotText->Text = Text;
+	PlotText->Position = Position;
+	PlotText->TextFlags = TextFlags;
+	PlotText->ItemFlags = ItemFlags;
+	PlotText->PixelOffset = PixelOffset;
+
+	if (Container)
+		Container->AddWidget(PlotText);
+
+	return PlotText;
+}
+
+UImGuiToolkitPlotDummy* UImGuiToolkitFunctionLibrary::CreateImPlotDummy(FText Label, TArray<EImPlotItemFlag> ItemFlags,
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPlotDummy* PlotDummy = NewObject<UImGuiToolkitPlotDummy>(OuterObject);
+	PlotDummy->CreateUniqueWidgetLabel(Label);
+	PlotDummy->ItemFlags = ItemFlags;
+
+	if (Container)
+		Container->AddWidget(PlotDummy);
+
+	return PlotDummy;
+}
+
+UImGuiToolkitPlotDragPoint* UImGuiToolkitFunctionLibrary::CreateImPlotDragPoint(int32 ID, double X, double Y,
+	FLinearColor Color, TArray<EImPlotDragToolFlag> DragToolFlags, float Size, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPlotDragPoint* DragPoint = NewObject<UImGuiToolkitPlotDragPoint>(OuterObject);
+	DragPoint->ID = ID;
+	DragPoint->X = X;
+	DragPoint->Y = Y;
+	DragPoint->Color = Color;
+	DragPoint->DragToolFlags = DragToolFlags;
+	DragPoint->Size = Size;
+
+	if (Container)
+		Container->AddWidget(DragPoint);
+
+	return DragPoint;
+}
+
+UImGuiToolkitPlotDragLineX* UImGuiToolkitFunctionLibrary::CreateImPlotDragLineX(int32 ID, double X,
+	FLinearColor Color, TArray<EImPlotDragToolFlag> DragToolFlags, float Thickness,
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPlotDragLineX* DragLine = NewObject<UImGuiToolkitPlotDragLineX>(OuterObject);
+	DragLine->ID = ID;
+	DragLine->X = X;
+	DragLine->Color = Color;
+	DragLine->DragToolFlags = DragToolFlags;
+	DragLine->Thickness = Thickness;
+
+	if (Container)
+		Container->AddWidget(DragLine);
+
+	return DragLine;
+}
+
+UImGuiToolkitPlotDragLineY* UImGuiToolkitFunctionLibrary::CreateImPlotDragLineY(int32 ID, double Y,
+	FLinearColor Color, TArray<EImPlotDragToolFlag> DragToolFlags, float Thickness,
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPlotDragLineY* DragLine = NewObject<UImGuiToolkitPlotDragLineY>(OuterObject);
+	DragLine->ID = ID;
+	DragLine->Y = Y;
+	DragLine->Color = Color;
+	DragLine->DragToolFlags = DragToolFlags;
+	DragLine->Thickness = Thickness;
+
+	if (Container)
+		Container->AddWidget(DragLine);
+
+	return DragLine;
+}
+
+UImGuiToolkitPlotDragRect* UImGuiToolkitFunctionLibrary::CreateImPlotDragRect(int32 ID, double X1, double Y1,
+	double X2, double Y2, FLinearColor Color, TArray<EImPlotDragToolFlag> DragToolFlags,
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPlotDragRect* DragRect = NewObject<UImGuiToolkitPlotDragRect>(OuterObject);
+	DragRect->ID = ID;
+	DragRect->X1 = X1;
+	DragRect->Y1 = Y1;
+	DragRect->X2 = X2;
+	DragRect->Y2 = Y2;
+	DragRect->Color = Color;
+	DragRect->DragToolFlags = DragToolFlags;
+
+	if (Container)
+		Container->AddWidget(DragRect);
+
+	return DragRect;
+}
+
+UImGuiToolkitPlotAnnotation* UImGuiToolkitFunctionLibrary::CreateImPlotAnnotation(FText Text, FVector2D Position,
+	FLinearColor Color, FVector2D PixelOffset, bool bClamp, bool bRound, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPlotAnnotation* Annotation = NewObject<UImGuiToolkitPlotAnnotation>(OuterObject);
+	Annotation->Text = Text;
+	Annotation->Position = Position;
+	Annotation->Color = Color;
+	Annotation->PixelOffset = PixelOffset;
+	Annotation->bClamp = bClamp;
+	Annotation->bRound = bRound;
+
+	if (Container)
+		Container->AddWidget(Annotation);
+
+	return Annotation;
+}
+
+UImGuiToolkitPlotTagX* UImGuiToolkitFunctionLibrary::CreateImPlotTagX(double X, FLinearColor Color, FText Text,
+	bool bRound, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPlotTagX* Tag = NewObject<UImGuiToolkitPlotTagX>(OuterObject);
+	Tag->X = X;
+	Tag->Color = Color;
+	Tag->Text = Text;
+	Tag->bRound = bRound;
+
+	if (Container)
+		Container->AddWidget(Tag);
+
+	return Tag;
+}
+
+UImGuiToolkitPlotTagY* UImGuiToolkitFunctionLibrary::CreateImPlotTagY(double Y, FLinearColor Color, FText Text,
+	bool bRound, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPlotTagY* Tag = NewObject<UImGuiToolkitPlotTagY>(OuterObject);
+	Tag->Y = Y;
+	Tag->Color = Color;
+	Tag->Text = Text;
+	Tag->bRound = bRound;
+
+	if (Container)
+		Container->AddWidget(Tag);
+
+	return Tag;
+}
+
+UImGuiToolkitPushPlotStyleColor* UImGuiToolkitFunctionLibrary::CreateImPlotPushStyleColor(
+	EImPlotStyleColor StyleColor, FLinearColor Color, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPushPlotStyleColor* PushStyleColor = NewObject<UImGuiToolkitPushPlotStyleColor>(OuterObject);
+	PushStyleColor->StyleColor = StyleColor;
+	PushStyleColor->Color = Color;
+
+	if (Container)
+		Container->AddWidget(PushStyleColor);
+
+	return PushStyleColor;
+}
+
+UImGuiToolkitPopPlotStyleColor* UImGuiToolkitFunctionLibrary::CreateImPlotPopStyleColor(int32 Count,
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPopPlotStyleColor* PopStyleColor = NewObject<UImGuiToolkitPopPlotStyleColor>(OuterObject);
+	PopStyleColor->Count = Count;
+
+	if (Container)
+		Container->AddWidget(PopStyleColor);
+
+	return PopStyleColor;
+}
+
+UImGuiToolkitPushPlotStyleVar* UImGuiToolkitFunctionLibrary::CreateImPlotPushStyleVar(EImPlotStyleVar StyleVar,
+	float FloatValue, int32 IntValue, FVector2D Vector2DValue, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPushPlotStyleVar* PushStyleVar = NewObject<UImGuiToolkitPushPlotStyleVar>(OuterObject);
+	PushStyleVar->StyleVar = StyleVar;
+	PushStyleVar->FloatValue = FloatValue;
+	PushStyleVar->IntValue = IntValue;
+	PushStyleVar->Vector2DValue = Vector2DValue;
+
+	if (Container)
+		Container->AddWidget(PushStyleVar);
+
+	return PushStyleVar;
+}
+
+UImGuiToolkitPopPlotStyleVar* UImGuiToolkitFunctionLibrary::CreateImPlotPopStyleVar(int32 Count,
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPopPlotStyleVar* PopStyleVar = NewObject<UImGuiToolkitPopPlotStyleVar>(OuterObject);
+	PopStyleVar->Count = Count;
+
+	if (Container)
+		Container->AddWidget(PopStyleVar);
+
+	return PopStyleVar;
+}
+
+UImGuiToolkitSetNextPlotLineStyle* UImGuiToolkitFunctionLibrary::CreateImPlotSetNextLineStyle(
+	FLinearColor Color, float Weight, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitSetNextPlotLineStyle* LineStyle = NewObject<UImGuiToolkitSetNextPlotLineStyle>(OuterObject);
+	LineStyle->Color = Color;
+	LineStyle->Weight = Weight;
+
+	if (Container)
+		Container->AddWidget(LineStyle);
+
+	return LineStyle;
+}
+
+UImGuiToolkitSetNextPlotFillStyle* UImGuiToolkitFunctionLibrary::CreateImPlotSetNextFillStyle(
+	FLinearColor Color, float AlphaMod, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitSetNextPlotFillStyle* FillStyle = NewObject<UImGuiToolkitSetNextPlotFillStyle>(OuterObject);
+	FillStyle->Color = Color;
+	FillStyle->AlphaMod = AlphaMod;
+
+	if (Container)
+		Container->AddWidget(FillStyle);
+
+	return FillStyle;
+}
+
+UImGuiToolkitSetNextPlotMarkerStyle* UImGuiToolkitFunctionLibrary::CreateImPlotSetNextMarkerStyle(
+	EImPlotMarker Marker, FLinearColor FillColor, FLinearColor OutlineColor, float Size, float Weight,
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitSetNextPlotMarkerStyle* MarkerStyle = NewObject<UImGuiToolkitSetNextPlotMarkerStyle>(OuterObject);
+	MarkerStyle->Marker = Marker;
+	MarkerStyle->FillColor = FillColor;
+	MarkerStyle->OutlineColor = OutlineColor;
+	MarkerStyle->Size = Size;
+	MarkerStyle->Weight = Weight;
+
+	if (Container)
+		Container->AddWidget(MarkerStyle);
+
+	return MarkerStyle;
+}
+
+UImGuiToolkitSetNextPlotErrorBarStyle* UImGuiToolkitFunctionLibrary::CreateImPlotSetNextErrorBarStyle(
+	FLinearColor Color, float Size, float Weight, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitSetNextPlotErrorBarStyle* ErrorBarStyle = NewObject<UImGuiToolkitSetNextPlotErrorBarStyle>(OuterObject);
+	ErrorBarStyle->Color = Color;
+	ErrorBarStyle->Size = Size;
+	ErrorBarStyle->Weight = Weight;
+
+	if (Container)
+		Container->AddWidget(ErrorBarStyle);
+
+	return ErrorBarStyle;
+}
+
+UImGuiToolkitStylePlotColors* UImGuiToolkitFunctionLibrary::CreateImPlotStyleColors(EImPlotStylePreset Preset,
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitStylePlotColors* StyleColors = NewObject<UImGuiToolkitStylePlotColors>(OuterObject);
+	StyleColors->Preset = Preset;
+
+	if (Container)
+		Container->AddWidget(StyleColors);
+
+	return StyleColors;
+}
+
+UImGuiToolkitPushPlotColormap* UImGuiToolkitFunctionLibrary::CreateImPlotPushColormap(EImPlotColormap Colormap,
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPushPlotColormap* PushColormap = NewObject<UImGuiToolkitPushPlotColormap>(OuterObject);
+	PushColormap->Colormap = Colormap;
+
+	if (Container)
+		Container->AddWidget(PushColormap);
+
+	return PushColormap;
+}
+
+UImGuiToolkitPopPlotColormap* UImGuiToolkitFunctionLibrary::CreateImPlotPopColormap(int32 Count,
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPopPlotColormap* PopColormap = NewObject<UImGuiToolkitPopPlotColormap>(OuterObject);
+	PopColormap->Count = Count;
+
+	if (Container)
+		Container->AddWidget(PopColormap);
+
+	return PopColormap;
+}
+
+UImGuiToolkitPlotColormapScale* UImGuiToolkitFunctionLibrary::CreateImPlotColormapScale(FText Label,
+	double ScaleMin, double ScaleMax, TArray<EImPlotColormapScaleFlag> ColormapScaleFlags, FVector2D Size,
+	FString Format, EImPlotColormap Colormap, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPlotColormapScale* ColormapScale = NewObject<UImGuiToolkitPlotColormapScale>(OuterObject);
+	ColormapScale->CreateUniqueWidgetLabel(Label);
+	ColormapScale->ScaleMin = ScaleMin;
+	ColormapScale->ScaleMax = ScaleMax;
+	ColormapScale->Size = Size;
+	ColormapScale->Format = Format;
+	ColormapScale->Colormap = Colormap;
+	ColormapScale->ColormapScaleFlags = ColormapScaleFlags;
+
+	if (Container)
+		Container->AddWidget(ColormapScale);
+
+	return ColormapScale;
+}
+
+UImGuiToolkitPlotColormapSlider* UImGuiToolkitFunctionLibrary::CreateImPlotColormapSlider(FText Label,
+	float Value, FString Format, EImPlotColormap Colormap, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPlotColormapSlider* ColormapSlider = NewObject<UImGuiToolkitPlotColormapSlider>(OuterObject);
+	ColormapSlider->CreateUniqueWidgetLabel(Label);
+	ColormapSlider->Value = Value;
+	ColormapSlider->Format = Format;
+	ColormapSlider->Colormap = Colormap;
+
+	if (Container)
+		Container->AddWidget(ColormapSlider);
+
+	return ColormapSlider;
+}
+
+UImGuiToolkitPlotColormapButton* UImGuiToolkitFunctionLibrary::CreateImPlotColormapButton(FText Label,
+	FVector2D Size, EImPlotColormap Colormap, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPlotColormapButton* ColormapButton = NewObject<UImGuiToolkitPlotColormapButton>(OuterObject);
+	ColormapButton->CreateUniqueWidgetLabel(Label);
+	ColormapButton->Size = Size;
+	ColormapButton->Colormap = Colormap;
+
+	if (Container)
+		Container->AddWidget(ColormapButton);
+
+	return ColormapButton;
+}
+
 UImGuiToolkitBeginTabBar* UImGuiToolkitFunctionLibrary::CreateImGuiBeginTabBar(FText Label,
 	UImGuiToolkitContainer* Container)
 {

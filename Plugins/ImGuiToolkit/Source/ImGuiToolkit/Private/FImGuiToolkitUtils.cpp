@@ -495,6 +495,576 @@ int32 FImGuiToolkitUtils::CombineImGuiMultiSelectFlags(TArray<EImGuiMultiSelectF
 	return Mask;
 }
 
+ImAxis FImGuiToolkitUtils::UnrealPlotAxisToImPlotAxis(EImPlotAxis Axis)
+{
+	switch (Axis)
+	{
+		case EImPlotAxis::X1:	return ImAxis_X1;
+		case EImPlotAxis::X2:	return ImAxis_X2;
+		case EImPlotAxis::X3:	return ImAxis_X3;
+		case EImPlotAxis::Y1:	return ImAxis_Y1;
+		case EImPlotAxis::Y2:	return ImAxis_Y2;
+		case EImPlotAxis::Y3:	return ImAxis_Y3;
+		default:				return ImAxis_X1;
+	}
+}
+
+ImPlotCond FImGuiToolkitUtils::UnrealPlotConditionToImPlotCond(EImPlotCondition Condition)
+{
+	switch (Condition)
+	{
+		case EImPlotCondition::Always:	return ImPlotCond_Always;
+		case EImPlotCondition::Once:	return ImPlotCond_Once;
+		case EImPlotCondition::None:	return ImPlotCond_None;
+		default:						return ImPlotCond_Once;
+	}
+}
+
+ImPlotFlags FImGuiToolkitUtils::UnrealFlagToImPlotFlag(EImPlotFlag Flags)
+{
+	switch (Flags)
+	{
+		case EImPlotFlag::NoTitle:		return ImPlotFlags_NoTitle;
+		case EImPlotFlag::NoLegend:		return ImPlotFlags_NoLegend;
+		case EImPlotFlag::NoMouseText:	return ImPlotFlags_NoMouseText;
+		case EImPlotFlag::NoInputs:		return ImPlotFlags_NoInputs;
+		case EImPlotFlag::NoMenus:		return ImPlotFlags_NoMenus;
+		case EImPlotFlag::NoBoxSelect:	return ImPlotFlags_NoBoxSelect;
+		case EImPlotFlag::NoFrame:		return ImPlotFlags_NoFrame;
+		case EImPlotFlag::Equal:			return ImPlotFlags_Equal;
+		case EImPlotFlag::Crosshairs:	return ImPlotFlags_Crosshairs;
+		case EImPlotFlag::CanvasOnly:	return ImPlotFlags_CanvasOnly;
+		case EImPlotFlag::None:			return ImPlotFlags_None;
+		default:						return ImPlotFlags_None;
+	}
+}
+
+int32 FImGuiToolkitUtils::CombineImPlotFlags(TArray<EImPlotFlag> Flags)
+{
+	ImPlotFlags Mask = ImPlotFlags_None;
+	for (EImPlotFlag Flag : Flags)
+	{
+		Mask |= UnrealFlagToImPlotFlag(Flag);
+	}
+	return Mask;
+}
+
+ImPlotAxisFlags FImGuiToolkitUtils::UnrealFlagToImPlotAxisFlag(EImPlotAxisFlag Flags)
+{
+	switch (Flags)
+	{
+		case EImPlotAxisFlag::NoLabel:			return ImPlotAxisFlags_NoLabel;
+		case EImPlotAxisFlag::NoGridLines:		return ImPlotAxisFlags_NoGridLines;
+		case EImPlotAxisFlag::NoTickMarks:		return ImPlotAxisFlags_NoTickMarks;
+		case EImPlotAxisFlag::NoTickLabels:		return ImPlotAxisFlags_NoTickLabels;
+		case EImPlotAxisFlag::NoInitialFit:		return ImPlotAxisFlags_NoInitialFit;
+		case EImPlotAxisFlag::NoMenus:			return ImPlotAxisFlags_NoMenus;
+		case EImPlotAxisFlag::NoSideSwitch:		return ImPlotAxisFlags_NoSideSwitch;
+		case EImPlotAxisFlag::NoHighlight:		return ImPlotAxisFlags_NoHighlight;
+		case EImPlotAxisFlag::Opposite:			return ImPlotAxisFlags_Opposite;
+		case EImPlotAxisFlag::Foreground:		return ImPlotAxisFlags_Foreground;
+		case EImPlotAxisFlag::Invert:			return ImPlotAxisFlags_Invert;
+		case EImPlotAxisFlag::AutoFit:			return ImPlotAxisFlags_AutoFit;
+		case EImPlotAxisFlag::RangeFit:			return ImPlotAxisFlags_RangeFit;
+		case EImPlotAxisFlag::PanStretch:		return ImPlotAxisFlags_PanStretch;
+		case EImPlotAxisFlag::LockMin:			return ImPlotAxisFlags_LockMin;
+		case EImPlotAxisFlag::LockMax:			return ImPlotAxisFlags_LockMax;
+		case EImPlotAxisFlag::Lock:				return ImPlotAxisFlags_Lock;
+		case EImPlotAxisFlag::NoDecorations:	return ImPlotAxisFlags_NoDecorations;
+		case EImPlotAxisFlag::AuxDefault:		return ImPlotAxisFlags_AuxDefault;
+		case EImPlotAxisFlag::None:				return ImPlotAxisFlags_None;
+		default:								return ImPlotAxisFlags_None;
+	}
+}
+
+int32 FImGuiToolkitUtils::CombineImPlotAxisFlags(TArray<EImPlotAxisFlag> Flags)
+{
+	ImPlotAxisFlags Mask = ImPlotAxisFlags_None;
+	for (EImPlotAxisFlag Flag : Flags)
+	{
+		Mask |= UnrealFlagToImPlotAxisFlag(Flag);
+	}
+	return Mask;
+}
+
+ImPlotLineFlags FImGuiToolkitUtils::UnrealFlagToImPlotLineFlag(EImPlotLineFlag Flags)
+{
+	switch (Flags)
+	{
+		case EImPlotLineFlag::Segments:	return ImPlotLineFlags_Segments;
+		case EImPlotLineFlag::Loop:		return ImPlotLineFlags_Loop;
+		case EImPlotLineFlag::SkipNaN:	return ImPlotLineFlags_SkipNaN;
+		case EImPlotLineFlag::NoClip:	return ImPlotLineFlags_NoClip;
+		case EImPlotLineFlag::Shaded:	return ImPlotLineFlags_Shaded;
+		case EImPlotLineFlag::None:		return ImPlotLineFlags_None;
+		default:						return ImPlotLineFlags_None;
+	}
+}
+
+int32 FImGuiToolkitUtils::CombineImPlotLineFlags(TArray<EImPlotLineFlag> Flags)
+{
+	ImPlotLineFlags Mask = ImPlotLineFlags_None;
+	for (EImPlotLineFlag Flag : Flags)
+	{
+		Mask |= UnrealFlagToImPlotLineFlag(Flag);
+	}
+	return Mask;
+}
+
+ImPlotItemFlags FImGuiToolkitUtils::UnrealFlagToImPlotItemFlag(EImPlotItemFlag Flags)
+{
+	switch (Flags)
+	{
+		case EImPlotItemFlag::NoLegend:	return ImPlotItemFlags_NoLegend;
+		case EImPlotItemFlag::NoFit:	return ImPlotItemFlags_NoFit;
+		case EImPlotItemFlag::None:		return ImPlotItemFlags_None;
+		default:						return ImPlotItemFlags_None;
+	}
+}
+
+int32 FImGuiToolkitUtils::CombineImPlotItemFlags(TArray<EImPlotItemFlag> Flags)
+{
+	ImPlotItemFlags Mask = ImPlotItemFlags_None;
+	for (EImPlotItemFlag Flag : Flags)
+	{
+		Mask |= UnrealFlagToImPlotItemFlag(Flag);
+	}
+	return Mask;
+}
+
+ImPlotScatterFlags FImGuiToolkitUtils::UnrealFlagToImPlotScatterFlag(EImPlotScatterFlag Flags)
+{
+	switch (Flags)
+	{
+		case EImPlotScatterFlag::NoClip:	return ImPlotScatterFlags_NoClip;
+		case EImPlotScatterFlag::None:	return ImPlotScatterFlags_None;
+		default:						return ImPlotScatterFlags_None;
+	}
+}
+
+int32 FImGuiToolkitUtils::CombineImPlotScatterFlags(TArray<EImPlotScatterFlag> Flags)
+{
+	ImPlotScatterFlags Mask = ImPlotScatterFlags_None;
+	for (EImPlotScatterFlag Flag : Flags)
+	{
+		Mask |= UnrealFlagToImPlotScatterFlag(Flag);
+	}
+	return Mask;
+}
+
+ImPlotBarsFlags FImGuiToolkitUtils::UnrealFlagToImPlotBarsFlag(EImPlotBarsFlag Flags)
+{
+	switch (Flags)
+	{
+		case EImPlotBarsFlag::Horizontal:	return ImPlotBarsFlags_Horizontal;
+		case EImPlotBarsFlag::None:			return ImPlotBarsFlags_None;
+		default:							return ImPlotBarsFlags_None;
+	}
+}
+
+int32 FImGuiToolkitUtils::CombineImPlotBarsFlags(TArray<EImPlotBarsFlag> Flags)
+{
+	ImPlotBarsFlags Mask = ImPlotBarsFlags_None;
+	for (EImPlotBarsFlag Flag : Flags)
+	{
+		Mask |= UnrealFlagToImPlotBarsFlag(Flag);
+	}
+	return Mask;
+}
+
+ImPlotBarGroupsFlags FImGuiToolkitUtils::UnrealFlagToImPlotBarGroupsFlag(EImPlotBarGroupsFlag Flags)
+{
+	switch (Flags)
+	{
+		case EImPlotBarGroupsFlag::Horizontal:	return ImPlotBarGroupsFlags_Horizontal;
+		case EImPlotBarGroupsFlag::Stacked:		return ImPlotBarGroupsFlags_Stacked;
+		case EImPlotBarGroupsFlag::None:			return ImPlotBarGroupsFlags_None;
+		default:								return ImPlotBarGroupsFlags_None;
+	}
+}
+
+int32 FImGuiToolkitUtils::CombineImPlotBarGroupsFlags(TArray<EImPlotBarGroupsFlag> Flags)
+{
+	ImPlotBarGroupsFlags Mask = ImPlotBarGroupsFlags_None;
+	for (EImPlotBarGroupsFlag Flag : Flags)
+	{
+		Mask |= UnrealFlagToImPlotBarGroupsFlag(Flag);
+	}
+	return Mask;
+}
+
+ImPlotStairsFlags FImGuiToolkitUtils::UnrealFlagToImPlotStairsFlag(EImPlotStairsFlag Flags)
+{
+	switch (Flags)
+	{
+		case EImPlotStairsFlag::PreStep:	return ImPlotStairsFlags_PreStep;
+		case EImPlotStairsFlag::Shaded:		return ImPlotStairsFlags_Shaded;
+		case EImPlotStairsFlag::None:		return ImPlotStairsFlags_None;
+		default:							return ImPlotStairsFlags_None;
+	}
+}
+
+int32 FImGuiToolkitUtils::CombineImPlotStairsFlags(TArray<EImPlotStairsFlag> Flags)
+{
+	ImPlotStairsFlags Mask = ImPlotStairsFlags_None;
+	for (EImPlotStairsFlag Flag : Flags)
+	{
+		Mask |= UnrealFlagToImPlotStairsFlag(Flag);
+	}
+	return Mask;
+}
+
+ImPlotErrorBarsFlags FImGuiToolkitUtils::UnrealFlagToImPlotErrorBarsFlag(EImPlotErrorBarsFlag Flags)
+{
+	switch (Flags)
+	{
+		case EImPlotErrorBarsFlag::Horizontal:	return ImPlotErrorBarsFlags_Horizontal;
+		case EImPlotErrorBarsFlag::None:			return ImPlotErrorBarsFlags_None;
+		default:								return ImPlotErrorBarsFlags_None;
+	}
+}
+
+int32 FImGuiToolkitUtils::CombineImPlotErrorBarsFlags(TArray<EImPlotErrorBarsFlag> Flags)
+{
+	ImPlotErrorBarsFlags Mask = ImPlotErrorBarsFlags_None;
+	for (EImPlotErrorBarsFlag Flag : Flags)
+	{
+		Mask |= UnrealFlagToImPlotErrorBarsFlag(Flag);
+	}
+	return Mask;
+}
+
+ImPlotStemsFlags FImGuiToolkitUtils::UnrealFlagToImPlotStemsFlag(EImPlotStemsFlag Flags)
+{
+	switch (Flags)
+	{
+		case EImPlotStemsFlag::Horizontal:	return ImPlotStemsFlags_Horizontal;
+		case EImPlotStemsFlag::None:		return ImPlotStemsFlags_None;
+		default:							return ImPlotStemsFlags_None;
+	}
+}
+
+int32 FImGuiToolkitUtils::CombineImPlotStemsFlags(TArray<EImPlotStemsFlag> Flags)
+{
+	ImPlotStemsFlags Mask = ImPlotStemsFlags_None;
+	for (EImPlotStemsFlag Flag : Flags)
+	{
+		Mask |= UnrealFlagToImPlotStemsFlag(Flag);
+	}
+	return Mask;
+}
+
+ImPlotInfLinesFlags FImGuiToolkitUtils::UnrealFlagToImPlotInfLinesFlag(EImPlotInfLinesFlag Flags)
+{
+	switch (Flags)
+	{
+		case EImPlotInfLinesFlag::Horizontal:	return ImPlotInfLinesFlags_Horizontal;
+		case EImPlotInfLinesFlag::None:			return ImPlotInfLinesFlags_None;
+		default:								return ImPlotInfLinesFlags_None;
+	}
+}
+
+int32 FImGuiToolkitUtils::CombineImPlotInfLinesFlags(TArray<EImPlotInfLinesFlag> Flags)
+{
+	ImPlotInfLinesFlags Mask = ImPlotInfLinesFlags_None;
+	for (EImPlotInfLinesFlag Flag : Flags)
+	{
+		Mask |= UnrealFlagToImPlotInfLinesFlag(Flag);
+	}
+	return Mask;
+}
+
+ImPlotPieChartFlags FImGuiToolkitUtils::UnrealFlagToImPlotPieChartFlag(EImPlotPieChartFlag Flags)
+{
+	switch (Flags)
+	{
+		case EImPlotPieChartFlag::Normalize:		return ImPlotPieChartFlags_Normalize;
+		case EImPlotPieChartFlag::IgnoreHidden:	return ImPlotPieChartFlags_IgnoreHidden;
+		case EImPlotPieChartFlag::Exploding:		return ImPlotPieChartFlags_Exploding;
+		case EImPlotPieChartFlag::None:			return ImPlotPieChartFlags_None;
+		default:								return ImPlotPieChartFlags_None;
+	}
+}
+
+int32 FImGuiToolkitUtils::CombineImPlotPieChartFlags(TArray<EImPlotPieChartFlag> Flags)
+{
+	ImPlotPieChartFlags Mask = ImPlotPieChartFlags_None;
+	for (EImPlotPieChartFlag Flag : Flags)
+	{
+		Mask |= UnrealFlagToImPlotPieChartFlag(Flag);
+	}
+	return Mask;
+}
+
+ImPlotHeatmapFlags FImGuiToolkitUtils::UnrealFlagToImPlotHeatmapFlag(EImPlotHeatmapFlag Flags)
+{
+	switch (Flags)
+	{
+		case EImPlotHeatmapFlag::ColumnMajor:	return ImPlotHeatmapFlags_ColMajor;
+		case EImPlotHeatmapFlag::None:			return ImPlotHeatmapFlags_None;
+		default:								return ImPlotHeatmapFlags_None;
+	}
+}
+
+int32 FImGuiToolkitUtils::CombineImPlotHeatmapFlags(TArray<EImPlotHeatmapFlag> Flags)
+{
+	ImPlotHeatmapFlags Mask = ImPlotHeatmapFlags_None;
+	for (EImPlotHeatmapFlag Flag : Flags)
+	{
+		Mask |= UnrealFlagToImPlotHeatmapFlag(Flag);
+	}
+	return Mask;
+}
+
+ImPlotHistogramFlags FImGuiToolkitUtils::UnrealFlagToImPlotHistogramFlag(EImPlotHistogramFlag Flags)
+{
+	switch (Flags)
+	{
+		case EImPlotHistogramFlag::Horizontal:	return ImPlotHistogramFlags_Horizontal;
+		case EImPlotHistogramFlag::Cumulative:	return ImPlotHistogramFlags_Cumulative;
+		case EImPlotHistogramFlag::Density:		return ImPlotHistogramFlags_Density;
+		case EImPlotHistogramFlag::NoOutliers:	return ImPlotHistogramFlags_NoOutliers;
+		case EImPlotHistogramFlag::ColumnMajor:	return ImPlotHistogramFlags_ColMajor;
+		case EImPlotHistogramFlag::None:			return ImPlotHistogramFlags_None;
+		default:								return ImPlotHistogramFlags_None;
+	}
+}
+
+int32 FImGuiToolkitUtils::CombineImPlotHistogramFlags(TArray<EImPlotHistogramFlag> Flags)
+{
+	ImPlotHistogramFlags Mask = ImPlotHistogramFlags_None;
+	for (EImPlotHistogramFlag Flag : Flags)
+	{
+		Mask |= UnrealFlagToImPlotHistogramFlag(Flag);
+	}
+	return Mask;
+}
+
+ImPlotTextFlags FImGuiToolkitUtils::UnrealFlagToImPlotTextFlag(EImPlotTextFlag Flags)
+{
+	switch (Flags)
+	{
+		case EImPlotTextFlag::Vertical:	return ImPlotTextFlags_Vertical;
+		case EImPlotTextFlag::None:		return ImPlotTextFlags_None;
+		default:						return ImPlotTextFlags_None;
+	}
+}
+
+int32 FImGuiToolkitUtils::CombineImPlotTextFlags(TArray<EImPlotTextFlag> Flags)
+{
+	ImPlotTextFlags Mask = ImPlotTextFlags_None;
+	for (EImPlotTextFlag Flag : Flags)
+	{
+		Mask |= UnrealFlagToImPlotTextFlag(Flag);
+	}
+	return Mask;
+}
+
+ImPlotDragToolFlags FImGuiToolkitUtils::UnrealFlagToImPlotDragToolFlag(EImPlotDragToolFlag Flags)
+{
+	switch (Flags)
+	{
+		case EImPlotDragToolFlag::NoCursors:	return ImPlotDragToolFlags_NoCursors;
+		case EImPlotDragToolFlag::NoFit:		return ImPlotDragToolFlags_NoFit;
+		case EImPlotDragToolFlag::NoInputs:	return ImPlotDragToolFlags_NoInputs;
+		case EImPlotDragToolFlag::Delayed:	return ImPlotDragToolFlags_Delayed;
+		case EImPlotDragToolFlag::None:		return ImPlotDragToolFlags_None;
+		default:							return ImPlotDragToolFlags_None;
+	}
+}
+
+int32 FImGuiToolkitUtils::CombineImPlotDragToolFlags(TArray<EImPlotDragToolFlag> Flags)
+{
+	ImPlotDragToolFlags Mask = ImPlotDragToolFlags_None;
+	for (EImPlotDragToolFlag Flag : Flags)
+	{
+		Mask |= UnrealFlagToImPlotDragToolFlag(Flag);
+	}
+	return Mask;
+}
+
+ImPlotSubplotFlags FImGuiToolkitUtils::UnrealFlagToImPlotSubplotFlag(EImPlotSubplotFlag Flags)
+{
+	switch (Flags)
+	{
+		case EImPlotSubplotFlag::NoTitle:		return ImPlotSubplotFlags_NoTitle;
+		case EImPlotSubplotFlag::NoLegend:		return ImPlotSubplotFlags_NoLegend;
+		case EImPlotSubplotFlag::NoMenus:		return ImPlotSubplotFlags_NoMenus;
+		case EImPlotSubplotFlag::NoResize:		return ImPlotSubplotFlags_NoResize;
+		case EImPlotSubplotFlag::NoAlign:		return ImPlotSubplotFlags_NoAlign;
+		case EImPlotSubplotFlag::ShareItems:	return ImPlotSubplotFlags_ShareItems;
+		case EImPlotSubplotFlag::LinkRows:		return ImPlotSubplotFlags_LinkRows;
+		case EImPlotSubplotFlag::LinkColumns:	return ImPlotSubplotFlags_LinkCols;
+		case EImPlotSubplotFlag::LinkAllX:		return ImPlotSubplotFlags_LinkAllX;
+		case EImPlotSubplotFlag::LinkAllY:		return ImPlotSubplotFlags_LinkAllY;
+		case EImPlotSubplotFlag::ColumnMajor:	return ImPlotSubplotFlags_ColMajor;
+		case EImPlotSubplotFlag::None:			return ImPlotSubplotFlags_None;
+		default:								return ImPlotSubplotFlags_None;
+	}
+}
+
+int32 FImGuiToolkitUtils::CombineImPlotSubplotFlags(TArray<EImPlotSubplotFlag> Flags)
+{
+	ImPlotSubplotFlags Mask = ImPlotSubplotFlags_None;
+	for (EImPlotSubplotFlag Flag : Flags)
+	{
+		Mask |= UnrealFlagToImPlotSubplotFlag(Flag);
+	}
+	return Mask;
+}
+
+ImPlotLegendFlags FImGuiToolkitUtils::UnrealFlagToImPlotLegendFlag(EImPlotLegendFlag Flags)
+{
+	switch (Flags)
+	{
+		case EImPlotLegendFlag::NoButtons:			return ImPlotLegendFlags_NoButtons;
+		case EImPlotLegendFlag::NoHighlightItem:	return ImPlotLegendFlags_NoHighlightItem;
+		case EImPlotLegendFlag::NoHighlightAxis:	return ImPlotLegendFlags_NoHighlightAxis;
+		case EImPlotLegendFlag::NoMenus:			return ImPlotLegendFlags_NoMenus;
+		case EImPlotLegendFlag::Outside:			return ImPlotLegendFlags_Outside;
+		case EImPlotLegendFlag::Horizontal:			return ImPlotLegendFlags_Horizontal;
+		case EImPlotLegendFlag::Sort:				return ImPlotLegendFlags_Sort;
+		case EImPlotLegendFlag::None:				return ImPlotLegendFlags_None;
+		default:									return ImPlotLegendFlags_None;
+	}
+}
+
+int32 FImGuiToolkitUtils::CombineImPlotLegendFlags(TArray<EImPlotLegendFlag> Flags)
+{
+	ImPlotLegendFlags Mask = ImPlotLegendFlags_None;
+	for (EImPlotLegendFlag Flag : Flags)
+	{
+		Mask |= UnrealFlagToImPlotLegendFlag(Flag);
+	}
+	return Mask;
+}
+
+ImPlotMouseTextFlags FImGuiToolkitUtils::UnrealFlagToImPlotMouseTextFlag(EImPlotMouseTextFlag Flags)
+{
+	switch (Flags)
+	{
+		case EImPlotMouseTextFlag::NoAuxAxes:	return ImPlotMouseTextFlags_NoAuxAxes;
+		case EImPlotMouseTextFlag::NoFormat:	return ImPlotMouseTextFlags_NoFormat;
+		case EImPlotMouseTextFlag::ShowAlways:	return ImPlotMouseTextFlags_ShowAlways;
+		case EImPlotMouseTextFlag::None:		return ImPlotMouseTextFlags_None;
+		default:								return ImPlotMouseTextFlags_None;
+	}
+}
+
+int32 FImGuiToolkitUtils::CombineImPlotMouseTextFlags(TArray<EImPlotMouseTextFlag> Flags)
+{
+	ImPlotMouseTextFlags Mask = ImPlotMouseTextFlags_None;
+	for (EImPlotMouseTextFlag Flag : Flags)
+	{
+		Mask |= UnrealFlagToImPlotMouseTextFlag(Flag);
+	}
+	return Mask;
+}
+
+ImPlotLocation FImGuiToolkitUtils::UnrealPlotLocationToImPlotLocation(EImPlotLocation Location)
+{
+	switch (Location)
+	{
+		case EImPlotLocation::Center:		return ImPlotLocation_Center;
+		case EImPlotLocation::North:			return ImPlotLocation_North;
+		case EImPlotLocation::South:			return ImPlotLocation_South;
+		case EImPlotLocation::West:			return ImPlotLocation_West;
+		case EImPlotLocation::East:			return ImPlotLocation_East;
+		case EImPlotLocation::NorthWest:		return ImPlotLocation_NorthWest;
+		case EImPlotLocation::NorthEast:		return ImPlotLocation_NorthEast;
+		case EImPlotLocation::SouthWest:		return ImPlotLocation_SouthWest;
+		case EImPlotLocation::SouthEast:		return ImPlotLocation_SouthEast;
+		default:							return ImPlotLocation_NorthEast;
+	}
+}
+
+ImPlotScale FImGuiToolkitUtils::UnrealPlotScaleToImPlotScale(EImPlotScale Scale)
+{
+	return static_cast<ImPlotScale>(Scale);
+}
+
+ImPlotColormap FImGuiToolkitUtils::UnrealPlotColormapToImPlotColormap(EImPlotColormap Colormap)
+{
+	return static_cast<ImPlotColormap>(Colormap);
+}
+
+ImPlotColormapScaleFlags FImGuiToolkitUtils::UnrealFlagToImPlotColormapScaleFlag(EImPlotColormapScaleFlag Flags)
+{
+	switch (Flags)
+	{
+		case EImPlotColormapScaleFlag::NoLabel:		return ImPlotColormapScaleFlags_NoLabel;
+		case EImPlotColormapScaleFlag::Opposite:		return ImPlotColormapScaleFlags_Opposite;
+		case EImPlotColormapScaleFlag::Invert:		return ImPlotColormapScaleFlags_Invert;
+		case EImPlotColormapScaleFlag::None:			return ImPlotColormapScaleFlags_None;
+		default:									return ImPlotColormapScaleFlags_None;
+	}
+}
+
+int32 FImGuiToolkitUtils::CombineImPlotColormapScaleFlags(TArray<EImPlotColormapScaleFlag> Flags)
+{
+	ImPlotColormapScaleFlags Mask = ImPlotColormapScaleFlags_None;
+	for (EImPlotColormapScaleFlag Flag : Flags)
+	{
+		Mask |= UnrealFlagToImPlotColormapScaleFlag(Flag);
+	}
+	return Mask;
+}
+
+ImPlotCol FImGuiToolkitUtils::UnrealPlotStyleColorToImPlotCol(EImPlotStyleColor StyleColor)
+{
+	return static_cast<ImPlotCol>(StyleColor);
+}
+
+ImPlotStyleVar FImGuiToolkitUtils::UnrealPlotStyleVarToImPlotStyleVar(EImPlotStyleVar StyleVar)
+{
+	return static_cast<ImPlotStyleVar>(StyleVar);
+}
+
+bool FImGuiToolkitUtils::IsImPlotStyleVarVector(EImPlotStyleVar StyleVar)
+{
+	switch (StyleVar)
+	{
+		case EImPlotStyleVar::MajorTickLen:
+		case EImPlotStyleVar::MinorTickLen:
+		case EImPlotStyleVar::MajorTickSize:
+		case EImPlotStyleVar::MinorTickSize:
+		case EImPlotStyleVar::MajorGridSize:
+		case EImPlotStyleVar::MinorGridSize:
+		case EImPlotStyleVar::PlotPadding:
+		case EImPlotStyleVar::LabelPadding:
+		case EImPlotStyleVar::LegendPadding:
+		case EImPlotStyleVar::LegendInnerPadding:
+		case EImPlotStyleVar::LegendSpacing:
+		case EImPlotStyleVar::MousePosPadding:
+		case EImPlotStyleVar::AnnotationPadding:
+		case EImPlotStyleVar::FitPadding:
+		case EImPlotStyleVar::PlotDefaultSize:
+		case EImPlotStyleVar::PlotMinSize:
+			return true;
+		default:
+			return false;
+	}
+}
+
+ImPlotMarker FImGuiToolkitUtils::UnrealPlotMarkerToImPlotMarker(EImPlotMarker Marker)
+{
+	switch (Marker)
+	{
+		case EImPlotMarker::None:		return ImPlotMarker_None;
+		case EImPlotMarker::Circle:		return ImPlotMarker_Circle;
+		case EImPlotMarker::Square:		return ImPlotMarker_Square;
+		case EImPlotMarker::Diamond:		return ImPlotMarker_Diamond;
+		case EImPlotMarker::Up:			return ImPlotMarker_Up;
+		case EImPlotMarker::Down:		return ImPlotMarker_Down;
+		case EImPlotMarker::Left:		return ImPlotMarker_Left;
+		case EImPlotMarker::Right:		return ImPlotMarker_Right;
+		case EImPlotMarker::Cross:		return ImPlotMarker_Cross;
+		case EImPlotMarker::Plus:		return ImPlotMarker_Plus;
+		case EImPlotMarker::Asterisk:	return ImPlotMarker_Asterisk;
+		default:						return ImPlotMarker_None;
+	}
+}
+
 int32 FImGuiToolkitUtils::ImGuiResizeCallback(ImGuiInputTextCallbackData* Data)
 {
 	if (Data->EventFlag == ImGuiInputTextFlags_CallbackResize)

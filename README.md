@@ -124,6 +124,31 @@ It provides seamless integration between Unreal and Dear ImGui through easily bi
 - [x] Color Picker
 - [x] Color Button
 
+### ImPlot
+
+- [x] Begin Plot
+- [x] Begin Subplots
+- [x] Setup Axis
+- [x] Setup Axis Limits
+- [x] Setup Axes / Axes Limits / Axis Ticks / Axis Constraints
+- [x] Setup Legend / Mouse Text / Axis Format / Axis Scale / Setup Finish
+- [x] Set Next Axis Limits / Axes Limits / Fit Helpers / Axis Selection / Hide Next Item
+- [x] Plot Queries / Axis Queries / Cancel Selection
+- [x] Plot Line
+- [x] Plot Line XY
+- [x] Plot Scatter
+- [x] Plot Scatter XY
+- [x] Plot Bars
+- [x] Plot Bars XY
+- [x] Plot Bar Groups
+- [x] Plot Stairs / Shaded / Error Bars / Stems / Infinite Lines
+- [x] Plot Pie Chart / Heatmap / Histogram / Histogram2D / Digital
+- [x] Plot Image / Material Image / Text / Dummy
+- [x] Drag Point / Drag Line / Drag Rect
+- [x] Annotation / Tag X / Tag Y
+- [x] Plot Style Color / Plot Style Var / Style Presets / Next Item Style / Colormap
+- [x] Plot Item Flags
+
 ### Selectables
 
 - [x] Selectable
@@ -144,6 +169,6 @@ It provides seamless integration between Unreal and Dear ImGui through easily bi
 - [x] Get copy+paste to work for InputText / InputTextMultiline
 - [x] Finish the ImGui Host EditorUtility Widget visibility behavior
 - [ ] Create useful real-world examples (one runtime and one editor tool)
-- [ ] Add Blueprint-friendly ImPlot wrappers and an example
+- [ ] Add Blueprint-friendly ImPlot example
 - [x] Add Blueprint-friendly table wrappers
 - [x] Add Blueprint-friendly color editor/picker wrappers

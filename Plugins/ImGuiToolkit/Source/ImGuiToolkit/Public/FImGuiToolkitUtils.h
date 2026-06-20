@@ -1,6 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
 #include <imgui.h>
+#include <implot.h>
 
 // A cardinal direction
 UENUM(BlueprintType)
@@ -337,6 +338,355 @@ enum class EImGuiMultiSelectFlag : uint8
 	NavWrapX					= 16			UMETA(DisplayName = "Navigation Wrap X"),
 };
 
+UENUM(BlueprintType)
+enum class EImPlotAxis : uint8
+{
+	X1							= 0				UMETA(DisplayName = "X1"),
+	X2							= 1				UMETA(DisplayName = "X2"),
+	X3							= 2				UMETA(DisplayName = "X3"),
+	Y1							= 3				UMETA(DisplayName = "Y1"),
+	Y2							= 4				UMETA(DisplayName = "Y2"),
+	Y3							= 5				UMETA(DisplayName = "Y3"),
+};
+
+UENUM(BlueprintType)
+enum class EImPlotCondition : uint8
+{
+	None						= 0				UMETA(DisplayName = "None"),
+	Always						= 1				UMETA(DisplayName = "Always"),
+	Once						= 2				UMETA(DisplayName = "Once"),
+};
+
+UENUM(BlueprintType)
+enum class EImPlotFlag : uint8
+{
+	None						= 255			UMETA(DisplayName = "None"),
+	NoTitle						= 0				UMETA(DisplayName = "No Title"),
+	NoLegend					= 1				UMETA(DisplayName = "No Legend"),
+	NoMouseText					= 2				UMETA(DisplayName = "No Mouse Text"),
+	NoInputs					= 3				UMETA(DisplayName = "No Inputs"),
+	NoMenus						= 4				UMETA(DisplayName = "No Menus"),
+	NoBoxSelect					= 5				UMETA(DisplayName = "No Box Select"),
+	NoFrame						= 6				UMETA(DisplayName = "No Frame"),
+	Equal						= 7				UMETA(DisplayName = "Equal"),
+	Crosshairs					= 8				UMETA(DisplayName = "Crosshairs"),
+	CanvasOnly					= 9				UMETA(DisplayName = "Canvas Only"),
+};
+
+UENUM(BlueprintType)
+enum class EImPlotAxisFlag : uint8
+{
+	None						= 255			UMETA(DisplayName = "None"),
+	NoLabel						= 0				UMETA(DisplayName = "No Label"),
+	NoGridLines					= 1				UMETA(DisplayName = "No Grid Lines"),
+	NoTickMarks					= 2				UMETA(DisplayName = "No Tick Marks"),
+	NoTickLabels				= 3				UMETA(DisplayName = "No Tick Labels"),
+	NoInitialFit				= 4				UMETA(DisplayName = "No Initial Fit"),
+	NoMenus						= 5				UMETA(DisplayName = "No Menus"),
+	NoSideSwitch				= 6				UMETA(DisplayName = "No Side Switch"),
+	NoHighlight					= 7				UMETA(DisplayName = "No Highlight"),
+	Opposite					= 8				UMETA(DisplayName = "Opposite"),
+	Foreground					= 9				UMETA(DisplayName = "Foreground"),
+	Invert						= 10			UMETA(DisplayName = "Invert"),
+	AutoFit						= 11			UMETA(DisplayName = "Auto Fit"),
+	RangeFit					= 12			UMETA(DisplayName = "Range Fit"),
+	PanStretch					= 13			UMETA(DisplayName = "Pan Stretch"),
+	LockMin						= 14			UMETA(DisplayName = "Lock Min"),
+	LockMax						= 15			UMETA(DisplayName = "Lock Max"),
+	Lock						= 16			UMETA(DisplayName = "Lock"),
+	NoDecorations				= 17			UMETA(DisplayName = "No Decorations"),
+	AuxDefault					= 18			UMETA(DisplayName = "Aux Default"),
+};
+
+UENUM(BlueprintType)
+enum class EImPlotLineFlag : uint8
+{
+	None						= 255			UMETA(DisplayName = "None"),
+	Segments					= 0				UMETA(DisplayName = "Segments"),
+	Loop						= 1				UMETA(DisplayName = "Loop"),
+	SkipNaN						= 2				UMETA(DisplayName = "Skip NaN"),
+	NoClip						= 3				UMETA(DisplayName = "No Clip"),
+	Shaded						= 4				UMETA(DisplayName = "Shaded"),
+};
+
+UENUM(BlueprintType)
+enum class EImPlotItemFlag : uint8
+{
+	None						= 255			UMETA(DisplayName = "None"),
+	NoLegend					= 0				UMETA(DisplayName = "No Legend"),
+	NoFit						= 1				UMETA(DisplayName = "No Fit"),
+};
+
+UENUM(BlueprintType)
+enum class EImPlotScatterFlag : uint8
+{
+	None						= 255			UMETA(DisplayName = "None"),
+	NoClip						= 0				UMETA(DisplayName = "No Clip"),
+};
+
+UENUM(BlueprintType)
+enum class EImPlotBarsFlag : uint8
+{
+	None						= 255			UMETA(DisplayName = "None"),
+	Horizontal					= 0				UMETA(DisplayName = "Horizontal"),
+};
+
+UENUM(BlueprintType)
+enum class EImPlotBarGroupsFlag : uint8
+{
+	None						= 255			UMETA(DisplayName = "None"),
+	Horizontal					= 0				UMETA(DisplayName = "Horizontal"),
+	Stacked						= 1				UMETA(DisplayName = "Stacked"),
+};
+
+UENUM(BlueprintType)
+enum class EImPlotStairsFlag : uint8
+{
+	None						= 255			UMETA(DisplayName = "None"),
+	PreStep						= 0				UMETA(DisplayName = "Pre Step"),
+	Shaded						= 1				UMETA(DisplayName = "Shaded"),
+};
+
+UENUM(BlueprintType)
+enum class EImPlotErrorBarsFlag : uint8
+{
+	None						= 255			UMETA(DisplayName = "None"),
+	Horizontal					= 0				UMETA(DisplayName = "Horizontal"),
+};
+
+UENUM(BlueprintType)
+enum class EImPlotStemsFlag : uint8
+{
+	None						= 255			UMETA(DisplayName = "None"),
+	Horizontal					= 0				UMETA(DisplayName = "Horizontal"),
+};
+
+UENUM(BlueprintType)
+enum class EImPlotInfLinesFlag : uint8
+{
+	None						= 255			UMETA(DisplayName = "None"),
+	Horizontal					= 0				UMETA(DisplayName = "Horizontal"),
+};
+
+UENUM(BlueprintType)
+enum class EImPlotPieChartFlag : uint8
+{
+	None						= 255			UMETA(DisplayName = "None"),
+	Normalize					= 0				UMETA(DisplayName = "Normalize"),
+	IgnoreHidden				= 1				UMETA(DisplayName = "Ignore Hidden"),
+	Exploding					= 2				UMETA(DisplayName = "Exploding"),
+};
+
+UENUM(BlueprintType)
+enum class EImPlotHeatmapFlag : uint8
+{
+	None						= 255			UMETA(DisplayName = "None"),
+	ColumnMajor					= 0				UMETA(DisplayName = "Column Major"),
+};
+
+UENUM(BlueprintType)
+enum class EImPlotHistogramFlag : uint8
+{
+	None						= 255			UMETA(DisplayName = "None"),
+	Horizontal					= 0				UMETA(DisplayName = "Horizontal"),
+	Cumulative					= 1				UMETA(DisplayName = "Cumulative"),
+	Density						= 2				UMETA(DisplayName = "Density"),
+	NoOutliers					= 3				UMETA(DisplayName = "No Outliers"),
+	ColumnMajor					= 4				UMETA(DisplayName = "Column Major"),
+};
+
+UENUM(BlueprintType)
+enum class EImPlotTextFlag : uint8
+{
+	None						= 255			UMETA(DisplayName = "None"),
+	Vertical					= 0				UMETA(DisplayName = "Vertical"),
+};
+
+UENUM(BlueprintType)
+enum class EImPlotDragToolFlag : uint8
+{
+	None						= 255			UMETA(DisplayName = "None"),
+	NoCursors					= 0				UMETA(DisplayName = "No Cursors"),
+	NoFit						= 1				UMETA(DisplayName = "No Fit"),
+	NoInputs					= 2				UMETA(DisplayName = "No Inputs"),
+	Delayed						= 3				UMETA(DisplayName = "Delayed"),
+};
+
+UENUM(BlueprintType)
+enum class EImPlotSubplotFlag : uint8
+{
+	None						= 255			UMETA(DisplayName = "None"),
+	NoTitle						= 0				UMETA(DisplayName = "No Title"),
+	NoLegend					= 1				UMETA(DisplayName = "No Legend"),
+	NoMenus						= 2				UMETA(DisplayName = "No Menus"),
+	NoResize					= 3				UMETA(DisplayName = "No Resize"),
+	NoAlign						= 4				UMETA(DisplayName = "No Align"),
+	ShareItems					= 5				UMETA(DisplayName = "Share Items"),
+	LinkRows					= 6				UMETA(DisplayName = "Link Rows"),
+	LinkColumns					= 7				UMETA(DisplayName = "Link Columns"),
+	LinkAllX					= 8				UMETA(DisplayName = "Link All X"),
+	LinkAllY					= 9				UMETA(DisplayName = "Link All Y"),
+	ColumnMajor					= 10			UMETA(DisplayName = "Column Major"),
+};
+
+UENUM(BlueprintType)
+enum class EImPlotLegendFlag : uint8
+{
+	None						= 255			UMETA(DisplayName = "None"),
+	NoButtons					= 0				UMETA(DisplayName = "No Buttons"),
+	NoHighlightItem				= 1				UMETA(DisplayName = "No Highlight Item"),
+	NoHighlightAxis				= 2				UMETA(DisplayName = "No Highlight Axis"),
+	NoMenus						= 3				UMETA(DisplayName = "No Menus"),
+	Outside						= 4				UMETA(DisplayName = "Outside"),
+	Horizontal					= 5				UMETA(DisplayName = "Horizontal"),
+	Sort						= 6				UMETA(DisplayName = "Sort"),
+};
+
+UENUM(BlueprintType)
+enum class EImPlotMouseTextFlag : uint8
+{
+	None						= 255			UMETA(DisplayName = "None"),
+	NoAuxAxes					= 0				UMETA(DisplayName = "No Aux Axes"),
+	NoFormat					= 1				UMETA(DisplayName = "No Format"),
+	ShowAlways					= 2				UMETA(DisplayName = "Show Always"),
+};
+
+UENUM(BlueprintType)
+enum class EImPlotLocation : uint8
+{
+	Center						= 0				UMETA(DisplayName = "Center"),
+	North						= 1				UMETA(DisplayName = "North"),
+	South						= 2				UMETA(DisplayName = "South"),
+	West						= 3				UMETA(DisplayName = "West"),
+	East						= 4				UMETA(DisplayName = "East"),
+	NorthWest					= 5				UMETA(DisplayName = "North West"),
+	NorthEast					= 6				UMETA(DisplayName = "North East"),
+	SouthWest					= 7				UMETA(DisplayName = "South West"),
+	SouthEast					= 8				UMETA(DisplayName = "South East"),
+};
+
+UENUM(BlueprintType)
+enum class EImPlotScale : uint8
+{
+	Linear						= 0				UMETA(DisplayName = "Linear"),
+	Time						= 1				UMETA(DisplayName = "Time"),
+	Log10						= 2				UMETA(DisplayName = "Log10"),
+	SymLog						= 3				UMETA(DisplayName = "SymLog"),
+};
+
+UENUM(BlueprintType)
+enum class EImPlotColormap : uint8
+{
+	Deep						= 0				UMETA(DisplayName = "Deep"),
+	Dark						= 1				UMETA(DisplayName = "Dark"),
+	Pastel						= 2				UMETA(DisplayName = "Pastel"),
+	Paired						= 3				UMETA(DisplayName = "Paired"),
+	Viridis						= 4				UMETA(DisplayName = "Viridis"),
+	Plasma						= 5				UMETA(DisplayName = "Plasma"),
+	Hot							= 6				UMETA(DisplayName = "Hot"),
+	Cool						= 7				UMETA(DisplayName = "Cool"),
+	Pink						= 8				UMETA(DisplayName = "Pink"),
+	Jet							= 9				UMETA(DisplayName = "Jet"),
+	Twilight					= 10			UMETA(DisplayName = "Twilight"),
+	RdBu						= 11			UMETA(DisplayName = "RdBu"),
+	BrBG						= 12			UMETA(DisplayName = "BrBG"),
+	PiYG						= 13			UMETA(DisplayName = "PiYG"),
+	Spectral					= 14			UMETA(DisplayName = "Spectral"),
+	Greys						= 15			UMETA(DisplayName = "Greys"),
+};
+
+UENUM(BlueprintType)
+enum class EImPlotColormapScaleFlag : uint8
+{
+	None						= 255			UMETA(DisplayName = "None"),
+	NoLabel						= 0				UMETA(DisplayName = "No Label"),
+	Opposite					= 1				UMETA(DisplayName = "Opposite"),
+	Invert						= 2				UMETA(DisplayName = "Invert"),
+};
+
+UENUM(BlueprintType)
+enum class EImPlotStylePreset : uint8
+{
+	Auto						= 0				UMETA(DisplayName = "Auto"),
+	Classic						= 1				UMETA(DisplayName = "Classic"),
+	Dark						= 2				UMETA(DisplayName = "Dark"),
+	Light						= 3				UMETA(DisplayName = "Light"),
+};
+
+UENUM(BlueprintType)
+enum class EImPlotStyleColor : uint8
+{
+	Line						= 0				UMETA(DisplayName = "Line"),
+	Fill						= 1				UMETA(DisplayName = "Fill"),
+	MarkerOutline				= 2				UMETA(DisplayName = "Marker Outline"),
+	MarkerFill					= 3				UMETA(DisplayName = "Marker Fill"),
+	ErrorBar					= 4				UMETA(DisplayName = "Error Bar"),
+	FrameBg						= 5				UMETA(DisplayName = "Frame Background"),
+	PlotBg						= 6				UMETA(DisplayName = "Plot Background"),
+	PlotBorder					= 7				UMETA(DisplayName = "Plot Border"),
+	LegendBg					= 8				UMETA(DisplayName = "Legend Background"),
+	LegendBorder				= 9				UMETA(DisplayName = "Legend Border"),
+	LegendText					= 10			UMETA(DisplayName = "Legend Text"),
+	TitleText					= 11			UMETA(DisplayName = "Title Text"),
+	InlayText					= 12			UMETA(DisplayName = "Inlay Text"),
+	AxisText					= 13			UMETA(DisplayName = "Axis Text"),
+	AxisGrid					= 14			UMETA(DisplayName = "Axis Grid"),
+	AxisTick					= 15			UMETA(DisplayName = "Axis Tick"),
+	AxisBg						= 16			UMETA(DisplayName = "Axis Background"),
+	AxisBgHovered				= 17			UMETA(DisplayName = "Axis Background Hovered"),
+	AxisBgActive				= 18			UMETA(DisplayName = "Axis Background Active"),
+	Selection					= 19			UMETA(DisplayName = "Selection"),
+	Crosshairs					= 20			UMETA(DisplayName = "Crosshairs"),
+};
+
+UENUM(BlueprintType)
+enum class EImPlotStyleVar : uint8
+{
+	LineWeight					= 0				UMETA(DisplayName = "Line Weight"),
+	Marker						= 1				UMETA(DisplayName = "Marker"),
+	MarkerSize					= 2				UMETA(DisplayName = "Marker Size"),
+	MarkerWeight				= 3				UMETA(DisplayName = "Marker Weight"),
+	FillAlpha					= 4				UMETA(DisplayName = "Fill Alpha"),
+	ErrorBarSize				= 5				UMETA(DisplayName = "Error Bar Size"),
+	ErrorBarWeight				= 6				UMETA(DisplayName = "Error Bar Weight"),
+	DigitalBitHeight			= 7				UMETA(DisplayName = "Digital Bit Height"),
+	DigitalBitGap				= 8				UMETA(DisplayName = "Digital Bit Gap"),
+	PlotBorderSize				= 9				UMETA(DisplayName = "Plot Border Size"),
+	MinorAlpha					= 10			UMETA(DisplayName = "Minor Alpha"),
+	MajorTickLen				= 11			UMETA(DisplayName = "Major Tick Length"),
+	MinorTickLen				= 12			UMETA(DisplayName = "Minor Tick Length"),
+	MajorTickSize				= 13			UMETA(DisplayName = "Major Tick Size"),
+	MinorTickSize				= 14			UMETA(DisplayName = "Minor Tick Size"),
+	MajorGridSize				= 15			UMETA(DisplayName = "Major Grid Size"),
+	MinorGridSize				= 16			UMETA(DisplayName = "Minor Grid Size"),
+	PlotPadding					= 17			UMETA(DisplayName = "Plot Padding"),
+	LabelPadding				= 18			UMETA(DisplayName = "Label Padding"),
+	LegendPadding				= 19			UMETA(DisplayName = "Legend Padding"),
+	LegendInnerPadding			= 20			UMETA(DisplayName = "Legend Inner Padding"),
+	LegendSpacing				= 21			UMETA(DisplayName = "Legend Spacing"),
+	MousePosPadding				= 22			UMETA(DisplayName = "Mouse Pos Padding"),
+	AnnotationPadding			= 23			UMETA(DisplayName = "Annotation Padding"),
+	FitPadding					= 24			UMETA(DisplayName = "Fit Padding"),
+	PlotDefaultSize				= 25			UMETA(DisplayName = "Plot Default Size"),
+	PlotMinSize					= 26			UMETA(DisplayName = "Plot Min Size"),
+};
+
+UENUM(BlueprintType)
+enum class EImPlotMarker : uint8
+{
+	None						= 255			UMETA(DisplayName = "None"),
+	Circle						= 0				UMETA(DisplayName = "Circle"),
+	Square						= 1				UMETA(DisplayName = "Square"),
+	Diamond						= 2				UMETA(DisplayName = "Diamond"),
+	Up							= 3				UMETA(DisplayName = "Up"),
+	Down						= 4				UMETA(DisplayName = "Down"),
+	Left						= 5				UMETA(DisplayName = "Left"),
+	Right						= 6				UMETA(DisplayName = "Right"),
+	Cross						= 7				UMETA(DisplayName = "Cross"),
+	Plus						= 8				UMETA(DisplayName = "Plus"),
+	Asterisk					= 9				UMETA(DisplayName = "Asterisk"),
+};
+
 struct FImGuiToolkitUtils
 {
 	static ImVec4 LinearColorToImVec4(const FLinearColor& Color);
@@ -371,6 +721,55 @@ struct FImGuiToolkitUtils
 	static ImGuiPopupFlags UnrealPopupMouseButtonToImGuiPopupFlag(EImGuiPopupMouseButton MouseButton);
 	static ImGuiMultiSelectFlags UnrealFlagToImGuiMultiSelectFlag(EImGuiMultiSelectFlag Flags);
 	static int32 CombineImGuiMultiSelectFlags(TArray<EImGuiMultiSelectFlag> Flags);
+	static ImAxis UnrealPlotAxisToImPlotAxis(EImPlotAxis Axis);
+	static ImPlotCond UnrealPlotConditionToImPlotCond(EImPlotCondition Condition);
+	static ImPlotFlags UnrealFlagToImPlotFlag(EImPlotFlag Flags);
+	static int32 CombineImPlotFlags(TArray<EImPlotFlag> Flags);
+	static ImPlotAxisFlags UnrealFlagToImPlotAxisFlag(EImPlotAxisFlag Flags);
+	static int32 CombineImPlotAxisFlags(TArray<EImPlotAxisFlag> Flags);
+	static ImPlotLineFlags UnrealFlagToImPlotLineFlag(EImPlotLineFlag Flags);
+	static int32 CombineImPlotLineFlags(TArray<EImPlotLineFlag> Flags);
+	static ImPlotItemFlags UnrealFlagToImPlotItemFlag(EImPlotItemFlag Flags);
+	static int32 CombineImPlotItemFlags(TArray<EImPlotItemFlag> Flags);
+	static ImPlotScatterFlags UnrealFlagToImPlotScatterFlag(EImPlotScatterFlag Flags);
+	static int32 CombineImPlotScatterFlags(TArray<EImPlotScatterFlag> Flags);
+	static ImPlotBarsFlags UnrealFlagToImPlotBarsFlag(EImPlotBarsFlag Flags);
+	static int32 CombineImPlotBarsFlags(TArray<EImPlotBarsFlag> Flags);
+	static ImPlotBarGroupsFlags UnrealFlagToImPlotBarGroupsFlag(EImPlotBarGroupsFlag Flags);
+	static int32 CombineImPlotBarGroupsFlags(TArray<EImPlotBarGroupsFlag> Flags);
+	static ImPlotStairsFlags UnrealFlagToImPlotStairsFlag(EImPlotStairsFlag Flags);
+	static int32 CombineImPlotStairsFlags(TArray<EImPlotStairsFlag> Flags);
+	static ImPlotErrorBarsFlags UnrealFlagToImPlotErrorBarsFlag(EImPlotErrorBarsFlag Flags);
+	static int32 CombineImPlotErrorBarsFlags(TArray<EImPlotErrorBarsFlag> Flags);
+	static ImPlotStemsFlags UnrealFlagToImPlotStemsFlag(EImPlotStemsFlag Flags);
+	static int32 CombineImPlotStemsFlags(TArray<EImPlotStemsFlag> Flags);
+	static ImPlotInfLinesFlags UnrealFlagToImPlotInfLinesFlag(EImPlotInfLinesFlag Flags);
+	static int32 CombineImPlotInfLinesFlags(TArray<EImPlotInfLinesFlag> Flags);
+	static ImPlotPieChartFlags UnrealFlagToImPlotPieChartFlag(EImPlotPieChartFlag Flags);
+	static int32 CombineImPlotPieChartFlags(TArray<EImPlotPieChartFlag> Flags);
+	static ImPlotHeatmapFlags UnrealFlagToImPlotHeatmapFlag(EImPlotHeatmapFlag Flags);
+	static int32 CombineImPlotHeatmapFlags(TArray<EImPlotHeatmapFlag> Flags);
+	static ImPlotHistogramFlags UnrealFlagToImPlotHistogramFlag(EImPlotHistogramFlag Flags);
+	static int32 CombineImPlotHistogramFlags(TArray<EImPlotHistogramFlag> Flags);
+	static ImPlotTextFlags UnrealFlagToImPlotTextFlag(EImPlotTextFlag Flags);
+	static int32 CombineImPlotTextFlags(TArray<EImPlotTextFlag> Flags);
+	static ImPlotDragToolFlags UnrealFlagToImPlotDragToolFlag(EImPlotDragToolFlag Flags);
+	static int32 CombineImPlotDragToolFlags(TArray<EImPlotDragToolFlag> Flags);
+	static ImPlotSubplotFlags UnrealFlagToImPlotSubplotFlag(EImPlotSubplotFlag Flags);
+	static int32 CombineImPlotSubplotFlags(TArray<EImPlotSubplotFlag> Flags);
+	static ImPlotLegendFlags UnrealFlagToImPlotLegendFlag(EImPlotLegendFlag Flags);
+	static int32 CombineImPlotLegendFlags(TArray<EImPlotLegendFlag> Flags);
+	static ImPlotMouseTextFlags UnrealFlagToImPlotMouseTextFlag(EImPlotMouseTextFlag Flags);
+	static int32 CombineImPlotMouseTextFlags(TArray<EImPlotMouseTextFlag> Flags);
+	static ImPlotLocation UnrealPlotLocationToImPlotLocation(EImPlotLocation Location);
+	static ImPlotScale UnrealPlotScaleToImPlotScale(EImPlotScale Scale);
+	static ImPlotColormap UnrealPlotColormapToImPlotColormap(EImPlotColormap Colormap);
+	static ImPlotColormapScaleFlags UnrealFlagToImPlotColormapScaleFlag(EImPlotColormapScaleFlag Flags);
+	static int32 CombineImPlotColormapScaleFlags(TArray<EImPlotColormapScaleFlag> Flags);
+	static ImPlotCol UnrealPlotStyleColorToImPlotCol(EImPlotStyleColor StyleColor);
+	static ImPlotStyleVar UnrealPlotStyleVarToImPlotStyleVar(EImPlotStyleVar StyleVar);
+	static bool IsImPlotStyleVarVector(EImPlotStyleVar StyleVar);
+	static ImPlotMarker UnrealPlotMarkerToImPlotMarker(EImPlotMarker Marker);
 
 	static int32 ImGuiResizeCallback(ImGuiInputTextCallbackData* Data);
 };

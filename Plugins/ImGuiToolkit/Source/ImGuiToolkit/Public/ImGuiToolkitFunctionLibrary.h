@@ -44,6 +44,8 @@
 #include "Widgets/Images/ImGuiToolkitImage.h"
 #include "Widgets/Images/ImGuiToolkitImageButton.h"
 #include "Widgets/Layout/ImGuiToolkitAlignTextToFramePadding.h"
+#include "Containers/Plot/ImGuiToolkitBeginPlot.h"
+#include "Containers/Plot/ImGuiToolkitBeginSubplots.h"
 #include "Widgets/Main/ImGuiToolkitButton.h"
 #include "Widgets/Main/ImGuiToolkitCheckbox.h"
 #include "Widgets/Main/ImGuiToolkitCombo.h"
@@ -64,6 +66,15 @@
 #include "Widgets/Popups/ImGuiToolkitOpenPopup.h"
 #include "Widgets/Popups/ImGuiToolkitOpenPopupOnItemClick.h"
 #include "Widgets/Popups/ImGuiToolkitPopupButton.h"
+#include "Widgets/Plot/ImGuiToolkitPlotBars.h"
+#include "Widgets/Plot/ImGuiToolkitPlotBarsXY.h"
+#include "Widgets/Plot/ImGuiToolkitPlotLine.h"
+#include "Widgets/Plot/ImGuiToolkitPlotLineXY.h"
+#include "Widgets/Plot/ImGuiToolkitPlotScatter.h"
+#include "Widgets/Plot/ImGuiToolkitPlotScatterXY.h"
+#include "Widgets/Plot/ImGuiToolkitPlotExtras.h"
+#include "Widgets/Plot/ImGuiToolkitSetupPlotAxis.h"
+#include "Widgets/Plot/ImGuiToolkitSetupPlotAxisLimits.h"
 #include "Widgets/Sliders/ImGuiToolkitDragFloat.h"
 #include "Widgets/Sliders/ImGuiToolkitDragIntPoint.h"
 #include "Widgets/Sliders/ImGuiToolkitDragIntVector.h"
@@ -347,6 +358,222 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Images", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "Tooltip,UV0,UV1"))
 	static UImGuiToolkitImageButton* CreateImGuiMaterialImageButton(FText ButtonID, UMaterialInterface* Material, FText Tooltip = FText::GetEmpty(), FVector2D Size = FVector2D(64.0f, 64.0f), FVector2D UV0 = FVector2D(0.0f, 0.0f), FVector2D UV1 = FVector2D(1.0f, 1.0f), UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot", meta = (ReturnDisplayName = "Container", AdvancedDisplay = "Size,PlotFlags"))
+	static UImGuiToolkitBeginPlot* CreateImPlotBeginPlot(FText Title, TArray<EImPlotFlag> PlotFlags, FVector2D Size = FVector2D(-1.0f, 0.0f), UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitSetupPlotAxis* CreateImPlotSetupAxis(EImPlotAxis Axis, FText Label, TArray<EImPlotAxisFlag> AxisFlags, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitSetupPlotAxisLimits* CreateImPlotSetupAxisLimits(EImPlotAxis Axis, double MinValue, double MaxValue, EImPlotCondition Condition = EImPlotCondition::Once, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "XScale,XStart,LineFlags,ItemFlags"))
+	static UImGuiToolkitPlotLine* CreateImPlotLine(FText Label, TArray<float> Values, TArray<EImPlotLineFlag> LineFlags, TArray<EImPlotItemFlag> ItemFlags, double XScale = 1.0, double XStart = 0.0, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "LineFlags,ItemFlags"))
+	static UImGuiToolkitPlotLineXY* CreateImPlotLineXY(FText Label, TArray<float> XValues, TArray<float> YValues, TArray<EImPlotLineFlag> LineFlags, TArray<EImPlotItemFlag> ItemFlags, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "XScale,XStart,ScatterFlags,ItemFlags"))
+	static UImGuiToolkitPlotScatter* CreateImPlotScatter(FText Label, TArray<float> Values, TArray<EImPlotScatterFlag> ScatterFlags, TArray<EImPlotItemFlag> ItemFlags, double XScale = 1.0, double XStart = 0.0, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "ScatterFlags,ItemFlags"))
+	static UImGuiToolkitPlotScatterXY* CreateImPlotScatterXY(FText Label, TArray<float> XValues, TArray<float> YValues, TArray<EImPlotScatterFlag> ScatterFlags, TArray<EImPlotItemFlag> ItemFlags, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "BarSize,Shift,BarsFlags,ItemFlags"))
+	static UImGuiToolkitPlotBars* CreateImPlotBars(FText Label, TArray<float> Values, TArray<EImPlotBarsFlag> BarsFlags, TArray<EImPlotItemFlag> ItemFlags, double BarSize = 0.67, double Shift = 0.0, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "BarSize,BarsFlags,ItemFlags"))
+	static UImGuiToolkitPlotBarsXY* CreateImPlotBarsXY(FText Label, TArray<float> XValues, TArray<float> YValues, TArray<EImPlotBarsFlag> BarsFlags, TArray<EImPlotItemFlag> ItemFlags, double BarSize = 0.67, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Items", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "GroupSize,Shift,BarGroupsFlags,ItemFlags"))
+	static UImGuiToolkitPlotBarGroups* CreateImPlotBarGroups(TArray<FText> Labels, TArray<float> Values, int32 ItemCount, int32 GroupCount, TArray<EImPlotBarGroupsFlag> BarGroupsFlags, TArray<EImPlotItemFlag> ItemFlags, double GroupSize = 0.67, double Shift = 0.0, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Subplots", meta = (ReturnDisplayName = "Container", AdvancedDisplay = "Size,SubplotFlags"))
+	static UImGuiToolkitBeginSubplots* CreateImPlotBeginSubplots(FText Title, int32 Rows, int32 Columns, TArray<EImPlotSubplotFlag> SubplotFlags, FVector2D Size = FVector2D(0.0f, 0.0f), UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Setup", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "LegendFlags"))
+	static UImGuiToolkitSetupPlotLegend* CreateImPlotSetupLegend(EImPlotLocation Location, TArray<EImPlotLegendFlag> LegendFlags, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Setup", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "MouseTextFlags"))
+	static UImGuiToolkitSetupPlotMouseText* CreateImPlotSetupMouseText(EImPlotLocation Location, TArray<EImPlotMouseTextFlag> MouseTextFlags, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Setup", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitSetupPlotAxisFormat* CreateImPlotSetupAxisFormat(EImPlotAxis Axis, FString Format = TEXT("%g"), UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Setup", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitSetupPlotAxisScale* CreateImPlotSetupAxisScale(EImPlotAxis Axis, EImPlotScale Scale = EImPlotScale::Linear, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Setup", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "XAxisFlags,YAxisFlags"))
+	static UImGuiToolkitSetupPlotAxes* CreateImPlotSetupAxes(FText XLabel, FText YLabel, TArray<EImPlotAxisFlag> XAxisFlags, TArray<EImPlotAxisFlag> YAxisFlags, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Setup", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitSetupPlotAxesLimits* CreateImPlotSetupAxesLimits(FVector2D XLimits, FVector2D YLimits, EImPlotCondition Condition = EImPlotCondition::Once, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Setup", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitSetupPlotAxisLimitsConstraints* CreateImPlotSetupAxisLimitsConstraints(EImPlotAxis Axis, double MinValue, double MaxValue, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Setup", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitSetupPlotAxisZoomConstraints* CreateImPlotSetupAxisZoomConstraints(EImPlotAxis Axis, double MinZoom, double MaxZoom, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Setup", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "Labels,bKeepDefault"))
+	static UImGuiToolkitSetupPlotAxisTicks* CreateImPlotSetupAxisTicks(EImPlotAxis Axis, TArray<float> Values, TArray<FText> Labels, bool bKeepDefault = false, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Setup", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "Labels,bKeepDefault"))
+	static UImGuiToolkitSetupPlotAxisTicksRange* CreateImPlotSetupAxisTicksRange(EImPlotAxis Axis, double MinValue, double MaxValue, int32 TickCount, TArray<FText> Labels, bool bKeepDefault = false, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Setup", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitSetupPlotFinish* CreateImPlotSetupFinish(UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Setup", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitSetNextPlotAxisLimits* CreateImPlotSetNextAxisLimits(EImPlotAxis Axis, double MinValue, double MaxValue, EImPlotCondition Condition = EImPlotCondition::Once, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Setup", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitSetNextPlotAxesLimits* CreateImPlotSetNextAxesLimits(FVector2D XLimits, FVector2D YLimits, EImPlotCondition Condition = EImPlotCondition::Once, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Setup", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitSetNextPlotAxisToFit* CreateImPlotSetNextAxisToFit(EImPlotAxis Axis, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Setup", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitSetNextPlotAxesToFit* CreateImPlotSetNextAxesToFit(UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Setup", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitSetPlotAxis* CreateImPlotSetAxis(EImPlotAxis Axis, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Setup", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitSetPlotAxes* CreateImPlotSetAxes(EImPlotAxis XAxis, EImPlotAxis YAxis, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Setup", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitHideNextPlotItem* CreateImPlotHideNextItem(bool bHidden = true, EImPlotCondition Condition = EImPlotCondition::Once, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Queries", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitPlotQuery* CreateImPlotQuery(EImPlotAxis XAxis = EImPlotAxis::X1, EImPlotAxis YAxis = EImPlotAxis::Y1, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Queries", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitPlotAxisQuery* CreateImPlotAxisQuery(EImPlotAxis Axis, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Queries", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitCancelPlotSelection* CreateImPlotCancelSelection(UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Items", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "XScale,XStart,StairsFlags,ItemFlags"))
+	static UImGuiToolkitPlotStairs* CreateImPlotStairs(FText Label, TArray<float> Values, TArray<EImPlotStairsFlag> StairsFlags, TArray<EImPlotItemFlag> ItemFlags, double XScale = 1.0, double XStart = 0.0, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Items", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "StairsFlags,ItemFlags"))
+	static UImGuiToolkitPlotStairsXY* CreateImPlotStairsXY(FText Label, TArray<float> XValues, TArray<float> YValues, TArray<EImPlotStairsFlag> StairsFlags, TArray<EImPlotItemFlag> ItemFlags, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Items", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "YReference,XScale,XStart,ItemFlags"))
+	static UImGuiToolkitPlotShaded* CreateImPlotShaded(FText Label, TArray<float> Values, TArray<EImPlotItemFlag> ItemFlags, double YReference = 0.0, double XScale = 1.0, double XStart = 0.0, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Items", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "YReference,ItemFlags"))
+	static UImGuiToolkitPlotShadedXY* CreateImPlotShadedXY(FText Label, TArray<float> XValues, TArray<float> YValues, TArray<EImPlotItemFlag> ItemFlags, double YReference = 0.0, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Items", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "ItemFlags"))
+	static UImGuiToolkitPlotShadedBetweenXY* CreateImPlotShadedBetweenXY(FText Label, TArray<float> XValues, TArray<float> Y1Values, TArray<float> Y2Values, TArray<EImPlotItemFlag> ItemFlags, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Items", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "ErrorBarsFlags,ItemFlags"))
+	static UImGuiToolkitPlotErrorBars* CreateImPlotErrorBars(FText Label, TArray<float> XValues, TArray<float> YValues, TArray<float> ErrorValues, TArray<EImPlotErrorBarsFlag> ErrorBarsFlags, TArray<EImPlotItemFlag> ItemFlags, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Items", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "ErrorBarsFlags,ItemFlags"))
+	static UImGuiToolkitPlotErrorBarsNegPos* CreateImPlotErrorBarsNegPos(FText Label, TArray<float> XValues, TArray<float> YValues, TArray<float> NegativeErrorValues, TArray<float> PositiveErrorValues, TArray<EImPlotErrorBarsFlag> ErrorBarsFlags, TArray<EImPlotItemFlag> ItemFlags, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Items", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "Reference,XScale,XStart,StemsFlags,ItemFlags"))
+	static UImGuiToolkitPlotStems* CreateImPlotStems(FText Label, TArray<float> Values, TArray<EImPlotStemsFlag> StemsFlags, TArray<EImPlotItemFlag> ItemFlags, double Reference = 0.0, double XScale = 1.0, double XStart = 0.0, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Items", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "Reference,StemsFlags,ItemFlags"))
+	static UImGuiToolkitPlotStemsXY* CreateImPlotStemsXY(FText Label, TArray<float> XValues, TArray<float> YValues, TArray<EImPlotStemsFlag> StemsFlags, TArray<EImPlotItemFlag> ItemFlags, double Reference = 0.0, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Items", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "InfLinesFlags,ItemFlags"))
+	static UImGuiToolkitPlotInfLines* CreateImPlotInfLines(FText Label, TArray<float> Values, TArray<EImPlotInfLinesFlag> InfLinesFlags, TArray<EImPlotItemFlag> ItemFlags, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Items", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "LabelFormat,Angle0,PieChartFlags,ItemFlags"))
+	static UImGuiToolkitPlotPieChart* CreateImPlotPieChart(TArray<FText> Labels, TArray<float> Values, TArray<EImPlotPieChartFlag> PieChartFlags, TArray<EImPlotItemFlag> ItemFlags, FVector2D Center = FVector2D(0.0f, 0.0f), double Radius = 1.0, FString LabelFormat = TEXT("%.1f"), double Angle0 = 90.0, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Items", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "ScaleMin,ScaleMax,LabelFormat,BoundsMin,BoundsMax,HeatmapFlags,ItemFlags"))
+	static UImGuiToolkitPlotHeatmap* CreateImPlotHeatmap(FText Label, TArray<float> Values, int32 Rows, int32 Columns, TArray<EImPlotHeatmapFlag> HeatmapFlags, TArray<EImPlotItemFlag> ItemFlags, double ScaleMin = 0.0, double ScaleMax = 0.0, FString LabelFormat = TEXT("%.1f"), FVector2D BoundsMin = FVector2D(0.0f, 0.0f), FVector2D BoundsMax = FVector2D(1.0f, 1.0f), UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Items", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "Bins,BarScale,bUseRange,Range,HistogramFlags,ItemFlags"))
+	static UImGuiToolkitPlotHistogram* CreateImPlotHistogram(FText Label, TArray<float> Values, TArray<EImPlotHistogramFlag> HistogramFlags, TArray<EImPlotItemFlag> ItemFlags, int32 Bins = -2, double BarScale = 1.0, bool bUseRange = false, FVector2D Range = FVector2D(0.0f, 0.0f), UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Items", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "XBins,YBins,bUseRange,XRange,YRange,HistogramFlags,ItemFlags"))
+	static UImGuiToolkitPlotHistogram2D* CreateImPlotHistogram2D(FText Label, TArray<float> XValues, TArray<float> YValues, TArray<EImPlotHistogramFlag> HistogramFlags, TArray<EImPlotItemFlag> ItemFlags, int32 XBins = -2, int32 YBins = -2, bool bUseRange = false, FVector2D XRange = FVector2D(0.0f, 0.0f), FVector2D YRange = FVector2D(0.0f, 0.0f), UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Items", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "ItemFlags"))
+	static UImGuiToolkitPlotDigital* CreateImPlotDigital(FText Label, TArray<float> XValues, TArray<float> YValues, TArray<EImPlotItemFlag> ItemFlags, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Items", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "UV0,UV1,TintColor,ItemFlags"))
+	static UImGuiToolkitPlotImage* CreateImPlotImage(FText Label, UTexture2D* Texture, FVector2D BoundsMin, FVector2D BoundsMax, TArray<EImPlotItemFlag> ItemFlags, FVector2D UV0 = FVector2D(0.0f, 0.0f), FVector2D UV1 = FVector2D(1.0f, 1.0f), FLinearColor TintColor = FLinearColor(1.0f, 1.0f, 1.0f, 1.0f), UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Items", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "UV0,UV1,TintColor,ItemFlags"))
+	static UImGuiToolkitPlotImage* CreateImPlotMaterialImage(FText Label, UMaterialInterface* Material, FVector2D BoundsMin, FVector2D BoundsMax, TArray<EImPlotItemFlag> ItemFlags, FVector2D UV0 = FVector2D(0.0f, 0.0f), FVector2D UV1 = FVector2D(1.0f, 1.0f), FLinearColor TintColor = FLinearColor(1.0f, 1.0f, 1.0f, 1.0f), UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Items", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "PixelOffset,TextFlags,ItemFlags"))
+	static UImGuiToolkitPlotText* CreateImPlotText(FText Text, FVector2D Position, TArray<EImPlotTextFlag> TextFlags, TArray<EImPlotItemFlag> ItemFlags, FVector2D PixelOffset = FVector2D(0.0f, 0.0f), UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Items", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "ItemFlags"))
+	static UImGuiToolkitPlotDummy* CreateImPlotDummy(FText Label, TArray<EImPlotItemFlag> ItemFlags, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Tools", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "Size,DragToolFlags"))
+	static UImGuiToolkitPlotDragPoint* CreateImPlotDragPoint(int32 ID, double X, double Y, FLinearColor Color, TArray<EImPlotDragToolFlag> DragToolFlags, float Size = 4.0f, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Tools", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "Thickness,DragToolFlags"))
+	static UImGuiToolkitPlotDragLineX* CreateImPlotDragLineX(int32 ID, double X, FLinearColor Color, TArray<EImPlotDragToolFlag> DragToolFlags, float Thickness = 1.0f, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Tools", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "Thickness,DragToolFlags"))
+	static UImGuiToolkitPlotDragLineY* CreateImPlotDragLineY(int32 ID, double Y, FLinearColor Color, TArray<EImPlotDragToolFlag> DragToolFlags, float Thickness = 1.0f, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Tools", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "DragToolFlags"))
+	static UImGuiToolkitPlotDragRect* CreateImPlotDragRect(int32 ID, double X1, double Y1, double X2, double Y2, FLinearColor Color, TArray<EImPlotDragToolFlag> DragToolFlags, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Annotations", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "PixelOffset,bClamp,bRound"))
+	static UImGuiToolkitPlotAnnotation* CreateImPlotAnnotation(FText Text, FVector2D Position, FLinearColor Color, FVector2D PixelOffset = FVector2D(0.0f, 0.0f), bool bClamp = false, bool bRound = false, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Annotations", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "Text,bRound"))
+	static UImGuiToolkitPlotTagX* CreateImPlotTagX(double X, FLinearColor Color, FText Text = FText::GetEmpty(), bool bRound = false, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Annotations", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "Text,bRound"))
+	static UImGuiToolkitPlotTagY* CreateImPlotTagY(double Y, FLinearColor Color, FText Text = FText::GetEmpty(), bool bRound = false, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Style", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitPushPlotStyleColor* CreateImPlotPushStyleColor(EImPlotStyleColor StyleColor, FLinearColor Color, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Style", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitPopPlotStyleColor* CreateImPlotPopStyleColor(int32 Count = 1, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Style", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "FloatValue,IntValue,Vector2DValue"))
+	static UImGuiToolkitPushPlotStyleVar* CreateImPlotPushStyleVar(EImPlotStyleVar StyleVar, float FloatValue = 1.0f, int32 IntValue = 0, FVector2D Vector2DValue = FVector2D(1.0f, 1.0f), UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Style", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitPopPlotStyleVar* CreateImPlotPopStyleVar(int32 Count = 1, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Style", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitSetNextPlotLineStyle* CreateImPlotSetNextLineStyle(FLinearColor Color, float Weight = 1.0f, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Style", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitSetNextPlotFillStyle* CreateImPlotSetNextFillStyle(FLinearColor Color, float AlphaMod = 1.0f, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Style", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "Size,Weight,OutlineColor"))
+	static UImGuiToolkitSetNextPlotMarkerStyle* CreateImPlotSetNextMarkerStyle(EImPlotMarker Marker, FLinearColor FillColor, FLinearColor OutlineColor, float Size = 4.0f, float Weight = 1.0f, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Style", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitSetNextPlotErrorBarStyle* CreateImPlotSetNextErrorBarStyle(FLinearColor Color, float Size = 5.0f, float Weight = 1.0f, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Style", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitStylePlotColors* CreateImPlotStyleColors(EImPlotStylePreset Preset = EImPlotStylePreset::Auto, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Colormap", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitPushPlotColormap* CreateImPlotPushColormap(EImPlotColormap Colormap, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Colormap", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitPopPlotColormap* CreateImPlotPopColormap(int32 Count = 1, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Colormap", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "Size,Format,Colormap,ColormapScaleFlags"))
+	static UImGuiToolkitPlotColormapScale* CreateImPlotColormapScale(FText Label, double ScaleMin, double ScaleMax, TArray<EImPlotColormapScaleFlag> ColormapScaleFlags, FVector2D Size = FVector2D(0.0f, 0.0f), FString Format = TEXT("%g"), EImPlotColormap Colormap = EImPlotColormap::Deep, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Colormap", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "Format,Colormap"))
+	static UImGuiToolkitPlotColormapSlider* CreateImPlotColormapSlider(FText Label, float Value = 0.0f, FString Format = TEXT(""), EImPlotColormap Colormap = EImPlotColormap::Deep, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|ImPlot|Colormap", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "Size,Colormap"))
+	static UImGuiToolkitPlotColormapButton* CreateImPlotColormapButton(FText Label, FVector2D Size = FVector2D(0.0f, 0.0f), EImPlotColormap Colormap = EImPlotColormap::Deep, UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a TabBar
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Container"))
