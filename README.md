@@ -172,3 +172,126 @@ It provides seamless integration between Unreal and Dear ImGui through easily bi
 - [ ] Add Blueprint-friendly ImPlot example
 - [x] Add Blueprint-friendly table wrappers
 - [x] Add Blueprint-friendly color editor/picker wrappers
+
+## Blueprint Usage Notes
+
+ImGuiToolkit Blueprint nodes create persistent wrapper objects. The execution pins decide when the wrapper is created or updated, while the returned `Container` or `Element` object is the thing you keep wiring into other nodes.
+
+### Containers
+
+Nodes that return `Container` can own child elements. Wire child nodes to the returned container, not to the original parent window, when you want those children to appear inside the container.
+
+Some containers are conditional. Popups, combos, plots, tables, tab items, tree nodes, and collapsing headers only render their children while they are open or active.
+
+Blueprint shape:
+
+```text
+Window
+Begin Combo / Begin Popup / Begin Table / Begin Plot
+  Child Element
+  Child Element
+```
+
+Common mistake:
+
+```text
+Window
+Begin Popup
+Text wired to Window instead of the popup Container
+```
+
+The text is then not part of the popup. It may appear outside the popup, or it may run at a time where the popup is not active.
+
+### Popups
+
+Opening a popup and drawing a popup are separate steps. `Open Popup` requests that a popup should open. `Begin Popup` defines the popup contents.
+
+Recommended shape:
+
+```text
+Button "Open Popup"
+  On Clicked -> Open Popup "MyPopup"
+
+Begin Popup "MyPopup"
+  Text "Popup content"
+  Button "Close"
+    On Clicked -> Close Current Popup
+```
+
+For simple button-triggered popups, prefer the dedicated popup button wrapper. It keeps the trigger and popup container together and avoids most accidental reopen behavior.
+
+For context popups, make sure the context popup is attached to the item you want to right-click. `Close Current Popup` closes the currently active popup, but it does not disable the trigger that opened it. If the same mouse interaction is still opening the context popup every frame, the popup can appear to close and immediately reopen.
+
+### Combo Boxes
+
+`Begin Combo` is best for compact choice lists. The usual children are selectable items, text, small buttons, or other lightweight controls.
+
+Recommended shape:
+
+```text
+Begin Combo "Mode"
+  Selectable "A"
+    On Selected -> Set Mode A
+  Selectable "B"
+    On Selected -> Set Mode B
+```
+
+Complex interactive widgets can be visible inside a combo, but Dear ImGui combos are not a great fit for rich tool panels. Sliders, drags, color pickers, and nested popups can have awkward focus or closing behavior. Use a popup or window when the content needs more interaction.
+
+### Tables
+
+Table setup should happen before table content. Define columns first, optionally draw a header row, then add rows and columns in order.
+
+Recommended shape:
+
+```text
+Begin Table
+  Table Setup Column "Name"
+  Table Setup Column "Value"
+  Table Headers Row
+
+  Table Next Row
+  Table Set Column Index 0
+  Text "Speed"
+  Table Set Column Index 1
+  Drag Float
+```
+
+Common mistakes are adding content before the columns are set up, forgetting `Table Next Row`, or wiring row contents to the parent window instead of the table container.
+
+### Images
+
+Use the image wrappers for Unreal assets instead of manually converting texture IDs. `Image` and `Image Button` are for `Texture2D` assets. `Material Image` and `Material Image Button` are for material assets or material instances.
+
+`Size` controls the displayed size in ImGui units. Use an explicit size when layout should be stable.
+
+`UV0` and `UV1` are normalized texture coordinates:
+
+```text
+UV0 = (0, 0)
+UV1 = (1, 1)
+```
+
+That displays the full texture. Change the UV values to crop or flip the image. For example, swapping the Y values can flip vertically depending on the texture/material setup.
+
+For ImPlot image nodes, the bounds are plot coordinates, not pixel size.
+
+### Style Scopes
+
+Style nodes are stack-based. Every push must have a matching pop on the same render path.
+
+Recommended shape:
+
+```text
+Push Style Color
+Button / Text / Child Elements
+Pop Style Color
+```
+
+```text
+Push Style Var
+Begin Disabled / Child Elements / Button
+Pop Style Var
+```
+
+Keep push and pop nodes close together in the Blueprint graph. A missing pop can trigger Dear ImGui assertions such as `Missing PopStyleVar()`. A pop that runs without the matching push can also break the style stack.
