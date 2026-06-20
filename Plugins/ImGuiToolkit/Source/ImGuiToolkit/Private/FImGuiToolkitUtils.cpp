@@ -238,6 +238,38 @@ int32 FImGuiToolkitUtils::CombineImGuiComboFlags(TArray<EImGuiComboFlag> Flags)
 	return Mask;
 }
 
+ImGuiCol FImGuiToolkitUtils::UnrealStyleColorToImGuiCol(EImGuiStyleColor StyleColor)
+{
+	return static_cast<ImGuiCol>(StyleColor);
+}
+
+ImGuiStyleVar FImGuiToolkitUtils::UnrealStyleVarToImGuiStyleVar(EImGuiStyleVar StyleVar)
+{
+	return static_cast<ImGuiStyleVar>(StyleVar);
+}
+
+bool FImGuiToolkitUtils::IsImGuiStyleVarVector(EImGuiStyleVar StyleVar)
+{
+	switch (StyleVar)
+	{
+		case EImGuiStyleVar::WindowPadding:
+		case EImGuiStyleVar::WindowMinSize:
+		case EImGuiStyleVar::WindowTitleAlign:
+		case EImGuiStyleVar::FramePadding:
+		case EImGuiStyleVar::ItemSpacing:
+		case EImGuiStyleVar::ItemInnerSpacing:
+		case EImGuiStyleVar::CellPadding:
+		case EImGuiStyleVar::TableAngledHeadersTextAlign:
+		case EImGuiStyleVar::ButtonTextAlign:
+		case EImGuiStyleVar::SelectableTextAlign:
+		case EImGuiStyleVar::SeparatorTextAlign:
+		case EImGuiStyleVar::SeparatorTextPadding:
+			return true;
+		default:
+			return false;
+	}
+}
+
 ImGuiTableFlags FImGuiToolkitUtils::UnrealFlagToImGuiTableFlag(EImGuiTableFlag Flags)
 {
 	switch (Flags)

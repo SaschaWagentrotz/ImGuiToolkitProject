@@ -76,6 +76,12 @@
 #include "Widgets/Sliders/ImGuiToolkitSliderVector4.h"
 #include "Widgets/Sliders/ImGuiToolkitVerticalSliderFloat.h"
 #include "Widgets/Sliders/ImGuiToolkitVerticalSliderInt.h"
+#include "Widgets/Style/ImGuiToolkitBeginDisabled.h"
+#include "Widgets/Style/ImGuiToolkitEndDisabled.h"
+#include "Widgets/Style/ImGuiToolkitPopStyleColor.h"
+#include "Widgets/Style/ImGuiToolkitPopStyleVar.h"
+#include "Widgets/Style/ImGuiToolkitPushStyleColor.h"
+#include "Widgets/Style/ImGuiToolkitPushStyleVar.h"
 #include "Widgets/TabBar/ImGuiToolkitEndTabBar.h"
 #include "Widgets/TabBar/ImGuiToolkitEndTabItem.h"
 #include "Widgets/Tables/ImGuiToolkitTableHeader.h"
@@ -401,6 +407,24 @@ public:
 	// Create a Bullet
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))
 	static UImGuiToolkitBullet* CreateImGuiBullet(UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Style", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitBeginDisabled* CreateImGuiBeginDisabled(bool bDisabled = true, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Style", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitEndDisabled* CreateImGuiEndDisabled(UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Style", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitPushStyleColor* CreateImGuiPushStyleColor(EImGuiStyleColor StyleColor, FLinearColor Color, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Style", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitPopStyleColor* CreateImGuiPopStyleColor(int32 Count = 1, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Style", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitPushStyleVar* CreateImGuiPushStyleVar(EImGuiStyleVar StyleVar, float FloatValue = 1.0f, FVector2D Vector2DValue = FVector2D(0.0f, 0.0f), UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Style", meta = (ReturnDisplayName = "Element"))
+	static UImGuiToolkitPopStyleVar* CreateImGuiPopStyleVar(int32 Count = 1, UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a Text Link Open URL.
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Element"))

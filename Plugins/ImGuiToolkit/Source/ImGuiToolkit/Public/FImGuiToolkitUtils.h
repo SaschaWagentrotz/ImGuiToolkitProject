@@ -92,6 +92,108 @@ enum class EImGuiComboFlag : uint8
 };
 
 UENUM(BlueprintType)
+enum class EImGuiStyleColor : uint8
+{
+	Text						= 0				UMETA(DisplayName = "Text"),
+	TextDisabled				= 1				UMETA(DisplayName = "Text Disabled"),
+	WindowBg					= 2				UMETA(DisplayName = "Window Background"),
+	ChildBg						= 3				UMETA(DisplayName = "Child Background"),
+	PopupBg						= 4				UMETA(DisplayName = "Popup Background"),
+	Border						= 5				UMETA(DisplayName = "Border"),
+	BorderShadow				= 6				UMETA(DisplayName = "Border Shadow"),
+	FrameBg						= 7				UMETA(DisplayName = "Frame Background"),
+	FrameBgHovered				= 8				UMETA(DisplayName = "Frame Background Hovered"),
+	FrameBgActive				= 9				UMETA(DisplayName = "Frame Background Active"),
+	TitleBg						= 10			UMETA(DisplayName = "Title Background"),
+	TitleBgActive				= 11			UMETA(DisplayName = "Title Background Active"),
+	TitleBgCollapsed			= 12			UMETA(DisplayName = "Title Background Collapsed"),
+	MenuBarBg					= 13			UMETA(DisplayName = "Menu Bar Background"),
+	ScrollbarBg					= 14			UMETA(DisplayName = "Scrollbar Background"),
+	ScrollbarGrab				= 15			UMETA(DisplayName = "Scrollbar Grab"),
+	ScrollbarGrabHovered		= 16			UMETA(DisplayName = "Scrollbar Grab Hovered"),
+	ScrollbarGrabActive			= 17			UMETA(DisplayName = "Scrollbar Grab Active"),
+	CheckMark					= 18			UMETA(DisplayName = "Check Mark"),
+	SliderGrab					= 19			UMETA(DisplayName = "Slider Grab"),
+	SliderGrabActive			= 20			UMETA(DisplayName = "Slider Grab Active"),
+	Button						= 21			UMETA(DisplayName = "Button"),
+	ButtonHovered				= 22			UMETA(DisplayName = "Button Hovered"),
+	ButtonActive					= 23			UMETA(DisplayName = "Button Active"),
+	Header						= 24			UMETA(DisplayName = "Header"),
+	HeaderHovered				= 25			UMETA(DisplayName = "Header Hovered"),
+	HeaderActive				= 26			UMETA(DisplayName = "Header Active"),
+	Separator					= 27			UMETA(DisplayName = "Separator"),
+	SeparatorHovered			= 28			UMETA(DisplayName = "Separator Hovered"),
+	SeparatorActive				= 29			UMETA(DisplayName = "Separator Active"),
+	ResizeGrip					= 30			UMETA(DisplayName = "Resize Grip"),
+	ResizeGripHovered			= 31			UMETA(DisplayName = "Resize Grip Hovered"),
+	ResizeGripActive			= 32			UMETA(DisplayName = "Resize Grip Active"),
+	TabHovered					= 33			UMETA(DisplayName = "Tab Hovered"),
+	Tab							= 34			UMETA(DisplayName = "Tab"),
+	TabSelected					= 35			UMETA(DisplayName = "Tab Selected"),
+	TabSelectedOverline			= 36			UMETA(DisplayName = "Tab Selected Overline"),
+	TabDimmed					= 37			UMETA(DisplayName = "Tab Dimmed"),
+	TabDimmedSelected			= 38			UMETA(DisplayName = "Tab Dimmed Selected"),
+	TabDimmedSelectedOverline	= 39			UMETA(DisplayName = "Tab Dimmed Selected Overline"),
+	DockingPreview				= 40			UMETA(DisplayName = "Docking Preview"),
+	DockingEmptyBg				= 41			UMETA(DisplayName = "Docking Empty Background"),
+	PlotLines					= 42			UMETA(DisplayName = "Plot Lines"),
+	PlotLinesHovered			= 43			UMETA(DisplayName = "Plot Lines Hovered"),
+	PlotHistogram				= 44			UMETA(DisplayName = "Plot Histogram"),
+	PlotHistogramHovered		= 45			UMETA(DisplayName = "Plot Histogram Hovered"),
+	TableHeaderBg				= 46			UMETA(DisplayName = "Table Header Background"),
+	TableBorderStrong			= 47			UMETA(DisplayName = "Table Border Strong"),
+	TableBorderLight			= 48			UMETA(DisplayName = "Table Border Light"),
+	TableRowBg					= 49			UMETA(DisplayName = "Table Row Background"),
+	TableRowBgAlt				= 50			UMETA(DisplayName = "Table Row Background Alt"),
+	TextLink					= 51			UMETA(DisplayName = "Text Link"),
+	TextSelectedBg				= 52			UMETA(DisplayName = "Text Selected Background"),
+	DragDropTarget				= 53			UMETA(DisplayName = "Drag Drop Target"),
+	NavCursor					= 54			UMETA(DisplayName = "Navigation Cursor"),
+	NavWindowingHighlight		= 55			UMETA(DisplayName = "Navigation Windowing Highlight"),
+	NavWindowingDimBg			= 56			UMETA(DisplayName = "Navigation Windowing Dim Background"),
+	ModalWindowDimBg			= 57			UMETA(DisplayName = "Modal Window Dim Background"),
+};
+
+UENUM(BlueprintType)
+enum class EImGuiStyleVar : uint8
+{
+	Alpha						= 0				UMETA(DisplayName = "Alpha"),
+	DisabledAlpha				= 1				UMETA(DisplayName = "Disabled Alpha"),
+	WindowPadding				= 2				UMETA(DisplayName = "Window Padding"),
+	WindowRounding				= 3				UMETA(DisplayName = "Window Rounding"),
+	WindowBorderSize			= 4				UMETA(DisplayName = "Window Border Size"),
+	WindowMinSize				= 5				UMETA(DisplayName = "Window Min Size"),
+	WindowTitleAlign			= 6				UMETA(DisplayName = "Window Title Align"),
+	ChildRounding				= 7				UMETA(DisplayName = "Child Rounding"),
+	ChildBorderSize				= 8				UMETA(DisplayName = "Child Border Size"),
+	PopupRounding				= 9				UMETA(DisplayName = "Popup Rounding"),
+	PopupBorderSize				= 10			UMETA(DisplayName = "Popup Border Size"),
+	FramePadding				= 11			UMETA(DisplayName = "Frame Padding"),
+	FrameRounding				= 12			UMETA(DisplayName = "Frame Rounding"),
+	FrameBorderSize				= 13			UMETA(DisplayName = "Frame Border Size"),
+	ItemSpacing					= 14			UMETA(DisplayName = "Item Spacing"),
+	ItemInnerSpacing			= 15			UMETA(DisplayName = "Item Inner Spacing"),
+	IndentSpacing				= 16			UMETA(DisplayName = "Indent Spacing"),
+	CellPadding					= 17			UMETA(DisplayName = "Cell Padding"),
+	ScrollbarSize				= 18			UMETA(DisplayName = "Scrollbar Size"),
+	ScrollbarRounding			= 19			UMETA(DisplayName = "Scrollbar Rounding"),
+	GrabMinSize					= 20			UMETA(DisplayName = "Grab Min Size"),
+	GrabRounding				= 21			UMETA(DisplayName = "Grab Rounding"),
+	TabRounding					= 22			UMETA(DisplayName = "Tab Rounding"),
+	TabBorderSize				= 23			UMETA(DisplayName = "Tab Border Size"),
+	TabBarBorderSize			= 24			UMETA(DisplayName = "Tab Bar Border Size"),
+	TabBarOverlineSize			= 25			UMETA(DisplayName = "Tab Bar Overline Size"),
+	TableAngledHeadersAngle		= 26			UMETA(DisplayName = "Table Angled Headers Angle"),
+	TableAngledHeadersTextAlign	= 27			UMETA(DisplayName = "Table Angled Headers Text Align"),
+	ButtonTextAlign				= 28			UMETA(DisplayName = "Button Text Align"),
+	SelectableTextAlign			= 29			UMETA(DisplayName = "Selectable Text Align"),
+	SeparatorTextBorderSize		= 30			UMETA(DisplayName = "Separator Text Border Size"),
+	SeparatorTextAlign			= 31			UMETA(DisplayName = "Separator Text Align"),
+	SeparatorTextPadding		= 32			UMETA(DisplayName = "Separator Text Padding"),
+	DockingSeparatorSize			= 33			UMETA(DisplayName = "Docking Separator Size"),
+};
+
+UENUM(BlueprintType)
 enum class EImGuiTableFlag : uint8
 {
 	None						= 255			UMETA(DisplayName = "None"),
@@ -253,6 +355,9 @@ struct FImGuiToolkitUtils
 	static int32 CombineImGuiSelectableFlags(TArray<EImGuiSelectableFlag> Flags);
 	static ImGuiComboFlags UnrealFlagToImGuiComboFlag(EImGuiComboFlag Flags);
 	static int32 CombineImGuiComboFlags(TArray<EImGuiComboFlag> Flags);
+	static ImGuiCol UnrealStyleColorToImGuiCol(EImGuiStyleColor StyleColor);
+	static ImGuiStyleVar UnrealStyleVarToImGuiStyleVar(EImGuiStyleVar StyleVar);
+	static bool IsImGuiStyleVarVector(EImGuiStyleVar StyleVar);
 	static ImGuiTableFlags UnrealFlagToImGuiTableFlag(EImGuiTableFlag Flags);
 	static int32 CombineImGuiTableFlags(TArray<EImGuiTableFlag> Flags);
 	static ImGuiTableColumnFlags UnrealFlagToImGuiTableColumnFlag(EImGuiTableColumnFlag Flags);

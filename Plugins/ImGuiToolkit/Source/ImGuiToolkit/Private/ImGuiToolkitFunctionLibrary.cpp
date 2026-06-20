@@ -1339,6 +1339,100 @@ UImGuiToolkitBullet* UImGuiToolkitFunctionLibrary::CreateImGuiBullet(UImGuiToolk
 	return Bullet;
 }
 
+UImGuiToolkitBeginDisabled* UImGuiToolkitFunctionLibrary::CreateImGuiBeginDisabled(bool bDisabled, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitBeginDisabled* BeginDisabled = NewObject<UImGuiToolkitBeginDisabled>(OuterObject);
+	BeginDisabled->bDisabled = bDisabled;
+
+	if (Container)
+		Container->AddWidget(BeginDisabled);
+
+	return BeginDisabled;
+}
+
+UImGuiToolkitEndDisabled* UImGuiToolkitFunctionLibrary::CreateImGuiEndDisabled(UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitEndDisabled* EndDisabled = NewObject<UImGuiToolkitEndDisabled>(OuterObject);
+
+	if (Container)
+		Container->AddWidget(EndDisabled);
+
+	return EndDisabled;
+}
+
+UImGuiToolkitPushStyleColor* UImGuiToolkitFunctionLibrary::CreateImGuiPushStyleColor(EImGuiStyleColor StyleColor,
+	FLinearColor Color, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPushStyleColor* PushStyleColor = NewObject<UImGuiToolkitPushStyleColor>(OuterObject);
+	PushStyleColor->StyleColor = StyleColor;
+	PushStyleColor->Color = Color;
+
+	if (Container)
+		Container->AddWidget(PushStyleColor);
+
+	return PushStyleColor;
+}
+
+UImGuiToolkitPopStyleColor* UImGuiToolkitFunctionLibrary::CreateImGuiPopStyleColor(int32 Count, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPopStyleColor* PopStyleColor = NewObject<UImGuiToolkitPopStyleColor>(OuterObject);
+	PopStyleColor->Count = Count;
+
+	if (Container)
+		Container->AddWidget(PopStyleColor);
+
+	return PopStyleColor;
+}
+
+UImGuiToolkitPushStyleVar* UImGuiToolkitFunctionLibrary::CreateImGuiPushStyleVar(EImGuiStyleVar StyleVar,
+	float FloatValue, FVector2D Vector2DValue, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPushStyleVar* PushStyleVar = NewObject<UImGuiToolkitPushStyleVar>(OuterObject);
+	PushStyleVar->StyleVar = StyleVar;
+	PushStyleVar->FloatValue = FloatValue;
+	PushStyleVar->Vector2DValue = Vector2DValue;
+
+	if (Container)
+		Container->AddWidget(PushStyleVar);
+
+	return PushStyleVar;
+}
+
+UImGuiToolkitPopStyleVar* UImGuiToolkitFunctionLibrary::CreateImGuiPopStyleVar(int32 Count, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitPopStyleVar* PopStyleVar = NewObject<UImGuiToolkitPopStyleVar>(OuterObject);
+	PopStyleVar->Count = Count;
+
+	if (Container)
+		Container->AddWidget(PopStyleVar);
+
+	return PopStyleVar;
+}
+
 UImGuiToolkitTextLinkOpenURL* UImGuiToolkitFunctionLibrary::CreateTextLinkOpenURL(FText Text, FString URL, UImGuiToolkitContainer* Container)
 {
 	UObject* OuterObject = GetValidOuterObject(Container);

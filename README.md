@@ -65,6 +65,12 @@ It provides seamless integration between Unreal and Dear ImGui through easily bi
 - [x] Begin Combo
 - [x] Progress Bar
 - [x] Bullet
+- [x] Begin Disabled
+- [x] End Disabled
+- [x] Push Style Color
+- [x] Pop Style Color
+- [x] Push Style Var
+- [x] Pop Style Var
 - [x] Set Item Tooltip
 - [x] Begin/End Tooltip
 - [x] Popup
