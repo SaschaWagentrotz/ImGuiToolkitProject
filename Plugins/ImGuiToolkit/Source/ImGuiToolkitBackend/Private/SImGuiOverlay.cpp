@@ -9,6 +9,10 @@
 
 #include "ImGuiContext.h"
 
+#if WITH_ENGINE
+#include "Engine/Texture.h"
+#endif
+
 THIRD_PARTY_INCLUDES_START
 #include <imgui_internal.h>
 THIRD_PARTY_INCLUDES_END
@@ -630,14 +634,22 @@ int32 SImGuiOverlay::OnPaint(const FPaintArgs& Args, const FGeometry& AllottedGe
 			FMemory::Memcpy(CommandVertices.GetData(), Vertices.GetData() + VertexStart, static_cast<SIZE_T>(VertexCount) * sizeof(FSlateVertex));
 
 #if WITH_ENGINE
-			UTexture* Texture = DrawCmd.GetTexID();
-			if (TextureBrush.GetResourceObject() != Texture)
+			UObject* ResourceObject = DrawCmd.GetTexID();
+			if (TextureBrush.GetResourceObject() != ResourceObject)
 			{
-				TextureBrush.SetResourceObject(Texture);
-				if (IsValid(Texture))
+				TextureBrush.SetResourceObject(ResourceObject);
+				if (IsValid(ResourceObject))
 				{
-					TextureBrush.ImageSize.X = Texture->GetSurfaceWidth();
-					TextureBrush.ImageSize.Y = Texture->GetSurfaceHeight();
+					if (const UTexture* Texture = Cast<UTexture>(ResourceObject))
+					{
+						TextureBrush.ImageSize.X = Texture->GetSurfaceWidth();
+						TextureBrush.ImageSize.Y = Texture->GetSurfaceHeight();
+					}
+					else
+					{
+						TextureBrush.ImageSize.X = 1.0f;
+						TextureBrush.ImageSize.Y = 1.0f;
+					}
 					TextureBrush.ImageType = ESlateBrushImageType::FullColor;
 					TextureBrush.DrawAs = ESlateBrushDrawType::Image;
 				}

@@ -12,6 +12,7 @@ public class ImGuiToolkit : ModuleRules
 			new string[]
 			{
 				"Core",
+				"Engine",
 				"ImGuiToolkitBackend",
 				"UMG"
 			}
@@ -21,7 +22,6 @@ public class ImGuiToolkit : ModuleRules
 			new string[]
 			{
 				"CoreUObject",
-				"Engine",
 				"Slate",
 				"SlateCore"
 			}

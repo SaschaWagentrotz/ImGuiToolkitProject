@@ -2,7 +2,9 @@
 
 #include "CoreMinimal.h"
 #include "Components/Widget.h"
+#include "Engine/Texture2D.h"
 #include "FImGuiToolkitUtils.h"
+#include "Materials/MaterialInterface.h"
 #include "Widgets/TabBar/ImGuiToolkiBeginTabItem.h"
 #include "Containers/ImGuiToolkitBeginChild.h"
 #include "Containers/ImGuiToolkitBeginCombo.h"
@@ -39,6 +41,8 @@
 #include "Widgets/Input/ImGuiToolkitInputText.h"
 #include "Widgets/Input/ImGuiToolkitInputTextMultiline.h"
 #include "Widgets/Input/ImGuiToolkitInputTextWithHint.h"
+#include "Widgets/Images/ImGuiToolkitImage.h"
+#include "Widgets/Images/ImGuiToolkitImageButton.h"
 #include "Widgets/Layout/ImGuiToolkitAlignTextToFramePadding.h"
 #include "Widgets/Main/ImGuiToolkitButton.h"
 #include "Widgets/Main/ImGuiToolkitCheckbox.h"
@@ -331,6 +335,18 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Popups", meta = (ReturnDisplayName = "Container", AdvancedDisplay = "Tooltip,Size,PopupFlags,WindowFlags"))
 	static UImGuiToolkitPopupButton* CreateImGuiPopupButton(FText Label, FText Tooltip, FVector2D Size, TArray<EImGuiPopupFlag> PopupFlags, TArray<EImGuiWindowFlag> WindowFlags, UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Images", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "Size,UV0,UV1"))
+	static UImGuiToolkitImage* CreateImGuiImage(UTexture2D* Texture, FVector2D Size = FVector2D(0.0f, 0.0f), FVector2D UV0 = FVector2D(0.0f, 0.0f), FVector2D UV1 = FVector2D(1.0f, 1.0f), UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Images", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "UV0,UV1"))
+	static UImGuiToolkitImage* CreateImGuiMaterialImage(UMaterialInterface* Material, FVector2D Size = FVector2D(64.0f, 64.0f), FVector2D UV0 = FVector2D(0.0f, 0.0f), FVector2D UV1 = FVector2D(1.0f, 1.0f), UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Images", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "Tooltip,Size,UV0,UV1"))
+	static UImGuiToolkitImageButton* CreateImGuiImageButton(FText ButtonID, UTexture2D* Texture, FText Tooltip = FText::GetEmpty(), FVector2D Size = FVector2D(0.0f, 0.0f), FVector2D UV0 = FVector2D(0.0f, 0.0f), FVector2D UV1 = FVector2D(1.0f, 1.0f), UImGuiToolkitContainer* Container = nullptr);
+
+	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit|Images", meta = (ReturnDisplayName = "Element", AdvancedDisplay = "Tooltip,UV0,UV1"))
+	static UImGuiToolkitImageButton* CreateImGuiMaterialImageButton(FText ButtonID, UMaterialInterface* Material, FText Tooltip = FText::GetEmpty(), FVector2D Size = FVector2D(64.0f, 64.0f), FVector2D UV0 = FVector2D(0.0f, 0.0f), FVector2D UV1 = FVector2D(1.0f, 1.0f), UImGuiToolkitContainer* Container = nullptr);
 
 	// Create a TabBar
 	UFUNCTION(BlueprintCallable, Category = "ImGuiToolkit", meta = (ReturnDisplayName = "Container"))

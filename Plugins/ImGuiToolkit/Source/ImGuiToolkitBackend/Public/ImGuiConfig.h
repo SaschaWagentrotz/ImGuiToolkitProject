@@ -9,7 +9,7 @@
 #include <Misc/EngineVersionComparison.h>
 
 class FImGuiContext;
-class UTexture;
+class UObject;
 struct FKey;
 struct FSlateBrush;
 enum ImGuiKey : int;
@@ -62,7 +62,7 @@ uint64 ImFileWrite(const void* Data, uint64 Size, uint64 Count, ImFileHandle Fil
 #define IM_COL32_A_MASK ImGui::ImCol32AMask
 
 #if WITH_ENGINE
-#define ImTextureID UTexture*
+#define ImTextureID UObject*
 #else
 #define ImTextureID FSlateBrush*
 #endif

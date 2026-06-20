@@ -79,8 +79,10 @@ It provides seamless integration between Unreal and Dear ImGui through easily bi
 
 ### Images
 
-- [ ] Image
-- [ ] Image Button
+- [x] Image
+- [x] Image Button
+- [x] Material Image
+- [x] Material Image Button
 
 ### Sliders
 

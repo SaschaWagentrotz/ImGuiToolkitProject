@@ -1008,6 +1008,87 @@ UImGuiToolkitPopupButton* UImGuiToolkitFunctionLibrary::CreateImGuiPopupButton(F
 	return PopupButton;
 }
 
+UImGuiToolkitImage* UImGuiToolkitFunctionLibrary::CreateImGuiImage(UTexture2D* Texture, FVector2D Size,
+	FVector2D UV0, FVector2D UV1, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitImage* Image = NewObject<UImGuiToolkitImage>(OuterObject);
+	Image->ResourceObject = Texture;
+	Image->Size = Size;
+	Image->UV0 = UV0;
+	Image->UV1 = UV1;
+
+	if (Container)
+		Container->AddWidget(Image);
+
+	return Image;
+}
+
+UImGuiToolkitImage* UImGuiToolkitFunctionLibrary::CreateImGuiMaterialImage(UMaterialInterface* Material,
+	FVector2D Size, FVector2D UV0, FVector2D UV1, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitImage* Image = NewObject<UImGuiToolkitImage>(OuterObject);
+	Image->ResourceObject = Material;
+	Image->Size = Size;
+	Image->UV0 = UV0;
+	Image->UV1 = UV1;
+
+	if (Container)
+		Container->AddWidget(Image);
+
+	return Image;
+}
+
+UImGuiToolkitImageButton* UImGuiToolkitFunctionLibrary::CreateImGuiImageButton(FText ButtonID, UTexture2D* Texture,
+	FText Tooltip, FVector2D Size, FVector2D UV0, FVector2D UV1, UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitImageButton* ImageButton = NewObject<UImGuiToolkitImageButton>(OuterObject);
+	ImageButton->CreateUniqueWidgetLabel(ButtonID);
+	ImageButton->ResourceObject = Texture;
+	ImageButton->Tooltip = Tooltip;
+	ImageButton->Size = Size;
+	ImageButton->UV0 = UV0;
+	ImageButton->UV1 = UV1;
+
+	if (Container)
+		Container->AddWidget(ImageButton);
+
+	return ImageButton;
+}
+
+UImGuiToolkitImageButton* UImGuiToolkitFunctionLibrary::CreateImGuiMaterialImageButton(FText ButtonID,
+	UMaterialInterface* Material, FText Tooltip, FVector2D Size, FVector2D UV0, FVector2D UV1,
+	UImGuiToolkitContainer* Container)
+{
+	UObject* OuterObject = GetValidOuterObject(Container);
+	if (!OuterObject)
+		return nullptr;
+
+	UImGuiToolkitImageButton* ImageButton = NewObject<UImGuiToolkitImageButton>(OuterObject);
+	ImageButton->CreateUniqueWidgetLabel(ButtonID);
+	ImageButton->ResourceObject = Material;
+	ImageButton->Tooltip = Tooltip;
+	ImageButton->Size = Size;
+	ImageButton->UV0 = UV0;
+	ImageButton->UV1 = UV1;
+
+	if (Container)
+		Container->AddWidget(ImageButton);
+
+	return ImageButton;
+}
+
 UImGuiToolkitBeginTabBar* UImGuiToolkitFunctionLibrary::CreateImGuiBeginTabBar(FText Label,
 	UImGuiToolkitContainer* Container)
 {
