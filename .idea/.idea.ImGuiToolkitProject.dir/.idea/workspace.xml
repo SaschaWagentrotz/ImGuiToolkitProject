@@ -8,7 +8,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b11a9176-28f3-41c8-9a32-4c393461f013" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.ImGuiToolkitProject.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ImGuiToolkitProject.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/DefaultGame.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultGame.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/ImGuiToolkitHostWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/ImGuiToolkitHostWidget.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/Colors/ImGuiToolkitColorButton.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/Colors/ImGuiToolkitColorButton.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/ImGuiToolkitIsItemHovered.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/ImGuiToolkitIsItemHovered.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/Images/ImGuiToolkitImageButton.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/Images/ImGuiToolkitImageButton.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/Main/ImGuiToolkitArrowButton.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/Main/ImGuiToolkitArrowButton.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/Main/ImGuiToolkitButton.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/Main/ImGuiToolkitButton.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/Main/ImGuiToolkitCheckbox.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/Main/ImGuiToolkitCheckbox.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/Main/ImGuiToolkitSelectable.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/Main/ImGuiToolkitSelectable.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/Main/ImGuiToolkitSmallButton.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/Main/ImGuiToolkitSmallButton.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/MultiSelect/ImGuiToolkitMultiSelectListBox.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/MultiSelect/ImGuiToolkitMultiSelectListBox.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/Popups/ImGuiToolkitPopupButton.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/Popups/ImGuiToolkitPopupButton.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/TabBar/ImGuiToolkiBeginTabItem.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Private/Widgets/TabBar/ImGuiToolkiBeginTabItem.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/Colors/ImGuiToolkitColorButton.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/Colors/ImGuiToolkitColorButton.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/ImGuiToolkitIsItemHovered.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/ImGuiToolkitIsItemHovered.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/Images/ImGuiToolkitImageButton.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/Images/ImGuiToolkitImageButton.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/Main/ImGuiToolkitArrowButton.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/Main/ImGuiToolkitArrowButton.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/Main/ImGuiToolkitButton.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/Main/ImGuiToolkitButton.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/Main/ImGuiToolkitCheckbox.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/Main/ImGuiToolkitCheckbox.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/Main/ImGuiToolkitSelectable.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/Main/ImGuiToolkitSelectable.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/Main/ImGuiToolkitSmallButton.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/Main/ImGuiToolkitSmallButton.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/MultiSelect/ImGuiToolkitMultiSelectListBox.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/MultiSelect/ImGuiToolkitMultiSelectListBox.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/Popups/ImGuiToolkitPopupButton.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/Popups/ImGuiToolkitPopupButton.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/TabBar/ImGuiToolkiBeginTabItem.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkit/Public/Widgets/TabBar/ImGuiToolkiBeginTabItem.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkitBackend/Private/SImGuiOverlay.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkitBackend/Private/SImGuiOverlay.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkitBackend/Public/SImGuiOverlay.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/ImGuiToolkit/Source/ImGuiToolkitBackend/Public/SImGuiOverlay.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,7 +45,7 @@
     <option name="firstShow" value="false" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="4621" />
+    <option name="cachedIndexableFilesCount" value="4635" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="Git.Settings">
@@ -346,6 +372,9 @@
       <workItem from="1781613010623" duration="17000" />
       <workItem from="1781613806598" duration="4000" />
       <workItem from="1781870932480" duration="1702000" />
+      <workItem from="1781965691104" duration="74000" />
+      <workItem from="1781966623466" duration="644000" />
+      <workItem from="1782022958361" duration="428000" />
     </task>
     <servers />
   </component>

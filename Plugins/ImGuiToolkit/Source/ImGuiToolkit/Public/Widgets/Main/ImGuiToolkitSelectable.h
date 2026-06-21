@@ -7,6 +7,7 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnImGuiSelectableClicked, UImGuiToolkitSelectable*, Selectable, bool, bIsSelected);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnImGuiSelectableHovered, UImGuiToolkitSelectable*, Selectable, bool, bIsSelected);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnImGuiSelectableUnhovered, UImGuiToolkitSelectable*, Selectable, bool, bIsSelected);
 
 UCLASS()
 class IMGUITOOLKIT_API UImGuiToolkitSelectable : public UImGuiToolkitWidget
@@ -33,4 +34,10 @@ public:
 
 	UPROPERTY(BlueprintAssignable, Category = "ImGui Toolkit Widget")
 	FOnImGuiSelectableHovered OnHovered;
+
+	UPROPERTY(BlueprintAssignable, Category = "ImGui Toolkit Widget")
+	FOnImGuiSelectableUnhovered OnUnhovered;
+
+private:
+	bool bIsCurrentlyHovered = false;
 };

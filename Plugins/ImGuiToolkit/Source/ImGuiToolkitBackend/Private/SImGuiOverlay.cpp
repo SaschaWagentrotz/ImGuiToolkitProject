@@ -528,6 +528,7 @@ void SImGuiOverlay::Construct(const FArguments& Args)
 
 	Context = Args._Context.IsValid() ? Args._Context : FImGuiContext::Create();
 	OwnerWindow = Args._OwnerWindow;
+	bRequirePointerEventWithinOverlayBranch = Args._RequirePointerEventWithinOverlayBranch;
 	if (Args._HandleInput)
 	{
 		InputProcessor = MakeShared<FImGuiInputProcessor>(this);
@@ -793,7 +794,8 @@ bool SImGuiOverlay::CanProcessPointerEvent(FSlateApplication& SlateApp, const FP
 	if (WidgetsUnderCursor.IsValid())
 	{
 		const bool bIsOwnedWindow = IsSlateWindowOwnedByContext(WidgetsUnderCursor.GetWindow().ToSharedPtr());
-		const bool bCanReceivePointer = bIsOwnedWindow && IsWidgetPathWithinOverlayBranch(SlateApp, WidgetsUnderCursor);
+		const bool bCanReceivePointer = bIsOwnedWindow
+			&& (!bRequirePointerEventWithinOverlayBranch || IsWidgetPathWithinOverlayBranch(SlateApp, WidgetsUnderCursor));
 		if (!bCanReceivePointer)
 		{
 			ClearPointerInput();

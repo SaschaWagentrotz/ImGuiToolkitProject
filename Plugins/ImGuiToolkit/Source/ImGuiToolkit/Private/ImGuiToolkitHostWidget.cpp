@@ -46,7 +46,8 @@ namespace
 
 TSharedRef<SWidget> UImGuiToolkitHostWidget::RebuildWidget()
 {
-	Context = FImGuiContext::Create(GetHostStyleTarget(this));
+	const EImGuiToolkitStyleTarget StyleTarget = GetHostStyleTarget(this);
+	Context = FImGuiContext::Create(StyleTarget);
 
 	{
 		const ImGui::FScopedContext ScopedContext(Context);
@@ -59,7 +60,8 @@ TSharedRef<SWidget> UImGuiToolkitHostWidget::RebuildWidget()
 		if (ViewportData)
 		{
 			SAssignNew(Overlay, SImGuiOverlay)
-				.Context(Context);
+				.Context(Context)
+				.RequirePointerEventWithinOverlayBranch(StyleTarget == EImGuiToolkitStyleTarget::EditorHosted);
 
 			ViewportData->Overlay = Overlay;
 		}

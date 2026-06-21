@@ -9,6 +9,7 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnImGuiArrowButtonClicked, UImGuiToolkitArrowButton*, ArrowButton);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnImGuiArrowButtonHovered, UImGuiToolkitArrowButton*, ArrowButton);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnImGuiArrowButtonUnhovered, UImGuiToolkitArrowButton*, ArrowButton);
 /**
  * 
  */
@@ -33,4 +34,10 @@ public:
 
 	UPROPERTY(BlueprintAssignable, Category = "ImGui Toolkit Widget")
 	FOnImGuiArrowButtonHovered OnHovered;
+
+	UPROPERTY(BlueprintAssignable, Category = "ImGui Toolkit Widget")
+	FOnImGuiArrowButtonUnhovered OnUnhovered;
+
+private:
+	bool bIsCurrentlyHovered = false;
 };

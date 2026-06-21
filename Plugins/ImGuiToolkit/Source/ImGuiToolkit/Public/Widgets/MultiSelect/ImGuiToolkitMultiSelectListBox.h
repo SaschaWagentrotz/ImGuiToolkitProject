@@ -10,6 +10,7 @@ class UImGuiToolkitMultiSelectListBox;
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnImGuiMultiSelectListBoxSelectionChanged, UImGuiToolkitMultiSelectListBox*, ListBox, const TArray<int32>&, SelectedIndices);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnImGuiMultiSelectListBoxItemClicked, UImGuiToolkitMultiSelectListBox*, ListBox, int32, ItemIndex, bool, bIsSelected);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnImGuiMultiSelectListBoxItemHovered, UImGuiToolkitMultiSelectListBox*, ListBox, int32, ItemIndex, bool, bIsSelected);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnImGuiMultiSelectListBoxItemUnhovered, UImGuiToolkitMultiSelectListBox*, ListBox, int32, ItemIndex, bool, bIsSelected);
 
 UCLASS()
 class IMGUITOOLKIT_API UImGuiToolkitMultiSelectListBox : public UImGuiToolkitWidget
@@ -58,8 +59,12 @@ public:
 	UPROPERTY(BlueprintAssignable, Category = "ImGuiTK Multi Select")
 	FOnImGuiMultiSelectListBoxItemHovered OnItemHovered;
 
+	UPROPERTY(BlueprintAssignable, Category = "ImGuiTK Multi Select")
+	FOnImGuiMultiSelectListBoxItemUnhovered OnItemUnhovered;
+
 private:
 	TArray<int32> NormalizeSelectedIndices(const TArray<int32>& InSelectedIndices) const;
 	void ApplySelectionRequests(ImGuiMultiSelectIO* MultiSelectIO, TSet<int32>& SelectionSet) const;
 	void UpdateSelectedIndicesFromSet(const TSet<int32>& SelectionSet);
+	void ClearHoveredItem(const TSet<int32>& SelectionSet);
 };

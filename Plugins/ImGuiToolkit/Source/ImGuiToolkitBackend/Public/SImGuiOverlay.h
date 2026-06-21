@@ -47,6 +47,7 @@ public:
 		SLATE_ARGUMENT(TSharedPtr<FImGuiContext>, Context);
 		SLATE_ARGUMENT(TWeakPtr<SWindow>, OwnerWindow);
 		SLATE_ARGUMENT_DEFAULT(bool, HandleInput) = true;
+		SLATE_ARGUMENT_DEFAULT(bool, RequirePointerEventWithinOverlayBranch) = false;
 	SLATE_END_ARGS()
 
 	void Construct(const FArguments& Args);
@@ -76,4 +77,5 @@ private:
 	TSharedPtr<IInputProcessor> InputProcessor = nullptr;
 	FImGuiDrawData DrawData;
 	mutable uint64 LastPaintFrameNumber = 0;
+	bool bRequirePointerEventWithinOverlayBranch = false;
 };

@@ -3,7 +3,14 @@
 void UImGuiToolkiBeginTabItem::Render()
 {
 	if (!bEnabled)
+	{
+		if (bIsCurrentlyHovered)
+		{
+			bIsCurrentlyHovered = false;
+			OnUnhovered.Broadcast(this, bIsSelected);
+		}
 		return;
+	}
 
 	const bool bWasSelected = bIsSelected;
 
@@ -22,6 +29,18 @@ void UImGuiToolkiBeginTabItem::Render()
 	if (bWasSelected != bIsSelected)
 		OnSelectionChanged.Broadcast(this, bIsSelected);
 
-	if (ImGui::IsItemHovered())
-		OnHovered.Broadcast(this, bIsSelected);
+	const bool bIsHovered = ImGui::IsItemHovered();
+	if (bIsHovered)
+	{
+		if (!bIsCurrentlyHovered)
+		{
+			bIsCurrentlyHovered = true;
+			OnHovered.Broadcast(this, bIsSelected);
+		}
+	}
+	else if (bIsCurrentlyHovered)
+	{
+		bIsCurrentlyHovered = false;
+		OnUnhovered.Broadcast(this, bIsSelected);
+	}
 }

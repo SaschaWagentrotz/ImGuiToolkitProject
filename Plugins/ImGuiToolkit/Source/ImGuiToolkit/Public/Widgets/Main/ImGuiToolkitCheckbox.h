@@ -12,6 +12,7 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnImGuiCheckboxClicked, UImGuiToolkitCheckbox*, Checkbox, bool, bIsChecked);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnImGuiCheckboxHovered, UImGuiToolkitCheckbox*, Checkbox, bool, bIsChecked);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnImGuiCheckboxUnhovered, UImGuiToolkitCheckbox*, Checkbox, bool, bIsChecked);
 
 UCLASS()
 class IMGUITOOLKIT_API UImGuiToolkitCheckbox : public UImGuiToolkitWidget
@@ -33,4 +34,9 @@ public:
 	UPROPERTY(BlueprintAssignable, Category = "ImGui Toolkit Widget")
 	FOnImGuiCheckboxHovered OnHovered;
 
+	UPROPERTY(BlueprintAssignable, Category = "ImGui Toolkit Widget")
+	FOnImGuiCheckboxUnhovered OnUnhovered;
+
+private:
+	bool bIsCurrentlyHovered = false;
 };

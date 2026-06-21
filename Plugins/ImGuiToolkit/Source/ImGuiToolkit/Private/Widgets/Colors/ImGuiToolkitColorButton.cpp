@@ -3,7 +3,14 @@
 void UImGuiToolkitColorButton::Render()
 {
 	if (!bEnabled)
+	{
+		if (bIsCurrentlyHovered)
+		{
+			bIsCurrentlyHovered = false;
+			OnUnhovered.Broadcast(this, Color);
+		}
 		return;
+	}
 
 	ImGuiColorEditFlags CombinedFlags = FImGuiToolkitUtils::CombineImGuiColorEditFlags(ColorEditFlags);
 	CombinedFlags = (CombinedFlags & ~ImGuiColorEditFlags_InputMask_) | ImGuiColorEditFlags_InputRGB;
@@ -15,8 +22,18 @@ void UImGuiToolkitColorButton::Render()
 		OnClicked.Broadcast(this, Color);
 	}
 
-	if (ImGui::IsItemHovered())
+	const bool bIsHovered = ImGui::IsItemHovered();
+	if (bIsHovered)
 	{
-		OnHovered.Broadcast(this, Color);
+		if (!bIsCurrentlyHovered)
+		{
+			bIsCurrentlyHovered = true;
+			OnHovered.Broadcast(this, Color);
+		}
+	}
+	else if (bIsCurrentlyHovered)
+	{
+		bIsCurrentlyHovered = false;
+		OnUnhovered.Broadcast(this, Color);
 	}
 }

@@ -29,7 +29,11 @@ void UImGuiToolkitMultiSelectListBox::SetSelectedIndices(const TArray<int32>& In
 void UImGuiToolkitMultiSelectListBox::Render()
 {
 	if (!bEnabled)
+	{
+		const TSet<int32> EmptySelectionSet;
+		ClearHoveredItem(EmptySelectionSet);
 		return;
+	}
 
 	SelectedIndices = NormalizeSelectedIndices(SelectedIndices);
 
@@ -42,6 +46,7 @@ void UImGuiToolkitMultiSelectListBox::Render()
 	const ImVec2 ListBoxSize(Size.X, Size.Y);
 	if (!ImGui::BeginChild(TCHAR_TO_UTF8(*UniqueWidgetLabel), ListBoxSize, ImGuiChildFlags_Borders))
 	{
+		ClearHoveredItem(SelectionSet);
 		ImGui::EndChild();
 		return;
 	}
@@ -61,7 +66,7 @@ void UImGuiToolkitMultiSelectListBox::Render()
 	ApplySelectionRequests(MultiSelectIO, SelectionSet);
 
 	const ImGuiSelectableFlags CombinedSelectableFlags = FImGuiToolkitUtils::CombineImGuiSelectableFlags(SelectableFlags);
-	LastHoveredIndex = INDEX_NONE;
+	int32 CurrentHoveredIndex = INDEX_NONE;
 	for (int32 ItemIndex = 0; ItemIndex < Items.Num(); ++ItemIndex)
 	{
 		const bool bItemIsSelected = SelectionSet.Contains(ItemIndex);
@@ -76,9 +81,23 @@ void UImGuiToolkitMultiSelectListBox::Render()
 
 		if (ImGui::IsItemHovered())
 		{
-			LastHoveredIndex = ItemIndex;
-			OnItemHovered.Broadcast(this, ItemIndex, SelectionSet.Contains(ItemIndex));
+			CurrentHoveredIndex = ItemIndex;
 		}
+	}
+
+	if (LastHoveredIndex != CurrentHoveredIndex)
+	{
+		if (LastHoveredIndex != INDEX_NONE)
+		{
+			OnItemUnhovered.Broadcast(this, LastHoveredIndex, SelectionSet.Contains(LastHoveredIndex));
+		}
+
+		if (CurrentHoveredIndex != INDEX_NONE)
+		{
+			OnItemHovered.Broadcast(this, CurrentHoveredIndex, SelectionSet.Contains(CurrentHoveredIndex));
+		}
+
+		LastHoveredIndex = CurrentHoveredIndex;
 	}
 
 	MultiSelectIO = ImGui::EndMultiSelect();
@@ -156,4 +175,15 @@ void UImGuiToolkitMultiSelectListBox::UpdateSelectedIndicesFromSet(const TSet<in
 		SelectedIndices = NewSelectedIndices;
 		OnSelectionChanged.Broadcast(this, SelectedIndices);
 	}
+}
+
+void UImGuiToolkitMultiSelectListBox::ClearHoveredItem(const TSet<int32>& SelectionSet)
+{
+	if (LastHoveredIndex == INDEX_NONE)
+	{
+		return;
+	}
+
+	OnItemUnhovered.Broadcast(this, LastHoveredIndex, SelectionSet.Contains(LastHoveredIndex));
+	LastHoveredIndex = INDEX_NONE;
 }

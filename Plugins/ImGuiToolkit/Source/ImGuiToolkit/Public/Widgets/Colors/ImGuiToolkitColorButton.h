@@ -7,6 +7,7 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnImGuiColorButtonClicked, UImGuiToolkitColorButton*, ColorButton, FLinearColor, Color);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnImGuiColorButtonHovered, UImGuiToolkitColorButton*, ColorButton, FLinearColor, Color);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnImGuiColorButtonUnhovered, UImGuiToolkitColorButton*, ColorButton, FLinearColor, Color);
 
 UCLASS()
 class IMGUITOOLKIT_API UImGuiToolkitColorButton : public UImGuiToolkitWidget
@@ -30,4 +31,10 @@ public:
 
 	UPROPERTY(BlueprintAssignable, Category = "ImGui Toolkit Widget")
 	FOnImGuiColorButtonHovered OnHovered;
+
+	UPROPERTY(BlueprintAssignable, Category = "ImGui Toolkit Widget")
+	FOnImGuiColorButtonUnhovered OnUnhovered;
+
+private:
+	bool bIsCurrentlyHovered = false;
 };

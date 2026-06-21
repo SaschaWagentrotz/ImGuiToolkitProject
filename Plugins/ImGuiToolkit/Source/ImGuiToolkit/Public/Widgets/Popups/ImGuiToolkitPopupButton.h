@@ -9,6 +9,7 @@ class UImGuiToolkitPopupButton;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnImGuiPopupButtonClicked, UImGuiToolkitPopupButton*, PopupButton);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnImGuiPopupButtonHovered, UImGuiToolkitPopupButton*, PopupButton);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnImGuiPopupButtonUnhovered, UImGuiToolkitPopupButton*, PopupButton);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnImGuiPopupButtonOpened, UImGuiToolkitPopupButton*, PopupButton);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnImGuiPopupButtonClosed, UImGuiToolkitPopupButton*, PopupButton);
 
@@ -48,6 +49,9 @@ public:
 	FOnImGuiPopupButtonHovered OnHovered;
 
 	UPROPERTY(BlueprintAssignable, Category = "ImGuiTK Popups")
+	FOnImGuiPopupButtonUnhovered OnUnhovered;
+
+	UPROPERTY(BlueprintAssignable, Category = "ImGuiTK Popups")
 	FOnImGuiPopupButtonOpened OnOpened;
 
 	UPROPERTY(BlueprintAssignable, Category = "ImGuiTK Popups")
@@ -56,4 +60,5 @@ public:
 private:
 	bool bOpenRequested = false;
 	bool bCloseRequested = false;
+	bool bIsCurrentlyHovered = false;
 };

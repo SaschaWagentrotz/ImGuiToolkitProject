@@ -11,6 +11,7 @@
  */
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnImGuiItemHovered, UImGuiToolkitWidget*, Widget);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnImGuiItemUnhovered, UImGuiToolkitWidget*, Widget);
 
 UCLASS()
 class IMGUITOOLKIT_API UImGuiToolkitIsItemHovered : public UImGuiToolkitWidget
@@ -22,4 +23,10 @@ public:
 
 	UPROPERTY(BlueprintAssignable, Category = "ImGui Toolkit Widget")
 	FOnImGuiItemHovered OnHovered;
+
+	UPROPERTY(BlueprintAssignable, Category = "ImGui Toolkit Widget")
+	FOnImGuiItemUnhovered OnUnhovered;
+
+private:
+	bool bIsCurrentlyHovered = false;
 };

@@ -6,10 +6,27 @@
 void UImGuiToolkitIsItemHovered::Render()
 {
 	if (!bEnabled)
-		return;
-
-	if (ImGui::IsItemHovered())
 	{
-		OnHovered.Broadcast(this);
+		if (bIsCurrentlyHovered)
+		{
+			bIsCurrentlyHovered = false;
+			OnUnhovered.Broadcast(this);
+		}
+		return;
+	}
+
+	const bool bIsHovered = ImGui::IsItemHovered();
+	if (bIsHovered)
+	{
+		if (!bIsCurrentlyHovered)
+		{
+			bIsCurrentlyHovered = true;
+			OnHovered.Broadcast(this);
+		}
+	}
+	else if (bIsCurrentlyHovered)
+	{
+		bIsCurrentlyHovered = false;
+		OnUnhovered.Broadcast(this);
 	}
 }

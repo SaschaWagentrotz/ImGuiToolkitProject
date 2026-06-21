@@ -8,6 +8,7 @@ class UImGuiToolkitImageButton;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnImGuiImageButtonClicked, UImGuiToolkitImageButton*, ImageButton);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnImGuiImageButtonHovered, UImGuiToolkitImageButton*, ImageButton);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnImGuiImageButtonUnhovered, UImGuiToolkitImageButton*, ImageButton);
 
 UCLASS()
 class IMGUITOOLKIT_API UImGuiToolkitImageButton : public UImGuiToolkitWidget
@@ -43,4 +44,10 @@ public:
 
 	UPROPERTY(BlueprintAssignable, Category = "ImGui Toolkit Image")
 	FOnImGuiImageButtonHovered OnHovered;
+
+	UPROPERTY(BlueprintAssignable, Category = "ImGui Toolkit Image")
+	FOnImGuiImageButtonUnhovered OnUnhovered;
+
+private:
+	bool bIsCurrentlyHovered = false;
 };

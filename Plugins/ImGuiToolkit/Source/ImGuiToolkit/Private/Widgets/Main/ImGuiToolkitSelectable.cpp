@@ -3,7 +3,14 @@
 void UImGuiToolkitSelectable::Render()
 {
 	if (!bEnabled)
+	{
+		if (bIsCurrentlyHovered)
+		{
+			bIsCurrentlyHovered = false;
+			OnUnhovered.Broadcast(this, bIsSelected);
+		}
 		return;
+	}
 
 	const ImGuiSelectableFlags CombinedFlags = FImGuiToolkitUtils::CombineImGuiSelectableFlags(SelectableFlags);
 	const ImVec2 SelectableSize(Size.X, Size.Y);
@@ -13,12 +20,22 @@ void UImGuiToolkitSelectable::Render()
 		OnClicked.Broadcast(this, bIsSelected);
 	}
 
-	if (ImGui::IsItemHovered())
+	const bool bIsHovered = ImGui::IsItemHovered();
+	if (bIsHovered)
 	{
-		OnHovered.Broadcast(this, bIsSelected);
+		if (!bIsCurrentlyHovered)
+		{
+			bIsCurrentlyHovered = true;
+			OnHovered.Broadcast(this, bIsSelected);
+		}
 		if (!Tooltip.IsEmpty())
 		{
 			ImGui::SetTooltip("%s", TCHAR_TO_UTF8(*Tooltip.ToString()));
 		}
+	}
+	else if (bIsCurrentlyHovered)
+	{
+		bIsCurrentlyHovered = false;
+		OnUnhovered.Broadcast(this, bIsSelected);
 	}
 }

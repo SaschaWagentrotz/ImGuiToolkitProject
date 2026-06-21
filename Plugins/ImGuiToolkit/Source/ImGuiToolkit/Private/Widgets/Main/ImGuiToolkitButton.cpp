@@ -8,7 +8,14 @@
 void UImGuiToolkitButton::Render()
 {
 	if (!bEnabled)
+	{
+		if (bIsCurrentlyHovered)
+		{
+			bIsCurrentlyHovered = false;
+			OnUnhovered.Broadcast(this);
+		}
 		return;
+	}
 
 	const bool bUseDefaultFillSize = FMath::IsNearlyZero(Size.X) && FMath::IsNearlyZero(Size.Y);
 	const ImVec2 ButtonSize = bUseDefaultFillSize
@@ -20,12 +27,22 @@ void UImGuiToolkitButton::Render()
 		OnClicked.Broadcast(this);
 	}
 
-	if (ImGui::IsItemHovered())
+	const bool bIsHovered = ImGui::IsItemHovered();
+	if (bIsHovered)
 	{
-		OnHovered.Broadcast(this);
+		if (!bIsCurrentlyHovered)
+		{
+			bIsCurrentlyHovered = true;
+			OnHovered.Broadcast(this);
+		}
 		if (!Tooltip.IsEmpty())
 		{
 			ImGui::SetTooltip("%s", TCHAR_TO_UTF8(*Tooltip.ToString()));
 		}
+	}
+	else if (bIsCurrentlyHovered)
+	{
+		bIsCurrentlyHovered = false;
+		OnUnhovered.Broadcast(this);
 	}
 }

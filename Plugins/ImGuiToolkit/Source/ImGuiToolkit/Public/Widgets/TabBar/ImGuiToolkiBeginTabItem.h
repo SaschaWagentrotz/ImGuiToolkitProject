@@ -6,6 +6,7 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnImGuiTabItemSelectionChanged, UImGuiToolkiBeginTabItem*, TabItem, bool, bIsSelected);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnImGuiTabItemHovered, UImGuiToolkiBeginTabItem*, TabItem, bool, bIsSelected);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnImGuiTabItemUnhovered, UImGuiToolkiBeginTabItem*, TabItem, bool, bIsSelected);
 
 UCLASS()
 class IMGUITOOLKIT_API UImGuiToolkiBeginTabItem : public UImGuiToolkitContainer
@@ -23,4 +24,10 @@ public:
 
 	UPROPERTY(BlueprintAssignable, Category = "ImGui Toolkit Widget")
 	FOnImGuiTabItemHovered OnHovered;
+
+	UPROPERTY(BlueprintAssignable, Category = "ImGui Toolkit Widget")
+	FOnImGuiTabItemUnhovered OnUnhovered;
+
+private:
+	bool bIsCurrentlyHovered = false;
 };
